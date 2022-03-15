@@ -2,7 +2,7 @@ import discord
 from discord.ext import commands
 
 
-class HelpCommand(commands.Cog):
+class Help(commands.Cog):
     def __init__(self, bot):
         """custom help command for the bot"""
         self.bot = bot
@@ -82,4 +82,4 @@ class HelpCommand(commands.Cog):
 
 
 def setup(bot):
-    bot.add_cog(HelpCommand(bot))
+    bot.add_cog(Help(bot))
