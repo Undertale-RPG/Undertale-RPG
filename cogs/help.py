@@ -31,7 +31,7 @@ class HelpCommand(commands.Cog):
         embed.description = f"{text1}\n\n{text2}\n\n{text3}\n\n{text4}\n\n{text5}\n\n{text6}\n\n{text7}\n\n{text8}"
 
         embed.set_image(
-            url="https://cdn.discordapp.comu?attachmentsu?827651835372240986u?906433674558455818u?IMG_0173.jpg"
+            url="https://cdn.discordapp.com/attachments/827651835372240986/906433674558455818/IMG_0173.jpg"
         )
         await inter.send(embed=embed)
 
@@ -75,7 +75,7 @@ class HelpCommand(commands.Cog):
         )
 
         emb.set_image(
-            url="https://cdn.discordapp.comu?attachmentsu?850983850665836544u?874667836985966682u?image0.png"
+            url="https://cdn.discordapp.com/attachments/850983850665836544/874667836985966682/image0.png"
         )
         await ctx.send(embed=emb)
 
