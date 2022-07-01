@@ -1,7 +1,6 @@
 import asyncio
 import random
 import time
-from typing import Optional
 
 import disnake
 from disnake.enums import ButtonStyle
@@ -28,12 +27,11 @@ class Battle:
             monster_hp: int,
             inter: disnake.CommandInteraction,
             kind: int,
-            channel: disnake.TextChannel,
+            channel: disnake.TextChannel
     ) -> None:
 
         self.bot = bot
         self.channel = channel
-        self.log_channel = self.bot.get_channel(self.bot.log_channel)
         self.author = author
         self.monster = monster
         self.inter = inter
@@ -92,12 +90,12 @@ class Battle:
             disnake.ui.Button(
                 style=disnake.ButtonStyle.red,
                 label='Fight',
-                custom_id=await Fight.action.build_custom_id(action="attack", uid=self.author.id)
+                custom_id=Fight.action.build_custom_id(action="attack", uid=self.author.id)
             ),
             disnake.ui.Button(
                 style=disnake.ButtonStyle.gray,
                 label='Items',
-                custom_id=await Fight.action.build_custom_id(action="use", uid=self.author.id)
+                custom_id=Fight.action.build_custom_id(action="use", uid=self.author.id)
             ),
             disnake.ui.Button(
                 style=disnake.ButtonStyle.grey,
@@ -107,7 +105,7 @@ class Battle:
             disnake.ui.Button(
                 style=disnake.ButtonStyle.green,
                 label='Mercy',
-                custom_id=await Fight.action.build_custom_id(action="spare", uid=self.author.id)
+                custom_id=Fight.action.build_custom_id(action="spare", uid=self.author.id)
             ),
         ]
 
@@ -305,7 +303,7 @@ class Battle:
 
             return await self.counter_attack()
         except Exception as e:
-            await self.log_channel.send(e)
+            await self.bot.get_channel(827651947678269510).send(e)
             await self.end()
 
     async def armor(self, item):
@@ -322,7 +320,7 @@ class Battle:
             return await self.counter_attack()
 
         except Exception as e:
-            await self.log_channel.send(e)
+            await self.bot.get_channel(827651947678269510).send(e)
             await self.end()
 
     async def food(self, item):
@@ -347,7 +345,7 @@ class Battle:
             return await self.counter_attack()
 
         except Exception as e:
-            await self.log_channel.send(e)
+            await self.bot.get_channel(827651947678269510).send(e)
             await self.end()
 
     async def use(self):
@@ -381,14 +379,14 @@ class Battle:
                 lista.append(
                     Button(
                         label=f"{key.title()} {item[key]}",
-                        custom_id=await Fight.food.build_custom_id(item=key.lower(), uid=self.author.id),
+                        custom_id=Fight.food.build_custom_id(item=key.lower(), uid=self.author.id),
                         style=ButtonStyle.grey
                     )
                 )
 
         lista.append(
             Button(label=f"Return",
-                   custom_id=await Fight.food.build_custom_id(
+                   custom_id=Fight.food.build_custom_id(
                        item="back",
                        uid=self.author.id),
                    style=ButtonStyle.green
@@ -460,7 +458,7 @@ class Battle:
                 await self.counter_attack()
 
         except Exception as e:
-            await self.log_channel.send(e)
+            await self.bot.get_channel(827651947678269510).send(e)
             await self.end()
 
 
@@ -470,7 +468,7 @@ class Fight(commands.Cog):
         self.bot = bot
 
     @components.button_listener()
-    async def food(self, inter: disnake.MessageInteraction, *, item: str, uid: int) -> None:
+    async def food(self, inter: disnake.MessageInteraction, item: str, uid: int) -> None:
         if inter.author.id != uid:
             await inter.send('This is not yours kiddo!', ephemeral=True)
             return
@@ -495,7 +493,7 @@ class Fight(commands.Cog):
         return await getattr(inter.bot.fights[str(uid)], inter.bot.items[item]["func"])(item)
 
     @components.button_listener()
-    async def action(self, inter: disnake.MessageInteraction, *, action: str, uid: int) -> None:
+    async def action(self, inter: disnake.MessageInteraction, action: str, uid: int) -> None:
         if inter.author.id != uid:
             await inter.send('This is not yours kiddo!', ephemeral=True)
             return
@@ -572,7 +570,7 @@ class Fight(commands.Cog):
         try:
             await fight.menu()
         except Exception as e:
-            await self.log_channel.send(f"{e}, {str(fight.author)}")
+            await inter.bot.get_channel(827651947678269510).send(f"{e}, {str(fight.author)}")
             await inter.send(inter.author.mention + "You have encountered an error, the developers has been notified.")
             await fight.end()
 
@@ -619,7 +617,7 @@ class Fight(commands.Cog):
         try:
             await fight.menu()
         except Exception as e:
-            await self.log_channel.send(f"{e}, {str(fight.author)}")
+            await inter.bot.get_channel(827651947678269510).send(f"{e}, {str(fight.author)}")
             await inter.send(inter.author.mention + "You have encountered an error, the developers has been notified.")
             await fight.end()
 
