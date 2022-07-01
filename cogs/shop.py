@@ -36,7 +36,7 @@ class ShopMenu:
         comps = [
             Button(
                 label="Buy",
-                custom_id=ShopCog.shop_listener.build_custom_id(
+                custom_id=await ShopCog.shop_listener.build_custom_id(
                     action="buy",
                     uid=str(self.author.id)
                 ),
@@ -44,7 +44,7 @@ class ShopMenu:
             ),
             Button(
                 label="Talk",
-                custom_id=ShopCog.shop_listener.build_custom_id(
+                custom_id=await ShopCog.shop_listener.build_custom_id(
                     action="talk",
                     uid=str(self.author.id)
                 ),
@@ -52,14 +52,14 @@ class ShopMenu:
             ),
             Button(
                 label="Sell",
-                custom_id=ShopCog.shop_listener.build_custom_id(
+                custom_id=await ShopCog.shop_listener.build_custom_id(
                     action="sell",
                     uid=str(self.author.id)
                 )
             ),
             Button(
                 label="End",
-                custom_id=ShopCog.shop_listener.build_custom_id(
+                custom_id=await ShopCog.shop_listener.build_custom_id(
                     action="end",
                     uid=str(self.author.id)
                 ),
@@ -111,7 +111,7 @@ class ShopMenu:
                 lista.append(
                     Button(
                         label=f"{item.title()} | {price} G",
-                        custom_id=ShopCog.selected.build_custom_id(
+                        custom_id=await ShopCog.selected.build_custom_id(
                             item=item.lower(),
                             uid=self.author.id
                         ),
@@ -121,14 +121,14 @@ class ShopMenu:
         lista.append(
             Button(
                 label="Go Back",
-                custom_id=ShopCog.shutdown.build_custom_id(uid=str(self.author.id)),
+                custom_id=await ShopCog.shutdown.build_custom_id(uid=str(self.author.id)),
                 style=ButtonStyle.red)
         )
 
         for i in range(0, len(lista), 5):
             rows.append(ActionRow(*lista[i: i + 5]))
 
-        msg = await self.edit(embed=embed, components=rows)
+        msg = await self.edit(content=None, embed=embed, components=rows)
 
         self.menus.append(msg.id)
         await asyncio.sleep(60)
@@ -171,7 +171,7 @@ class ShopMenu:
                 lista.append(
                     Button(
                         label=f"{key.title()} {item[key]} | {price / 2}",
-                        custom_id=ShopCog.s_selected.build_custom_id(item=key.lower(), uid=self.author.id),
+                        custom_id=await ShopCog.s_selected.build_custom_id(item=key.lower(), uid=self.author.id),
                         style=ButtonStyle.grey,
                     )
                 )
@@ -179,7 +179,7 @@ class ShopMenu:
         lista.append(
             Button(
                 label="Go Back",
-                custom_id=ShopCog.shutdown.build_custom_id(uid=str(self.author.id)),
+                custom_id=await ShopCog.shutdown.build_custom_id(uid=str(self.author.id)),
                 style=ButtonStyle.red)
         )
 
@@ -230,7 +230,7 @@ class ShopCog(commands.Cog):
             lista.append(
                 Button(
                     label=i.title(),
-                    custom_id=ShopCog.shop_selector_listener.build_custom_id(
+                    custom_id=await ShopCog.shop_selector_listener.build_custom_id(
                         shop=i,
                         loc=location,
                         uid=str(inter.author.id)
@@ -241,7 +241,7 @@ class ShopCog(commands.Cog):
         await inter.send("Select a Shop", components=[lista])
 
     @components.button_listener()
-    async def shutdown(self, inter: disnake.MessageInteraction, uid: str) -> None:
+    async def shutdown(self, inter: disnake.MessageInteraction, *, uid: str) -> None:
         if inter.author.id != int(uid):
             await inter.send('This is not your kiddo!', ephemeral=True)
             return
@@ -251,7 +251,7 @@ class ShopCog(commands.Cog):
         return await inter.bot.shops[uid].menu()
 
     @components.button_listener()
-    async def shop_listener(self, inter: disnake.MessageInteraction, action: str, uid: str) -> None:
+    async def shop_listener(self, inter: disnake.MessageInteraction, *, action: str, uid: str) -> None:
         if str(inter.author.id) != uid:
             return await inter.send("This is not yours kiddo!", ephemeral=True)
 
@@ -265,7 +265,7 @@ class ShopCog(commands.Cog):
         await getattr(inter.bot.shops[uid], action)()
 
     @components.button_listener()
-    async def shop_selector_listener(self, inter: disnake.MessageInteraction, shop: str, loc: str, uid: str) -> None:
+    async def shop_selector_listener(self, inter: disnake.MessageInteraction, *, shop: str, loc: str, uid: str) -> None:
         if str(inter.author.id) != uid:
             return await inter.send("This is not yours kiddo!", ephemeral=True)
 
@@ -283,7 +283,7 @@ class ShopCog(commands.Cog):
         await shop_obj.menu()
 
     @components.button_listener()
-    async def selected(self, inter: disnake.MessageInteraction, item: str, uid: str) -> None:
+    async def selected(self, inter: disnake.MessageInteraction, *, item: str, uid: str) -> None:
         if inter.author.id != int(uid):
             await inter.send('This is not your kiddo!', ephemeral=True)
             return
@@ -331,7 +331,7 @@ class ShopCog(commands.Cog):
         await inter.send(f"Successfully bought **{item}**", ephemeral=True)
 
     @components.button_listener()
-    async def s_selected(self, inter: disnake.MessageInteraction, item: str, uid: str) -> None:
+    async def s_selected(self, inter: disnake.MessageInteraction, *, item: str, uid: str) -> None:
         if inter.author.id != int(uid):
             await inter.send('This is not your kiddo!', ephemeral=True)
             return

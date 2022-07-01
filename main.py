@@ -32,13 +32,14 @@ class UndertaleBot(commands.AutoShardedBot):
         self.cluster = None
         self.db = None
         self.players = None
-        self.boosters = None
+        self.boosters = []
         self.db = None
         self.cluster = None
         self.shopping = None
         self.BotToken = os.getenv("TOKEN")
         self.TopGGToken = os.getenv("TOPGG_TOKEN")
         self.MongoUrl = os.getenv("MONGO_URL")
+        self.log_channel = os.getenv("LOG_CHANNEL")
         self.invite_url = "https://discord.gg/FQYVpuNz4Q"
         self.vote_url = "https://top.gg/bot/815153881217892372"
         self.patreon_link = "https://www.patreon.com/undertale_rpg"
@@ -81,7 +82,8 @@ class UndertaleBot(commands.AutoShardedBot):
 
 bot = UndertaleBot(
     command_prefix=os.getenv("PREFIX"),
-    owner_ids=[536538183555481601, 513351917481623572]
+    owner_ids=[536538183555481601, 513351917481623572],
+    intents=disnake.Intents.all()
 )
 
 bot.db_load()

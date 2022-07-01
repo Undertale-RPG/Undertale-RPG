@@ -67,7 +67,7 @@ for n, i in enumerate(intro):
     intro_embs.append(emb)
 
 
-def intro_build_comps(author_id: str, index: int) -> list:
+async def intro_build_comps(author_id: str, index: int) -> list:
     disable_l, disable_r = [False] * 2
     if index == 0:
         disable_l = True
@@ -77,19 +77,19 @@ def intro_build_comps(author_id: str, index: int) -> list:
         disnake.ui.Button(
             style=disnake.ButtonStyle.gray,
             label='<',
-            custom_id=Intro.intro_controller.build_custom_id(act="intro_left", uid=author_id),
+            custom_id=await Intro.intro_controller.build_custom_id(act="intro_left", uid=author_id),
             disabled=disable_l
         ),
         disnake.ui.Button(
             style=disnake.ButtonStyle.gray,
             label='>',
-            custom_id=Intro.intro_controller.build_custom_id(act="intro_right", uid=author_id),
+            custom_id=await Intro.intro_controller.build_custom_id(act="intro_right", uid=author_id),
             disabled=disable_r
         ),
         disnake.ui.Button(
             style=disnake.ButtonStyle.danger,
             label='x',
-            custom_id=Intro.intro_controller.build_custom_id(act="intro_exit", uid=author_id),
+            custom_id=await Intro.intro_controller.build_custom_id(act="intro_exit", uid=author_id),
         ),
     ]
 
@@ -102,7 +102,7 @@ async def intro_proc_nav(inter: disnake.MessageCommandInteraction, val: int, uid
     index = int(inter.message.embeds[0].footer.text.split(' / ')[0]) - (val * 2)
     await inter.message.edit(
         embed=intro_embs[index],
-        components=intro_build_comps(
+        components=await intro_build_comps(
             author_id=str(inter.author.id),
             index=index
         )
@@ -119,14 +119,14 @@ class Intro(commands.Cog):
     async def intro(self, inter) -> None:
         await inter.send(
             embed=intro_embs[0],
-            components=intro_build_comps(
+            components=await intro_build_comps(
                 author_id=str(inter.author.id),
                 index=0
             )
         )
 
     @components.button_listener()
-    async def intro_controller(self, inter: disnake.MessageInteraction, act: str, uid: str) -> None:
+    async def intro_controller(self, inter: disnake.MessageInteraction, *, act: str, uid: str) -> None:
         if act == "intro_exit":
             if inter.author.id != int(uid):
                 await inter.send('not allowed!', ephemeral=True)

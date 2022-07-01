@@ -121,7 +121,7 @@ class Shop(commands.Cog):
                     lista.append(
                         Button(
                             label=f"{key.title()} {item[key]}",
-                            custom_id=self.u_selected.build_custom_id(
+                            custom_id=await self.u_selected.build_custom_id(
                                 item=key.lower(),
                                 uid=inter.author.id
                             ),
@@ -153,7 +153,7 @@ class Shop(commands.Cog):
         await getattr(Shop, self.bot.items[item]["func"])(self, inter, item)
 
     @components.button_listener()
-    async def u_selected(self, inter: disnake.MessageInteraction, item: str, uid: str) -> None:
+    async def u_selected(self, inter: disnake.MessageInteraction, *, item: str, uid: str) -> None:
         if inter.author.id != int(uid):
             await inter.send('This is not your kiddo!', ephemeral=True)
             return
@@ -192,7 +192,7 @@ void crates: {void}
             Button(
                 style=ButtonStyle.grey,
                 label="Standard Crate",
-                custom_id=self.c_selected.build_custom_id(
+                custom_id=await self.c_selected.build_custom_id(
                     item="standard crate",
                     uid=inter.author.id
                 ),
@@ -200,7 +200,7 @@ void crates: {void}
             Button(
                 style=ButtonStyle.grey,
                 label="Determination Crate",
-                custom_id=self.c_selected.build_custom_id(
+                custom_id=await self.c_selected.build_custom_id(
                     item="determination crate",
                     uid=inter.author.id
                 ),
@@ -208,7 +208,7 @@ void crates: {void}
             Button(
                 style=ButtonStyle.grey,
                 label="Soul Crate",
-                custom_id=self.c_selected.build_custom_id(
+                custom_id=await self.c_selected.build_custom_id(
                     item="soul crate",
                     uid=inter.author.id
                 ),
@@ -216,7 +216,7 @@ void crates: {void}
             Button(
                 style=ButtonStyle.grey,
                 label="Void Crate",
-                custom_id=self.c_selected.build_custom_id(
+                custom_id=await self.c_selected.build_custom_id(
                     item="void crate",
                     uid=inter.author.id
                 ),
@@ -225,7 +225,7 @@ void crates: {void}
         await inter.send(embed=embed, components=[row])
 
     @components.button_listener()
-    async def c_selected(self, inter: disnake.MessageInteraction, item: str, uid: str) -> None:
+    async def c_selected(self, inter: disnake.MessageInteraction, *, item: str, uid: str) -> None:
         if inter.author.id != int(uid):
             await inter.send('This is not your kiddo!', ephemeral=True)
             return

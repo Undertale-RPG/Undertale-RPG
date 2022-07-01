@@ -17,6 +17,7 @@ class Event(commands.Cog):
                         'u?booster', 'u?info', 'u?intro', 'u?daily', 'u?gold',
                         'u?stats', 'u?inventory', 'u?invite', 'u?supporter', 'u?vote',
                         'u?open', 'u?boss', 'u?fight']
+        self.log_channel = self.bot.get_channel(self.bot.log_channel)
         
 
     @tasks.loop(seconds=5)
@@ -63,7 +64,7 @@ class Event(commands.Cog):
         else:
             print(f"Ignoring exception in command {ctx.command}")
             traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)
-            await self.bot.get_channel(827651947678269510).send(
+            await self.log_channel.send(
                 f"{error}, {ctx.author.id}, {str(ctx.author)}, {ctx.command}")
             print("\n\n")
 
