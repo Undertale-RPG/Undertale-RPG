@@ -204,10 +204,11 @@ class Economy(commands.Cog):
         await create_player_info(inter, player)
         info = await self.bot.players.find_one({"_id": player.id})
 
-        max_xp = 100 * info["level"]
         xp = info["exp"]
         # stats
         level = info["level"]
+        lvlexp = self.bot.levels[str(level)]["EXP_TO_LVLUP"]
+        
         health = info["health"]
         max_health = self.bot.levels[str(level)]["HP"]
 
@@ -237,7 +238,7 @@ class Economy(commands.Cog):
         )
         embed.add_field(
             name="<:XP:916555463145971772>┃XP",
-            value=f"{round(xp)}/{max_xp}"
+            value=f"{round(xp)}/{lvlexp}"
         )
         embed.add_field(
             name="<:KillsWeapon:916556418025414657> ┃kills",
