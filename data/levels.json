@@ -105,28 +105,28 @@
         "DF" : 3
     },
     "16" : {
-        "EXP_TO_LVLUP" : 5000,
+        "EXP_TO_LVLUP" : 20000,
         "location" : "core",
         "HP" : 80,
         "AT" : 30,
         "DF" : 3
     },
     "17" : {
-        "EXP_TO_LVLUP" : 10000,
+        "EXP_TO_LVLUP" : 30000,
         "location" : "core",
         "HP" : 84,
         "AT" : 32,
         "DF" : 4
     },
     "18" : {
-        "EXP_TO_LVLUP" : 20000,
+        "EXP_TO_LVLUP" : 40000,
         "location" : "core",
         "HP" : 88,
         "AT" : 34,
         "DF" : 4
     },
     "19" : {
-        "EXP_TO_LVLUP" : 30000,
+        "EXP_TO_LVLUP" : 50000,
         "location" : "last corridor",
         "HP" : 92,
         "AT" : 36,
