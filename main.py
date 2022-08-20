@@ -2,6 +2,7 @@ import os
 import disnake
 from dotenv import load_dotenv
 from disnake.ext import commands
+from motor.motor_asyncio import AsyncIOMotorClient
 
 load_dotenv()
 
@@ -14,10 +15,6 @@ intents.message_content = True
 class UndertaleBot(commands.AutoShardedBot):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.guilds_db = None
-        self.players = None
-        self.cluster = None
-        self.db = None
         self.BotToken = os.getenv("TOKEN")
         self.invite_url = "https://discord.gg/FQYVpuNz4Q"
         self.vote_url = "https://top.gg/bot/815153881217892372"
@@ -25,6 +22,14 @@ class UndertaleBot(commands.AutoShardedBot):
         self.currency = ":coin:"
         self.activity = disnake.Game("Undertale | /help ")
         self.help_command = None
+        self.MongoUrl = os.getenv("MONGO_URL")
+        self.cluster = AsyncIOMotorClient(self.MongoUrl)
+        self.guilds_db = None
+        self.players = None
+        self.cluster = None
+        self.db = None
+        self.boosters = None
+        self.shopping = None
 
     async def on_shard_connect(self, shard):
         print(
@@ -41,6 +46,15 @@ class UndertaleBot(commands.AutoShardedBot):
                 print(f"🔁 cogs.{filename[:-3]} is loaded and ready.")
         return
 
+    def db_load(self):
+        self.cluster = AsyncIOMotorClient(self.MongoUrl)
+        self.db = self.cluster["database"]
+        self.players = self.db["players"]
+        self.guilds_db = self.db["guilds"]
+        self.boosters = self.db["boosters"]
+        print("the database has loaded")
+        return
+
 
 bot = UndertaleBot(
     description=description,
@@ -48,6 +62,6 @@ bot = UndertaleBot(
     owner_ids=[536538183555481601, 513351917481623572]
 )
 
-
+bot.db_load()
 bot.load_all_cogs()
 bot.run(bot.BotToken)
