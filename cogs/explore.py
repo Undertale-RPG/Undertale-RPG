@@ -36,6 +36,19 @@ class Explore(commands.Cog):
         if item[0] == "puzzle":
             await inter.send("coming soon!")
             return
+    
+    @commands.slash_command()
+    async def reset(self, inter):
+        data = await self.bot.players.find_one({"_id": inter.author.id})
+
+        if data["level"] < 70:
+            await inter.send("You can not reset just yet. You will need to be **LOVE 70**")
+            return
+        if data["resets"] >= 10:
+            await inter.send("You are already at the max amount of resets!")
+            return
+
+        await inter.send("that did not work :sweat_smile:")
 
 
 

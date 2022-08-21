@@ -37,13 +37,18 @@ class Help(commands.Cog):
             commands_per = "".join(f" `{command.name}` • " for command in cmds)
             em.add_field(name=cog.qualified_name, value=f"• {commands_per} \n\n", inline=False)
 
-        em.add_field(name="> Useful links", value="[Website](https://undertalerpg.monster/) • [Support](https://discord.gg/FQYVpuNz4Q)", inline=False)
+        em.add_field(name="> Useful links", value="[Website](https://undertalerpg.monster/) • [Support](https://discord.gg/FQYVpuNz4Q) • [Patreon](https://www.patreon.com/UndertaleRPG) • [Vote](https://top.gg/bot/815153881217892372)", inline=False)
 
         buttons = [
             Button(
                 style = ButtonStyle.link,
                 label = "Website",
                 url = "https://undertalerpg.monster/"
+            ),
+            Button(
+                style = ButtonStyle.link,
+                label = "Support",
+                url = "https://www.patreon.com/UndertaleRPG"
             )
         ]
 

@@ -1,0 +1,22 @@
+{
+    "standard crate": {
+        "gold": 450,
+        "loot": []
+    },
+    "determination crate": {
+        "gold": 500,
+        "loot": []
+    },
+    "soul crate": {
+        "gold": 750,
+        "loot": []
+    },
+    "void crate": {
+        "gold": 1000,
+        "loot": []
+    },
+    "event crate": {
+        "gold": 0,
+        "loot": []
+    }
+}
