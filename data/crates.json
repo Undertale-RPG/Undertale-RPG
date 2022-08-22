@@ -16,7 +16,7 @@
         "loot": []
     },
     "event crate": {
-        "gold": 0,
+        "gold": 1,
         "loot": []
     }
 }
