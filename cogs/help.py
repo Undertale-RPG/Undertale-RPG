@@ -11,12 +11,14 @@ class Help(commands.Cog):
         self.bot = bot
     
     @commands.slash_command(description="Tutorial on how to use the bot")
+    @commands.cooldown(1, 12, commands.BucketType.user)
     async def tutorial(self, inter):
         """A tutorial for the undertale rpg bot."""
 
         await inter.send(content="There is currently no tutorial avaliable", ephemeral=True)
 
     @commands.slash_command(description="Help command")
+    @commands.cooldown(1, 12, commands.BucketType.user)
     async def help(self, inter):
         """Info on how to use the bot and it's commands."""
 

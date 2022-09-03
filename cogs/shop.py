@@ -11,6 +11,7 @@ class Shop(commands.Cog):
         self.bot = bot
 
     @commands.slash_command(description="Open your crates!")
+    @commands.cooldown(1, 12, commands.BucketType.user)
     async def crates(self, inter):
         data = await inter.bot.players.find_one({"_id": inter.author.id})
         standard = data["standard crate"]

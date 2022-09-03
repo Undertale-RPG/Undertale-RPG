@@ -1,8 +1,10 @@
 import disnake
 from disnake.ext import commands
-from utility.utils import get_bar, in_battle, in_shop, create_player_info
+from utility.utils import in_battle, in_shop, create_player_info
 from datetime import datetime
 import random
+from utility import utils
+from utility.dataIO import fileIO
 
 class Choice(disnake.ui.View):
     def __init__(self, author: disnake.Member):
@@ -36,17 +38,40 @@ class Explore(commands.Cog):
         self.bot = bot
 
     @commands.slash_command(description="explore to find monsters, xp, gold and items")
+    @commands.cooldown(1, 12, commands.BucketType.user)
     async def explore(self, inter):
         """Explore and fine all kinds of monsters and treasure!"""
-
+        await utils.create_player_info(inter, inter.author)
         choices = ["fight", "gold", "crate", "puzzle"]
         item = random.choices(choices, weights=(80, 10, 10, 10), k=1)
 
         data = await inter.bot.players.find_one({"_id": inter.author.id})
 
         if item[0] == "fight":
-            await inter.send("the monsters do not feel like fighting rn")
-            return
+            location = data["location"]
+            monsters = fileIO("./data/monsters.json", "load")
+
+            random_monster = []
+
+            for i in monsters[location]:
+                random_monster.append(i)
+
+            print(random_monster)
+
+            if len(random_monster) == 0:
+                await inter.send(f"There are no monsters here?, You are for sure inside a u?boss area only!")
+                return
+
+        monster = random.choice(random_monster)
+        await inter.send(f"{monster} appeard!")
+
+        enemy_hp = monsters[location][monster]["hp"]
+        enemy_atk = monsters[location][monster]["attack"]
+        enemy_def = monsters[location][monster]["defence"]
+        gold_min = monsters[location][monster]["gold_min"]
+        gold_max = monsters[location][monster]["gold_max"]
+        enemy_exp = monsters[location][monster]["exp"]
+        title = monsters[location][monster]["title"]
         
         if item[0] == "gold":
             found_gold = random.randint(150, 250)
@@ -67,6 +92,7 @@ class Explore(commands.Cog):
             return
     
     @commands.slash_command()
+    @commands.cooldown(1, 12, commands.BucketType.user)
     async def reset(self, inter):
         data = await self.bot.players.find_one({"_id": inter.author.id})
 

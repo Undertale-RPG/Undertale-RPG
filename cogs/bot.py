@@ -6,11 +6,13 @@ class Bot(commands.Cog):
         self.bot = bot
 
     @commands.slash_command(description="ping, pong")
+    @commands.cooldown(1, 12, commands.BucketType.user)
     async def ping(self, inter):
         """Latency check for stability"""
         await inter.send(f"pong! **{round(self.bot.latency * 1000)}ms**")
 
     @commands.slash_command(description="Info on the bot")
+    @commands.cooldown(1, 12, commands.BucketType.user)
     async def botinfo(self, inter):
         """Info on the bot"""
         em = disnake.Embed(
@@ -27,6 +29,7 @@ class Bot(commands.Cog):
         await inter.send(inter.author.mention, embed=em)
 
     @commands.slash_command()
+    @commands.cooldown(1, 12, commands.BucketType.user)
     async def vote(self, inter):
         """Vote for the bot for special reward"""
         em = disnake.Embed(
