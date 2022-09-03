@@ -7,7 +7,7 @@
             "gold_min": 7,
             "gold_max": 14,
             "exp": 3,
-            "catchphrase": "Froggit hopped in."
+            "title": "Froggit hopped in."
         },
         "loox": {
             "hp": 50,
@@ -16,7 +16,7 @@
             "gold_min": 10,
             "gold_max": 40,
             "exp": 7,
-            "catchphrase": "Loox decided to bully you."
+            "title": "Loox decided to bully you."
         },
         "whimsun": {
             "hp": 10,
@@ -25,7 +25,7 @@
             "gold_min": 1,
             "gold_max": 10,
             "exp": 2,
-            "catchphrase": "Whimsun is afraid of you."
+            "title": "Whimsun is afraid of you."
         },
         "vegetoid": {
             "hp": 72,
@@ -34,7 +34,7 @@
             "gold_min": 40,
             "gold_max": 70,
             "exp": 6,
-            "catchphrase": "Vegetoid encourages healthy eating."
+            "title": "Vegetoid encourages healthy eating."
         },
         "migosp": {
             "hp": 40,
@@ -43,7 +43,7 @@
             "gold_min": 15,
             "gold_max": 17,
             "exp": 5,
-            "catchphrase": "Migosp has appeared"
+            "title": "Migosp has appeared"
         }
     },
     "snowdin": {
@@ -54,7 +54,7 @@
             "gold_min": 15,
             "gold_max": 25,
             "exp": 18,
-            "catchphrase": "Snowdrake waits for you to laugh."
+            "title": "Snowdrake waits for you to laugh."
         },
         "ice_cap": {
             "hp": 48,
@@ -63,7 +63,7 @@
             "gold_min": 25,
             "gold_max": 50,
             "exp": 17,
-            "catchphrase": "Ice Cap wants attention."
+            "title": "Ice Cap wants attention."
         },
         "gyftrot": {
             "hp": 114,
@@ -72,7 +72,7 @@
             "gold_min": 19,
             "gold_max": 23,
             "exp": 30,
-            "catchphrase": "Gyftrot has appeared"
+            "title": "Gyftrot has appeared"
         },
         "doggo": {
             "hp": 70,
@@ -81,7 +81,7 @@
             "gold_min": 25,
             "gold_max": 40,
             "exp": 20,
-            "catchphrase": "Doggo is nervous."
+            "title": "Doggo is nervous."
         },
         "lesser_dog": {
             "hp": 60,
@@ -90,7 +90,7 @@
             "gold_min": 25,
             "gold_max": 40,
             "exp": 15,
-            "catchphrase": "Lesser Dog is excited."
+            "title": "Lesser Dog is excited."
         },
         "greater_dog": {
             "hp": 105,
@@ -99,7 +99,7 @@
             "gold_min": 30,
             "gold_max": 40,
             "exp": 60,
-            "catchphrase": "Greater Dog wants to play."
+            "title": "Greater Dog wants to play."
         }
     },
     "waterfall": {
@@ -110,7 +110,7 @@
             "gold_min": 27,
             "gold_max": 80,
             "exp": 25,
-            "catchphrase": "Aaron flexes very hard."
+            "title": "Aaron flexes very hard."
         },
         "woshua": {
             "hp": 70,
@@ -119,7 +119,7 @@
             "gold_min": 28,
             "gold_max": 59,
             "exp": 25,
-            "catchphrase": "Woshua doesn't like the dust on your clothes."
+            "title": "Woshua doesn't like the dust on your clothes."
         },
         "shyren": {
             "hp": 66,
@@ -128,7 +128,7 @@
             "gold_min": 40,
             "gold_max": 90,
             "exp": 25,
-            "catchphrase": "Shyren somehow finds you."
+            "title": "Shyren somehow finds you."
         }
     },
     "hotland": {
@@ -139,7 +139,7 @@
             "gold_min": 80,
             "gold_max": 90,
             "exp": 50,
-            "catchphrase": "Vulkin tries its best."
+            "title": "Vulkin tries its best."
         },
         "pyrope": {
             "hp": 110,
@@ -148,7 +148,7 @@
             "gold_min": 40,
             "gold_max": 90,
             "exp": 40,
-            "catchphrase": "Pyrope is flaming you."
+            "title": "Pyrope is flaming you."
         },
         "tsunderplane": {
             "hp": 80,
@@ -157,7 +157,7 @@
             "gold_min": 28,
             "gold_max": 59,
             "exp": 45,
-            "catchphrase": "Tsunderplane is blushing hard."
+            "title": "Tsunderplane is blushing hard."
         }
     },
     "core": {
@@ -168,7 +168,7 @@
             "gold_min": 25,
             "gold_max": 40,
             "exp": 80,
-            "catchphrase": "Final Froggit leaps from the shadows."
+            "title": "Final Froggit leaps from the shadows."
         },
         "whimsalot": {
             "hp": 95,
@@ -177,7 +177,7 @@
             "gold_min": 19,
             "gold_max": 23,
             "exp": 80,
-            "catchphrase": "Whimsalot is not afraid anymore."
+            "title": "Whimsalot is not afraid anymore."
         },
         "astigmatism": {
             "hp": 50,
@@ -186,7 +186,7 @@
             "gold_min": 25,
             "gold_max": 40,
             "exp": 6,
-            "catchphrase": "Astigmatism's dark eye pierces you."
+            "title": "Astigmatism's dark eye pierces you."
         },
         "knight_knight": {
             "hp": 230,
@@ -195,7 +195,7 @@
             "gold_min": 43,
             "gold_max": 50,
             "exp": 150,
-            "catchphrase": "Knight Knight readies her Good Morningstar."
+            "title": "Knight Knight readies her Good Morningstar."
         },
         "madjick": {
             "hp": 190,
@@ -204,7 +204,7 @@
             "gold_min": 70,
             "gold_max": 90,
             "exp": 120,
-            "catchphrase": "Madjick made your safety disappear."
+            "title": "Madjick made your safety disappear."
         }
     }
 }

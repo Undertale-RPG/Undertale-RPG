@@ -4,6 +4,7 @@ from disnake.ext import commands, components
 from disnake.ui import Button, ActionRow
 from disnake.enums import ButtonStyle
 import asyncio
+from utility.dataIO import fileIO
 
 class Shop(commands.Cog):
     def __init__(self, bot):
@@ -94,6 +95,7 @@ event crates: 0
             return
 
         data = await inter.bot.players.find_one({"_id": inter.author.id})
+        crates = fileIO("data/crates.json", "load")
         await inter.response.defer()
 
         if data[item] == 0:
@@ -109,7 +111,7 @@ event crates: 0
             components=[],
         )
         data[item] -= 1
-        earned_gold = inter.bot.crates[item]["gold"] + data["level"]
+        earned_gold = crates[item]["gold"] + data["level"]
         gold = data["gold"] + earned_gold
         await asyncio.sleep(3)
         await inter.edit_original_message(
