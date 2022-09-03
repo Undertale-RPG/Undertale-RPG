@@ -8,9 +8,9 @@ load_dotenv()
 
 description = """The undertale RPG Beta bot."""
 
-intents = disnake.Intents.default()
-intents.members = True
-intents.message_content = True
+intents = disnake.Intents.none()
+intents.members = False
+intents.message_content = False
 
 class UndertaleBot(commands.AutoShardedBot):
     def __init__(self, **kwargs):
