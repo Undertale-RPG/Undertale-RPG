@@ -1,0 +1,23 @@
+{
+    "ruins": {
+        "level": 1
+    },
+    "snowdin": {
+        "level": 5
+    },
+    "waterfall": {
+        "level": 13
+    },
+    "hotland": {
+        "level": 25
+    },
+    "core": {
+        "level": 50
+    },
+    "barrier": {
+        "level": 75
+    },
+    "last_corridor": {
+        "level": 100
+    }
+}

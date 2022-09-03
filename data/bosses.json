@@ -1,0 +1,117 @@
+{
+    "ruins": {
+        "toriel": {
+            "hp": 440,
+            "attack": 80,
+            "defense": 80,
+            "exp": 150,
+            "gold_min": 80,
+            "gold_max": 120,
+            "catchphrase": "Knows best for you."
+        }
+    },
+    "snowdin": {
+        "dogi": {
+            "hp": 108,
+            "attack": 14,
+            "defense": 5,
+            "exp": 60,
+            "gold_min": 40,
+            "gold_max": 50,
+            "catchphrase": "Dogs can pet other dogs??? A new world has opened up for us..."
+        },
+        "papyrus": {
+            "hp": 680,
+            "attack": 20,
+            "defense": 20,
+            "exp": 200,
+            "gold_min": 80,
+            "gold_max": 109,
+            "catchphrase": "He likes to say: 'Nyeh heh heh!'"
+        }
+    },
+    "waterfall": {
+        "mad_dummy": {
+            "hp": 300,
+            "attack": 30,
+            "defense": 0,
+            "exp": 0,
+            "gold_min": 120,
+            "gold_max": 210,
+            "catchphrase": "Because they're a ghost, physical attacks will fail."
+        },
+        "undyne": {
+            "hp": 1500,
+            "attack": 10,
+            "defense": 10,
+            "exp": 0,
+            "gold_min": 140,
+            "gold_max": 180,
+            "catchphrase": "The heroine that NEVER gives up."
+        }
+    },
+    "hotland": {
+        "royal_guards": {
+            "hp": 150,
+            "attack": 38,
+            "defense": 24,
+            "exp": 220,
+            "gold_min": 100,
+            "gold_max": 110,
+            "catchphrase": "Two lovers staring over the edge of the cauldron of hell."
+        },
+        "muffet": {
+            "hp": 1250,
+            "attack": 46,
+            "defense": 18,
+            "exp": 300,
+            "gold_min": 110,
+            "gold_max": 200,
+            "catchphrase": "If she invites you to her parlor, excuse yourself."
+        }
+    },
+    "core": {
+        "mettaton_ex": {
+            "hp": 1600,
+            "attack": 47,
+            "defense": 47,
+            "exp": 800,
+            "gold_min": 0,
+            "gold_max": 0,
+            "catchphrase": "Mettaton Ex has appeared"
+        }
+    },
+    "barrier": {
+        "asgore": {
+            "hp": 3500,
+            "attack": 90,
+            "defense": 80,
+            "exp": 0,
+            "gold_min": 0,
+            "gold_max": 0,
+            "catchphrase": "Asgore has appeared"
+        }
+    },
+    "last_corridor": {
+        "sans": {
+            "hp": 1,
+            "attack": 1,
+            "defense": 1,
+            "exp": 420,
+            "gold_min": 0,
+            "gold_max": 0,
+            "catchphrase": "Sans has appeared"
+        }
+    },
+    "void": {
+        "chara": {
+            "hp": 0,
+            "attack": 0,
+            "defense": 0,
+            "exp": 0,
+            "gold_min": 0,
+            "gold_max": 0,
+            "catchphrase": "Chara has appeared"
+        }
+    }
+}

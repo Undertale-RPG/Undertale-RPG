@@ -40,7 +40,7 @@ class Explore(commands.Cog):
         """Explore and fine all kinds of monsters and treasure!"""
 
         choices = ["fight", "gold", "crate", "puzzle"]
-        item = random.choices(choices, weights=(70, 20, 10, 30), k=1)
+        item = random.choices(choices, weights=(80, 10, 10, 10), k=1)
 
         data = await inter.bot.players.find_one({"_id": inter.author.id})
 
