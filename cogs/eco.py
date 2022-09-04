@@ -85,7 +85,7 @@ class Economy(commands.Cog):
                 color=0x0077ff,
             )
 
-        await inter.send(embed=em)
+            await inter.send(embed=em)
 
 def setup(bot):
     bot.add_cog(Economy(bot))

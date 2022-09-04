@@ -5,6 +5,9 @@ from datetime import datetime
 import random
 from utility import utils
 from utility.dataIO import fileIO
+import time
+import asyncio
+from disnake.ext import commands, components
 
 class Choice(disnake.ui.View):
     def __init__(self, author: disnake.Member):
@@ -33,9 +36,114 @@ class Choice(disnake.ui.View):
         await inter.edit_original_message(components=[])
         self.stop()
 
+class Battle:
+    def __init__(
+            self,
+            author: disnake.Member,
+            bot: commands.AutoShardedBot,
+            monster: str,
+            inter: disnake.CommandInteraction,
+            channel: disnake.TextChannel
+    ) -> None:
+
+        self.bot = bot
+        self.channel = channel
+        self.author = author
+        self.monster = monster
+        self.inter = inter
+        self.msg = None
+        self.time = int(time.time())
+        self.menus = []
+
+    # ending the fight with the id
+    async def end(self):
+        if str(self.author.id) not in self.bot.fights:
+            return
+        del self.bot.fights[str(self.author.id)]
+
+    async def menu(self):
+
+        data = await self.bot.players.find_one({"_id": self.author.id})
+        monsters = fileIO("./data/monsters.json", "load")
+
+        buttons = [
+            disnake.ui.Button(
+                style=disnake.ButtonStyle.red,
+                label='Fight',
+                custom_id=await Explore.action.build_custom_id(action="attack", uid=self.author.id)
+            ),
+            disnake.ui.Button(
+                style=disnake.ButtonStyle.gray,
+                label='Items',
+                custom_id=await Explore.action.build_custom_id(action="use", uid=self.author.id)
+            ),
+            #disnake.ui.Button(
+            #    style=disnake.ButtonStyle.grey,
+            #    label='Act',
+            #    disabled=True
+            #),
+            disnake.ui.Button(
+                style=disnake.ButtonStyle.green,
+                label='Mercy',
+                custom_id=await Explore.action.build_custom_id(action="spare", uid=self.author.id)
+            ),
+        ]
+
+        pl_health = data["health"]
+        pl_location = data["location"]
+        monster = self.monster
+        title = monsters[pl_location][monster]["title"]
+        enemy_hp = monsters[pl_location][monster]["hp"]
+        enemy_atk = monsters[pl_location][monster]["attack"]
+        enemy_def = monsters[pl_location][monster]["defence"]
+
+        em = disnake.Embed(
+            title=title,
+            color=0x0077ff,
+            description=f"""
+            {monster}'s Stats
+            **HP:** {enemy_hp}
+            **Attack:** {enemy_atk}
+            **Defence:** {enemy_def}
+            """
+        )
+        em.set_thumbnail(url=self.bot.user.avatar.url)
+
+        msg = await self.inter.send(self.author.mention, embed=em, components=buttons)
+        self.msg = msg
+
+        self.menus.append(msg.id)
+        await asyncio.sleep(60)
+
+        if msg.id in self.menus:
+            await msg.edit(content=f"{self.author.mention} You took to long to reply", components=[])
+            return await self.end()
+        return
+
+
 class Explore(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
+
+    @components.button_listener()
+    async def action(self, inter: disnake.MessageInteraction, *, action: str, uid: int) -> None:
+        if inter.author.id != uid:
+            await inter.send('This is not yours kiddo!', ephemeral=True)
+            return
+
+        try:
+            await inter.response.defer()
+        except:
+            pass
+
+        await inter.edit_original_message(components=[])
+        try:
+            msg_id = inter.bot.fights[str(uid)].menus[0]
+            inter.bot.fights[str(uid)].menus.remove(msg_id)
+        except:
+            pass
+
+        return await getattr(inter.bot.fights[str(uid)], action)()
 
     @commands.slash_command(description="explore to find monsters, xp, gold and items")
     @commands.cooldown(1, 12, commands.BucketType.user)
@@ -62,17 +170,18 @@ class Explore(commands.Cog):
                 await inter.send(f"There are no monsters here?, You are for sure inside a u?boss area only!")
                 return
 
-        monster = random.choice(random_monster)
-        await inter.send(f"{monster} appeard!")
+            monster = random.choice(random_monster)
 
-        enemy_hp = monsters[location][monster]["hp"]
-        enemy_atk = monsters[location][monster]["attack"]
-        enemy_def = monsters[location][monster]["defence"]
-        gold_min = monsters[location][monster]["gold_min"]
-        gold_max = monsters[location][monster]["gold_max"]
-        enemy_exp = monsters[location][monster]["exp"]
-        title = monsters[location][monster]["title"]
-        
+            print(f"{inter.author} has entered a fight")
+            fight = Battle(inter.author, inter.bot, monster, inter, inter.channel)
+
+            try:
+                await fight.menu()
+            except Exception as e:
+                await inter.bot.get_channel(1015768862450536519).send(f"{e}, {str(fight.author)}")
+                await inter.send(inter.author.mention + "You have encountered an error, the developers has been notified.")
+                await fight.end()
+
         if item[0] == "gold":
             found_gold = random.randint(150, 250)
             new_gold = data["gold"] + found_gold
