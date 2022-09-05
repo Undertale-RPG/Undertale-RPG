@@ -28,7 +28,7 @@ class Help(commands.Cog):
             timestamp = datetime.datetime.now()
         )
 
-        forbid = ["Event", "TopGG"]
+        forbid = ["Event", "TopGG", "Errors"]
 
         for cog in self.bot.cogs:
             cog = self.bot.get_cog(cog)
