@@ -30,6 +30,7 @@ class UndertaleBot(commands.AutoShardedBot):
         self.db = None
         self.boosters = None
         self.shopping = None
+        self.fights = {}
 
     async def on_shard_connect(self, shard):
         print(

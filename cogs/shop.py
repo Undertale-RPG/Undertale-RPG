@@ -106,25 +106,25 @@ event crates: 0
                 components=[],
             )
 
+        data[item] -= 1
+        earned_gold = crates[item]["gold"] + data["level"]
+        gold = data["gold"] + earned_gold
+        
+        info = {"gold": gold, item: data[item]}
+        await inter.bot.players.update_one({"_id": inter.author.id}, {"$set": info})
+
         await inter.edit_original_message(
             content=f"{inter.author.mention} opened a {item.title()}...",
             embed=None,
             components=[],
         )
-        data[item] -= 1
-        earned_gold = crates[item]["gold"] + data["level"]
-        gold = data["gold"] + earned_gold
+
         await asyncio.sleep(3)
         await inter.edit_original_message(
             content=f"{inter.author.mention} earned {earned_gold}G from a {item.title()}"
         )
-        info = {
-            "gold": gold,
-            item: data[item]
-        }
-        return await inter.bot.players.update_one(
-            {"_id": inter.author.id}, {"$set": info}
-        )
+        #info = {"gold": gold, item: data[item]}
+        #return await inter.bot.players.update_one({"_id": inter.author.id}, {"$set": info})
 
 
 def setup(bot):
