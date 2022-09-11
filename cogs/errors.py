@@ -1,5 +1,6 @@
 from turtle import title
 import disnake 
+import requests
 from disnake.ext import commands
 
 class Errors(commands.Cog):
@@ -17,16 +18,24 @@ class Errors(commands.Cog):
             )
             return await inter.send(embed=em, ephemeral=True)
         
+        url = "https://discord.com/api/webhooks/1018607727284588574/ekQVYW4PX2BU4j7ZUDhlBGXG14kMCn0-WWT6LUTo9cjqGyu8I_Z4QKI35q4-nYgSS-dT"
 
-        em = disnake.Embed(
-            title=f"An error has occured",
-            description=error,
-            color=0x0077ff
-        )
-        em.set_footer(text=f"{inter.author.id} • {inter.author}")
+        embed = {
+            "description": f"{error}",
+            "title": "An error has occured",
+            "color": 0x0077ff,
+            "timestamp": ""
+        }
+        
+        data = {
+            "embeds": [embed]
+        }
 
-        #channel = self.bot.get_channel(1015768862450536519)
-        #await channel.send(embed=em)
+        result = requests.post(url, json=data)
+        if 200 <= result.status_code < 300:
+            print(f"Webhook sent {result.status_code}")
+        else:
+            print(f"Not sent with {result.status_code}, response:\n{result.json()}")
 
 
 def setup(bot):

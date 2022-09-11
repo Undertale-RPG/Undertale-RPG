@@ -26,7 +26,6 @@ class UndertaleBot(commands.AutoShardedBot):
         self.cluster = AsyncIOMotorClient(self.MongoUrl)
         self.guilds_db = None
         self.players = None
-        self.cluster = None
         self.db = None
         self.boosters = None
         self.shopping = None

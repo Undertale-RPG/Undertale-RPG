@@ -125,7 +125,7 @@ class Explore(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @components.button_listener()
+    #@components.button_listener()
     async def action(self, inter: disnake.MessageInteraction, *, action: str, uid: int) -> None:
         if inter.author.id != uid:
             await inter.send('This is not yours kiddo!', ephemeral=True)
@@ -148,7 +148,7 @@ class Explore(commands.Cog):
     @commands.slash_command(description="explore to find monsters, xp, gold and items")
     @commands.cooldown(1, 12, commands.BucketType.user)
     async def explore(self, inter):
-        """Explore and fine all kinds of monsters and treasure!"""
+        """Explore and fined all kinds of monsters and treasure!"""
         await utils.create_player_info(inter, inter.author)
         choices = ["fight", "gold", "crate", "puzzle"]
         item = random.choices(choices, weights=(80, 10, 10, 10), k=1)
@@ -187,7 +187,7 @@ class Explore(commands.Cog):
             new_gold = data["gold"] + found_gold
             data["gold"] += found_gold
             await self.bot.players.update_one({"_id": inter.author.id}, {"$set": data})
-            await inter.send(f"You found `{found_gold}`**G**! you now have `{new_gold}`**G**")
+            await inter.send(f"You found `{found_gold}`**G**! you now have `{round(new_gold)}`**G**")
             return
         
         if item[0] == "crate":
