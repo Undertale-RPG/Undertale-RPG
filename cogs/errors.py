@@ -18,7 +18,7 @@ class Errors(commands.Cog):
             )
             return await inter.send(embed=em, ephemeral=True)
         
-        url = ""
+        url = inter.bot.error_webhook
 
         embed = {
             "description": f"{error}",

@@ -23,6 +23,7 @@ class UndertaleBot(commands.AutoShardedBot):
         self.activity = disnake.Game("Undertale | /help ")
         self.help_command = None
         self.MongoUrl = os.getenv("MONGO_URL")
+        self.error_webhook = os.getenv("ERROR_WEBHOOK")
         self.cluster = AsyncIOMotorClient(self.MongoUrl)
         self.guilds_db = None
         self.players = None
