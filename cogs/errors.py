@@ -18,7 +18,7 @@ class Errors(commands.Cog):
             )
             return await inter.send(embed=em, ephemeral=True)
         
-        url = "https://discord.com/api/webhooks/1018607727284588574/ekQVYW4PX2BU4j7ZUDhlBGXG14kMCn0-WWT6LUTo9cjqGyu8I_Z4QKI35q4-nYgSS-dT"
+        url = ""
 
         embed = {
             "description": f"{error}",
