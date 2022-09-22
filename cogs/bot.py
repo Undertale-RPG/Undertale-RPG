@@ -24,7 +24,8 @@ class Bot(commands.Cog):
         em.add_field(name="Guild count", value=f"`{len(self.bot.guilds)}` Guilds")
         em.add_field(name="Latency", value=f"`{round(self.bot.latency * 1000)}`ms")
         em.add_field(name="Shard count", value=f"`{len(self.bot.shards)}` shards")
-        em.add_field(name="Creators", value="`yaki#8693` (bot dev)\n`LetsChill#2911` (founder)\n`Commander R#9371` (website dev)")
+        em.add_field(name="Creators", value="`LetsChill#2911` (founder)\n`yaki#8693` (bot dev)\n`Commander R#9371` (website dev)")
+        em.add_field(name="Disclaimer", value="All the designs/names of the pictures, locations, monsters and bosses belong to the official undertale creators")
 
         await inter.send(inter.author.mention, embed=em)
 

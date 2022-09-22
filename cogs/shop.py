@@ -1,10 +1,38 @@
-from socket import timeout
 import disnake
-from disnake.ext import commands, components
-from disnake.ui import Button, ActionRow
-from disnake.enums import ButtonStyle
+from disnake.ext import commands
 import asyncio
 from utility.dataIO import fileIO
+
+class Cratesbtn(disnake.ui.View):
+    def __init__(self):
+        super().__init__()
+        self.value = None
+
+    @disnake.ui.button(label="Standard crate", style=disnake.ButtonStyle.secondary)
+    async def standard(self, button: disnake.ui.Button, interaction: disnake.MessageInteraction):
+        self.value = "standard crate"
+        self.stop()
+    
+    @disnake.ui.button(label="Determination crate", style=disnake.ButtonStyle.secondary)
+    async def determination(self, button: disnake.ui.Button, interaction: disnake.MessageInteraction):
+        self.value = "determination crate"
+        self.stop()
+    
+    @disnake.ui.button(label="Soul crate", style=disnake.ButtonStyle.secondary)
+    async def soul(self, button: disnake.ui.Button, interaction: disnake.MessageInteraction):
+        self.value = "soul crate"
+        self.stop()
+
+    @disnake.ui.button(label="Void crate", style=disnake.ButtonStyle.secondary)
+    async def void(self, button: disnake.ui.Button, interaction: disnake.MessageInteraction):
+        self.value = "void crate"
+        self.stop()
+
+    @disnake.ui.button(label="Event crate", style=disnake.ButtonStyle.secondary)
+    async def event(self, button: disnake.ui.Button, interaction: disnake.MessageInteraction):
+        self.value = "event crate"
+        self.stop()
+
 
 class Shop(commands.Cog):
     def __init__(self, bot):
@@ -20,7 +48,7 @@ class Shop(commands.Cog):
         void = data["void crate"]
         embed = disnake.Embed(
             title="Your crates",
-            description="You can earn crates by exploring, voting or defeating bosses",
+            description="You can earn crates by exploring, voting, defeating bosses or in events",
             color=0x0077ff,
         )
         embed.set_thumbnail(url=self.bot.user.avatar.url)
@@ -29,9 +57,9 @@ class Shop(commands.Cog):
             value=f"""
 Standard crates: {standard}
 Determination crates: {determin}
-soul crates: {soul}
-void crates: {void}
-event crates: 0
+Soul crates: {soul}
+Void crates: {void}
+Event crates: 0
             """
         )
         embed.add_field(
@@ -44,88 +72,39 @@ event crates: 0
 (Events)
             """
         )
-        row = ActionRow(
-            Button(
-                style=ButtonStyle.grey,
-                label="Standard Crate",
-                custom_id= await self.c_selected.build_custom_id(
-                    item="standard crate",
-                    uid=inter.author.id
-                ),
-            ),
-            Button(
-                style=ButtonStyle.grey,
-                label="Determination Crate",
-                custom_id= await self.c_selected.build_custom_id(
-                    item="determination crate",
-                    uid=inter.author.id
-                ),
-            ),
-            Button(
-                style=ButtonStyle.grey,
-                label="Soul Crate",
-                custom_id= await self.c_selected.build_custom_id(
-                    item="soul crate",
-                    uid=inter.author.id
-                ),
-            ),
-            Button(
-                style=ButtonStyle.grey,
-                label="Void Crate",
-                custom_id= await self.c_selected.build_custom_id(
-                    item="void crate",
-                    uid=inter.author.id
-                ),
-            ),
-            Button(
-                style=ButtonStyle.grey,
-                label="Event Crate",
-                custom_id= await self.c_selected.build_custom_id(
-                    item="event crate",
-                    uid=inter.author.id
+
+        view = Cratesbtn()
+        await inter.send(view=view, embed=embed, ephemeral=True)
+
+        await view.wait()
+        if view.value == None:
+            return await inter.edit_original_message("You took to long to reply!")
+        else:
+            crates = fileIO("data/crates.json", "load")
+            if data[view.value] <= 0:
+                return await inter.edit_original_message(
+                    content=f"You don't have any **{view.value}**",
+                    embed=None,
+                    components=[]
                 )
-            )
-        )
-        await inter.send(embed=embed, components=row)
-    
-    
-    @components.button_listener()
-    async def c_selected(self, inter: disnake.MessageInteraction, *, item: str, uid: str) -> None:
-        if inter.author.id != int(uid):
-            await inter.send('This is not your kiddo!', ephemeral=True)
-            return
+            
+            data[view.value] -= 1
+            earned_gold = crates[view.value]["gold"] * data["multi_g"]
+            gold = data["gold"] + earned_gold
 
-        data = await inter.bot.players.find_one({"_id": inter.author.id})
-        crates = fileIO("data/crates.json", "load")
-        await inter.response.defer()
+            info = {"gold": gold, view.value: data[view.value]}
+            await inter.bot.players.update_one({"_id": inter.author.id}, {"$set": info})
 
-        if data[item] == 0:
-            return await inter.edit_original_message(
-                content=f"You don't have any {item.title()}",
+            await inter.edit_original_message(
+                content=f"You opened a **{view.value}**...",
                 embed=None,
-                components=[],
+                components=[]
             )
 
-        data[item] -= 1
-        earned_gold = crates[item]["gold"] + data["level"]
-        gold = data["gold"] + earned_gold
-        
-        info = {"gold": gold, item: data[item]}
-        await inter.bot.players.update_one({"_id": inter.author.id}, {"$set": info})
-
-        await inter.edit_original_message(
-            content=f"{inter.author.mention} opened a {item.title()}...",
-            embed=None,
-            components=[],
-        )
-
-        await asyncio.sleep(3)
-        await inter.edit_original_message(
-            content=f"{inter.author.mention} earned {earned_gold}G from a {item.title()}"
-        )
-        #info = {"gold": gold, item: data[item]}
-        #return await inter.bot.players.update_one({"_id": inter.author.id}, {"$set": info})
-
+            await asyncio.sleep(3)
+            await inter.edit_original_message(
+                content=f"You earned **{round(earned_gold)}G** from a **{view.value}**"
+            )
 
 def setup(bot):
     bot.add_cog(Shop(bot))

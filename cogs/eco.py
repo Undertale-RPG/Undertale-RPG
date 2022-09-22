@@ -87,5 +87,29 @@ class Economy(commands.Cog):
 
             await inter.send(embed=em)
 
+    @commands.slash_command(description="Claim your daily gold reward")
+    @commands.cooldown(1, 12, commands.BucketType.user)
+    async def daily(self, inter):
+        data = await self.bot.players.find_one({"_id": inter.author.id})
+
+        new_gold = 500 * data["multi_g"]
+        curr_time = time.time()
+        delta = int(curr_time) - int(int(data["daily_block"]))
+
+        if delta >= 86400:
+            data["gold"] += new_gold
+            data["daily_block"] = curr_time
+            await self.bot.players.update_one({"_id": inter.author.id}, {"$set": data})
+            await inter.send(f"**You recieved your daily gold! {int(new_gold)} G**")
+        else:
+            seconds = 86400 - delta
+            em = disnake.Embed(
+                description=(
+                    f"**You can't claim your daily reward yet!\n\nYou can claim your daily reward"
+                    f" <t:{int(time.time()) + int(seconds)}:R>**"),
+                color=0x0077ff
+            )
+            await inter.send(embed=em)
+
 def setup(bot):
     bot.add_cog(Economy(bot))
