@@ -5,6 +5,19 @@ class Bot(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
+    @commands.slash_command(description="link to the bot invite and support server")
+    @commands.cooldown(1, 12, commands.BucketType.user)
+    async def invite(self, inter):
+        em = disnake.Embed(
+            color=0x0077ff,
+            title="Wanna add me to your server huh?, click the link below!"
+        )
+        em.set_thumbnail(url=self.bot.user.avatar.url)
+        em.add_field(name="Bot invite", value="[Click here](https://discord.com/api/oauth2/authorize?client_id=815153881217892372&permissions=412421053760&scope=bot%20applications.commands)")
+        em.add_field(name="Support server", value="[Click here](https://discord.gg/FQYVpuNz4Q)")
+
+        await inter.send(embed=em)
+
     @commands.slash_command(description="ping, pong")
     @commands.cooldown(1, 12, commands.BucketType.user)
     async def ping(self, inter):
