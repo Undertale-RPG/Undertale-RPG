@@ -9,6 +9,41 @@ import os
 class Help(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
+
+    @commands.slash_command(description="Info on any ongoing events")
+    @commands.cooldown(1, 12, commands.BucketType.user)
+    async def event(self, inter):
+        events = await self.bot.db["events"].find_one({"_id": 0})
+        if events["active"] == False:
+            em = disnake.Embed(
+                color=0x0077ff,
+                title="There is currently no event going on",
+                description="You can join our [support server](https://discord.gg/FQYVpuNz4Q) to learn about any upcoming events." 
+            )
+            em.set_thumbnail(url=self.bot.user.avatar.url)
+            return await inter.send(embed=em)
+
+        name = events["name"]
+        location = events["location"]
+        duration = events["duration"]
+        exp_multi = events["exp_multi"]
+        gold_multi = events["gold_multi"]
+        loot = events["loot"]
+        loot_item = "".join(f" {item}, " for item in loot)
+
+        em = disnake.Embed(
+            color=0x0077ff,
+            title=f"{name}",
+            description=f"""
+            **Location:** {location}
+            **Duration:** {duration}
+            **Gold multiplier:** {gold_multi}
+            **Exp multiplier:** {exp_multi}
+            **Custom loot:** {loot_item}
+            """
+        )
+        em.set_thumbnail(url=self.bot.user.avatar.url)
+        await inter.send(embed=em)
     
     @commands.slash_command(description="Tutorial on how to use the bot")
     @commands.cooldown(1, 12, commands.BucketType.user)
@@ -27,7 +62,7 @@ class Help(commands.Cog):
             color = 0x0077ff,
             timestamp = datetime.datetime.now()
         )
-
+        em.set_thumbnail(url=self.bot.user.avatar.url)
         forbid = ["Event", "TopGG", "Errors"]
 
         for cog in self.bot.cogs:
