@@ -4,6 +4,7 @@ from utility.dataIO import fileIO
 class Event(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
+        self.data_task.start()
 
     @commands.Cog.listener()
     async def on_ready(self):
@@ -20,8 +21,7 @@ class Event(commands.Cog):
         for channel in guild.text_channels:
             if channel.permissions_for(guild.me).send_messages:
                 await channel.send(
-                    "Hello!, Thanks for adding me! You can use the command **/tutorial** To "
-                    "know how the bot works!")
+                    "Hello!, Thanks for adding me! You can use the command **/tutorial** To learn how the bot works!")
                 break
 
 def setup(bot):
