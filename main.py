@@ -12,7 +12,7 @@ intents = disnake.Intents.none()
 intents.members = False
 intents.message_content = False
 
-class UndertaleBot(commands.AutoShardedBot):
+class UndertaleBot(commands.AutoShardedInteractionBot):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.BotToken = os.getenv("TOKEN")

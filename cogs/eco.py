@@ -1,4 +1,4 @@
-import re
+import random
 from xml.etree.ElementTree import tostring
 from disnake.ext import commands
 import disnake
@@ -9,10 +9,50 @@ class Economy(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
+    @commands.slash_command(description="Get your supporter reward for being in our support server")
+    @commands.cooldown(1, 12, commands.BucketType.user)
+    async def supporter(self, inter):
+        if inter.guild.id != 992432202002468895:
+            return await inter.send(
+                "this command is exclusive for our support server, you can join via \n\n https://discord.gg/FQYVpuNz4Q"
+            )
+        
+        author = inter.author
+
+        info = await self.bot.players.find_one({"_id": author.id})
+        goldget = random.randint(500, 1000) * info["multi_g"]
+        try:
+            curr_time = time.time()
+            delta = int(curr_time) - int(info["supporter_block"])
+
+            if delta >= 86400 and delta > 0:
+                info["gold"] += goldget
+                info["supporter_block"] = curr_time
+                await self.bot.players.update_one(
+                    {"_id": author.id}, {"$set": info}
+                )
+                em = disnake.Embed(
+                    description=f"**You received your supporter gold! {int(goldget)} G**",
+                    color=0x0077ff,
+                )
+            else:
+                seconds = 86400 - delta
+                em = disnake.Embed(
+                    description=(
+                        f"**You can't claim your supporter reward yet!\n\n You can use this command again"
+                        f" <t:{int(time.time()) + int(seconds)}:R>**"
+                        ),
+                    color=0x0077ff,
+                    )
+            await inter.send(embed=em)
+        except KeyError:
+            info["supporter_block"] = 0
+            await self.bot.players.update_one({"_id": author.id}, {"$set": info})
+
     @commands.slash_command()
     @commands.cooldown(1, 12, commands.BucketType.user)
     async def stats(self, inter):
-        """Check your stats and powers"""
+        """Check your stats and progress"""
         player = inter.author
         if player.bot:
             await inter.send("Nice try!")
