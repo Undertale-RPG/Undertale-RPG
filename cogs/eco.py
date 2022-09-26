@@ -51,9 +51,9 @@ class Economy(commands.Cog):
 
     @commands.slash_command()
     @commands.cooldown(1, 12, commands.BucketType.user)
-    async def stats(self, inter):
+    async def stats(self, inter, member: disnake.User = None):
         """Check your stats and progress"""
-        player = inter.author
+        player = member or inter.author
         if player.bot:
             await inter.send("Nice try!")
             return
