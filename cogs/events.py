@@ -21,7 +21,7 @@ class Event(commands.Cog):
         for channel in guild.text_channels:
             if channel.permissions_for(guild.me).send_messages:
                 await channel.send(
-                    "Hello!, Thanks for adding me! You can use the command **/tutorial** To learn how the bot works!")
+                    "Hello!, Thanks for adding me! You can use the **/help** and **/tutorial** To learn how the bot works!")
                 break
 
 def setup(bot):

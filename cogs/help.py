@@ -63,7 +63,7 @@ class Help(commands.Cog):
             timestamp = datetime.datetime.now()
         )
         em.set_thumbnail(url=self.bot.user.avatar.url)
-        forbid = ["Event", "TopGG", "Errors"]
+        forbid = ["Event", "TopGG", "Errors", "Test"]
 
         for cog in self.bot.cogs:
             cog = self.bot.get_cog(cog)
@@ -74,7 +74,10 @@ class Help(commands.Cog):
             commands_per = "".join(f" `{command.name}` • " for command in cmds)
             em.add_field(name=cog.qualified_name, value=f"• {commands_per} \n\n", inline=False)
 
-        em.add_field(name="> Useful links", value="[Website](https://undertalerpg.monster/) • [Support](https://discord.gg/FQYVpuNz4Q) • [Patreon](https://www.patreon.com/UndertaleRPG) • [Vote](https://top.gg/bot/815153881217892372)", inline=False)
+        em.add_field(
+            name="> Useful links", 
+            value="[Website](https://undertalerpg.monster/) • [Support](https://discord.gg/FQYVpuNz4Q) • [Patreon](https://www.patreon.com/UndertaleRPG) • [Vote](https://top.gg/bot/815153881217892372)", inline=False
+            )
 
         buttons = [
             Button(

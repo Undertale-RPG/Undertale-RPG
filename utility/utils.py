@@ -44,9 +44,8 @@ def in_shop():
 
     return commands.check(predicate)
 
-
-async def create_player_info(ctx, mem):
-    dat = await ctx.bot.players.find_one({"_id": mem.id})
+async def create_player_info(inter, mem):
+    dat = await inter.bot.players.find_one({"_id": mem.id})
     if dat is None:
         new_account = {
             # unique idx
@@ -104,7 +103,7 @@ async def create_player_info(ctx, mem):
             "event crate": 0
         }
 
-        await ctx.bot.players.insert_one(new_account)
+        await inter.bot.players.insert_one(new_account)
     else:
         return
 
