@@ -5,6 +5,7 @@ __pycache__/
 
 #bot files
 webhook.py
+test.py
 
 # C extensions
 *.so

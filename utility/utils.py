@@ -81,8 +81,8 @@ async def create_player_info(inter, mem):
             "waterfall_boss": False,
             "hotland_boss": False,
             "core_boss": False,
-            "the barrier_boss": False,
-            "last corridor_boss": False,
+            "the_barrier_boss": False,
+            "last_corridor_boss": False,
 
             # counters
             "ruins_kills": 0,
@@ -100,7 +100,13 @@ async def create_player_info(inter, mem):
             "determination crate": 0,
             "soul crate": 0,
             "void crate": 0,
-            "event crate": 0
+            "event crate": 0,
+
+            #fight stats
+            "fight_monster": "",
+            "fight_hp": 0,
+            "fight_def": 0,
+            "fight_atk": 0,
         }
 
         await inter.bot.players.insert_one(new_account)

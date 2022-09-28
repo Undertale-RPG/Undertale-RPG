@@ -78,8 +78,37 @@ class Choice(disnake.ui.View):
         await inter.edit_original_message(components=[])
         self.stop()
 
-class Battle():
-    print("idk")
+class Battle:
+    def __init__(
+            self,
+            author: disnake.Member,
+            bot: commands.AutoShardedInteractionBot,
+            monster: str,
+            inter: disnake.CommandInteraction,
+            channel: disnake.TextChannel
+    ) -> None:
+
+        self.bot = bot
+        self.channel = channel
+        self.author = author
+        self.monster = monster
+        self.inter = inter
+        self.msg = None
+        self.time = int(time.time())
+        self.menus = []
+
+    async def check_level_up(self):
+        data = await self.inter.bot.players.find_one({"_id": self.inter.author.id})
+
+        curr_lvl = data["level"]
+        curr_exp = data["exp"]
+
+        exp_to_lvlup = curr_lvl * 100 / 0.4
+
+        if curr_exp < exp_to_lvlup:
+            return
+        else:
+            await self.inter.send("test")
 
 class Explore(commands.Cog):
     def __init__(self, bot):
@@ -131,7 +160,7 @@ class Explore(commands.Cog):
             return
 
         if item[0] == "puzzle":
-            await inter.send("coming soon!")
+            await inter.send("coming soon! do the command again to fight monsters")
             return
     
     @commands.slash_command()
