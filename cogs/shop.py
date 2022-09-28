@@ -46,6 +46,7 @@ class Shop(commands.Cog):
         determin = data["determination crate"]
         soul = data["soul crate"]
         void = data["void crate"]
+        event = data["event crate"]
         embed = disnake.Embed(
             title="Your crates",
             description="You can earn crates by exploring, voting, defeating bosses or in events",
@@ -59,7 +60,7 @@ Standard crates: {standard}
 Determination crates: {determin}
 Soul crates: {soul}
 Void crates: {void}
-Event crates: 0
+Event crates: {event}
             """
         )
         embed.add_field(
