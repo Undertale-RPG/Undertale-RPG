@@ -141,9 +141,11 @@ class Explore(commands.Cog):
             monster = random.choice(random_monster)
 
             print(f"{inter.author} has entered a fight")
-            fight = Battle(inter.author, inter.bot, monster, inter, inter.channel)
+            #fight = Battle(inter.author, inter.bot, monster, inter, inter.channel)
 
-            await fight.menu()
+            #await fight.menu()
+
+            await inter.send("Work in progress...")
 
         if item[0] == "gold":
             found_gold = random.randint(150, 250)
@@ -163,7 +165,7 @@ class Explore(commands.Cog):
             await inter.send("coming soon! do the command again to fight monsters")
             return
     
-    @commands.slash_command()
+    @commands.slash_command(description="Reset your stats for multipliers of gold and exp.")
     @commands.cooldown(1, 12, commands.BucketType.user)
     async def reset(self, inter):
         data = await self.bot.players.find_one({"_id": inter.author.id})
@@ -215,7 +217,7 @@ class Explore(commands.Cog):
         else:
             await inter.send("You should come back again!")
 
-    @commands.slash_command()
+    @commands.slash_command(description="Travel within the world of undertale and fight unique enemies.")
     @commands.cooldown(1, 12, commands.BucketType.user)
     async def travel(self, inter):
         data = await self.bot.players.find_one({"_id": inter.author.id})
@@ -285,7 +287,7 @@ class Explore(commands.Cog):
                 content=f"You arrived at **{view.value}**"
             )
 
-    @commands.slash_command()
+    @commands.slash_command(description="View the top 10 players on specific stats.")
     @commands.cooldown(1, 12, commands.BucketType.user)
     async def leaderboard(self, inter, lb: str = None):
         if lb not in ["gold", "exp", "resets", "kills", "spares", "deaths"] or None:

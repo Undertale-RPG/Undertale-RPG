@@ -49,7 +49,7 @@ class Economy(commands.Cog):
             info["supporter_block"] = 0
             await self.bot.players.update_one({"_id": author.id}, {"$set": info})
 
-    @commands.slash_command()
+    @commands.slash_command(description="Check your Statistics or other people's ones.")
     @commands.cooldown(1, 12, commands.BucketType.user)
     async def stats(self, inter, member: disnake.User = None):
         """Check your stats and progress"""
@@ -91,7 +91,7 @@ class Economy(commands.Cog):
 
         await inter.send(inter.author.mention, embed=em)
 
-    @commands.slash_command()
+    @commands.slash_command(description="Claim your booster rewards.")
     @commands.cooldown(1, 12, commands.BucketType.user)
     async def booster(self, inter):
         """Claim Your daily booster Reward!"""

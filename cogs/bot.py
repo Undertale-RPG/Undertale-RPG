@@ -1,6 +1,8 @@
 import disnake 
 from disnake.ext import commands
+from disnake.enums import ButtonStyle
 
+from disnake.ui import Button, ActionRow
 class Bot(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
@@ -38,7 +40,7 @@ class Bot(commands.Cog):
         em.add_field(name="Latency", value=f"`{round(self.bot.latency * 1000)}`ms")
         em.add_field(name="Shard count", value=f"`{len(self.bot.shards)}` shards")
         em.add_field(name="Creators", value="`LetsChill#2911` (founder)\n`yaki#8693` (bot dev)\n`Commander R#9371` (website dev)")
-        em.add_field(name="Disclaimer", value="All the designs/names of the pictures, locations, monsters and bosses belong to the official undertale creators")
+        em.add_field(name="Disclaimer", value="All the designs/names of the pictures, locations, monsters and bosses belong to the official undertale creator: **Toby Fox**")
 
         await inter.send(inter.author.mention, embed=em)
 
@@ -50,9 +52,17 @@ class Bot(commands.Cog):
             title="<:DT:1010165881516609596> Voting",
             color=0x0077ff
             )
-        em.add_field(name="Vote on Top.gg (500G + Standard crate)", value=f"[Click Here]({self.bot.vote_url})", inline=True)
+        em.add_field(name="Voting on Top.gg", value="You will earn 500G and a standard crate.", inline=True)
         em.add_field( name="Claim and support our server", value="You can claim an exclusive reward by joining our server and running u?supporter", inline=True)
-        await inter.send(inter.author.mention, embed=em)
+
+        buttons = [
+            Button(
+                style=ButtonStyle.link,
+                label="Click to vote!",
+                url=self.bot.vote_url
+            )
+        ]
+        await inter.send(inter.author.mention, embed=em, components=buttons)
 
 def setup(bot):
     bot.add_cog(Bot(bot))
