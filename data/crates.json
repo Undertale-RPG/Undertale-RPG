@@ -1,22 +1,27 @@
 {
     "standard crate": {
         "gold": 450,
-        "loot": []
+        "loot": [],
+        "image": "https://media.discordapp.net/attachments/900274624594575361/1024789274840813568/Untitled379_202209282004321.png"
     },
     "determination crate": {
         "gold": 500,
-        "loot": []
+        "loot": [],
+        "image": "https://media.discordapp.net/attachments/900274624594575361/1025142138863882352/Untitled381_202209292145541.png"
     },
     "soul crate": {
         "gold": 750,
-        "loot": []
+        "loot": [],
+        "image": ""
     },
     "void crate": {
         "gold": 1000,
-        "loot": []
+        "loot": [],
+        "image": "https://media.discordapp.net/attachments/900274624594575361/1026505427267092672/Untitled391_202210032022261.png?width=784&height=676"
     },
     "event crate": {
         "gold": 1,
-        "loot": []
+        "loot": [],
+        "image": ""
     }
 }

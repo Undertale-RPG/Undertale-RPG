@@ -1,5 +1,7 @@
+from code import interact
 from turtle import title
 import disnake
+from disnake import ActionRow
 from disnake.ext import commands
 from utility.utils import in_battle, in_shop, create_player_info, ConsoleColors
 from datetime import datetime
@@ -110,9 +112,79 @@ class Battle:
         else:
             await self.inter.send("test")
 
+    async def menu(self):
+        data = await self.bot.players.find_one({"_id": self.author.id})
+
+        buttons = disnake.ui.ActionRow(
+            disnake.ui.Button(
+                style=disnake.ButtonStyle.red,
+                label="Fight",
+                custom_id=await Explore.action.build_custom_id(action="fight", uid=self.author.id)
+            ),
+            disnake.ui.Button(
+                style=disnake.ButtonStyle.secondary,
+                label="Item",
+                custom_id=await Explore.action.build_custom_id(action="item", uid=self.author.id)
+            ),
+            disnake.ui.Button(
+                style=disnake.ButtonStyle.green,
+                label="Mercy",
+                custom_id=await Explore.action.build_custom_id(action="mercy", uid=self.author.id)
+            )           
+        )
+        
+        monsters = fileIO("./data/monsters.json", "load")
+
+        #player stats
+        location = data["location"]
+        user_hp = data["health"]
+        user_atk = data["attack"]
+        user_deff = data["defence"]
+
+        #monster stats
+        enemy_title = monsters[location][self.monster]["title"]
+        enemy_hp = monsters[location][self.monster]["hp"]
+        enemy_atk = monsters[location][self.monster]["attack"]
+        enemy_deff = monsters[location][self.monster]["defence"]
+
+        em = disnake.Embed(
+            title=enemy_title,
+            description=f"**Location:** {location}",
+            color=0x0077ff
+        )
+        em.set_thumbnail(url=self.author.avatar)
+        em.add_field(name=f"{self.monster}'s stats", value=f"**HP:** {enemy_hp}\n**Attack:** {enemy_atk}\n**Defence:** {enemy_deff}")
+        em.add_field(name=f"{self.author.name}'s stats", value=f"**HP:** {user_hp}\n**Attack:** {user_atk}\n**Defence:** {user_deff}")
+        print(buttons)
+        await self.inter.send(embed=em, components=buttons)
+        
+
+    async def fight(self):
+        await self.inter.edit_original_message("test")
+
 class Explore(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
+
+    @components.button_listener()
+    async def action(self, inter: disnake.MessageInteraction, *, action: str, uid: int) -> None:
+        if inter.author.id != uid:
+            await inter.send('This is not yours kiddo!', ephemeral=True)
+            return
+
+        try:
+            await inter.response.defer()
+        except:
+            pass
+
+        await inter.edit_original_message(components=[])
+        try:
+            msg_id = inter.bot.fights[str(uid)].menus[0]
+            inter.bot.fights[str(uid)].menus.remove(msg_id)
+        except:
+            pass
+
+        return await getattr(inter.bot.fights[str(uid)], action)()
 
     @commands.slash_command(description="explore to find monsters, xp, gold and items")
     @commands.cooldown(1, 12, commands.BucketType.user)
@@ -120,7 +192,7 @@ class Explore(commands.Cog):
         """Explore and find all kinds of monsters and treasure!"""
         await utils.create_player_info(inter, inter.author)
         choices = ["fight", "gold", "crate", "puzzle"]
-        item = random.choices(choices, weights=(80, 10, 10, 10), k=1)
+        item = random.choices(choices, weights=(90, 10, 10, 10), k=1)
 
         data = await inter.bot.players.find_one({"_id": inter.author.id})
 

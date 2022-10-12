@@ -59,8 +59,8 @@ async def create_player_info(inter, mem):
 
             "multi_g": 1,
             "multi_xp": 1,
-            "tokens": 0,
-            "damage": 0,
+            "attack": 0,
+            "defence": 0,
 
             "exp": 0,
             "gold": 200,
@@ -103,6 +103,8 @@ async def create_player_info(inter, mem):
             "event crate": 0,
 
             #fight stats
+            "in_fight": False,
+            "fight_msg": None,
             "fight_monster": "",
             "fight_hp": 0,
             "fight_def": 0,

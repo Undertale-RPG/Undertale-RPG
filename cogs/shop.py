@@ -52,7 +52,7 @@ class Shop(commands.Cog):
             description="You can earn crates by exploring, voting, defeating bosses or in events",
             color=0x0077ff,
         )
-        embed.set_thumbnail(url=self.bot.user.avatar.url)
+        embed.set_thumbnail(url="https://media.discordapp.net/attachments/900274624594575361/1024789274840813568/Untitled379_202209282004321.png")
         embed.add_field(
             name="Your boxes",
             value=f"""

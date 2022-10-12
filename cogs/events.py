@@ -8,7 +8,8 @@ class Event(commands.Cog):
 
     @commands.Cog.listener()
     async def on_ready(self):
-        print("im ready!!!!!!")
+        print(f"logged in as {self.bot.user}")
+        print(f"guilds: {len(self.bot.guilds)}")
 
     @tasks.loop(seconds=5)
     async def data_task(self):
