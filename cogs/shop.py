@@ -56,21 +56,21 @@ class Shop(commands.Cog):
         embed.add_field(
             name="Your boxes",
             value=f"""
-Standard crates: {standard}
-Determination crates: {determin}
-Soul crates: {soul}
-Void crates: {void}
-Event crates: {event}
+                Standard crates: {standard}
+                Determination crates: {determin}
+                Soul crates: {soul}
+                Void crates: {void}
+                Event crates: {event}
             """
         )
         embed.add_field(
             name="How to get",
             value=f"""
-(Voting)
-(/explore)
-(Bosses)
-(Resets)
-(Events)
+                (Voting)
+                (/explore)
+                (Bosses)
+                (Resets)
+                (Events)
             """
         )
 
@@ -82,6 +82,7 @@ Event crates: {event}
             return await inter.edit_original_message("You took to long to reply!")
         else:
             crates = fileIO("data/crates.json", "load")
+            image = crates[view.value]["image"]
             if data[view.value] <= 0:
                 return await inter.edit_original_message(
                     content=f"You don't have any **{view.value}**",
@@ -102,10 +103,41 @@ Event crates: {event}
                 components=[]
             )
 
+            em = disnake.Embed(
+                title=f"You opened a {view.value}!",
+                color=0x0077ff,
+                description=f"""
+                    You found the following inside the crate.
+
+                    Gold: {round(earned_gold)}
+                    Items: None
+                """
+            )
+            em.set_thumbnail(url=image)
+
             await asyncio.sleep(3)
             await inter.edit_original_message(
-                content=f"You earned **{round(earned_gold)}G** from a **{view.value}**"
+                content=None,
+                embed=em
             )
+
+    @commands.slash_command(description="check all items in your inventory")
+    @commands.cooldown(1, 12, commands.BucketType.user)
+    async def inventory(self, inter):
+        data = await inter.bot.players.find_one({"_id": inter.author.id})
+        inv = data["inventory"]
+        if len(inv) <= 0:
+            inv = None
+        else:
+            inv = "".join(f" `{item}` • " for item in inv)
+
+        em = disnake.Embed(
+            title=f"{inter.user.name}'s inventory",
+            color=0x0077ff,
+            description=f"{inv}"
+        )
+
+        await inter.send(embed=em)
 
 def setup(bot):
     bot.add_cog(Shop(bot))

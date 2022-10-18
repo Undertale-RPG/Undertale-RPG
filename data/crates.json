@@ -12,7 +12,7 @@
     "soul crate": {
         "gold": 750,
         "loot": [],
-        "image": ""
+        "image": "https://media.discordapp.net/attachments/900274624594575361/1031931452616626196/Untitled409_202210111917331_1.png"
     },
     "void crate": {
         "gold": 1000,
@@ -22,6 +22,6 @@
     "event crate": {
         "gold": 1,
         "loot": [],
-        "image": ""
+        "image": "https://media.discordapp.net/attachments/900274624594575361/1031931501920665660/Untitled393_202210080859031.png"
     }
 }
