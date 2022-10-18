@@ -3,6 +3,8 @@ import disnake
 import requests
 from disnake.ext import commands
 
+from utility.utils import ConsoleColors
+
 class Errors(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
@@ -35,7 +37,7 @@ class Errors(commands.Cog):
             print(f"Webhook sent {result.status_code}")
             raise error
         else:
-            print(f"Not sent with {result.status_code}, response:\n{result.json()}")
+            print(f"{ConsoleColors.WARNING}Not sent with {result.status_code}, response:\n{result.json()}")
             raise error
 
 

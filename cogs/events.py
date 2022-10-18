@@ -1,5 +1,6 @@
 from disnake.ext import commands, tasks
 from utility.dataIO import fileIO
+from utility.utils import ConsoleColors
 
 class Event(commands.Cog):
     def __init__(self, bot):
@@ -8,14 +9,17 @@ class Event(commands.Cog):
 
     @commands.Cog.listener()
     async def on_ready(self):
-        print(f"logged in as {self.bot.user}")
-        print(f"guilds: {len(self.bot.guilds)}")
+        print(f"{ConsoleColors.GREEN}logged in as {self.bot.user}\nguilds: {len(self.bot.guilds)}{ConsoleColors.ENDC}")
 
     @tasks.loop(seconds=5)
     async def data_task(self):
+        self.bot.items = fileIO("data/items/items.json", "load")
+        self.bot.monsters = fileIO("data/stats/monsters.json", "load")
+        self.bot.locations = fileIO("data/traveling.json", "load")
+        self.bot.crates = fileIO("data/crates.json", "load")
+        self.bot.shopping = fileIO("data/shops.json", "load")
         self.bot.boosters = await self.bot.db["boosters"].find_one({"_id": 0})
         self.bot.levels = fileIO("data/levels.json", "load")
-        self.bot.bosses = fileIO("data/bosses.json", "load")
 
     @commands.Cog.listener()
     async def on_guild_join(self, guild):

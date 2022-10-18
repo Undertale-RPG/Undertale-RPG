@@ -8,6 +8,8 @@ class ConsoleColors:
     BLUE = '\033[94m'
     CYAN = '\033[96m'
     GREEN = '\033[92m'
+    YELLOW = '\033[1;33m'
+    LRED = '\033[1;31m'
     WARNING = '\033[93m'
     FAIL = '\033[91m'
     ENDC = '\033[0m'
@@ -104,7 +106,6 @@ async def create_player_info(inter, mem):
 
             #fight stats
             "in_fight": False,
-            "fight_msg": None,
             "fight_monster": "",
             "fight_hp": 0,
             "fight_def": 0,

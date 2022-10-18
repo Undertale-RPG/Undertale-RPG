@@ -1,7 +1,4 @@
-from code import interact
-from turtle import title
 import disnake
-from disnake import ActionRow
 from disnake.ext import commands
 from utility.utils import in_battle, in_shop, create_player_info, ConsoleColors
 from datetime import datetime
@@ -11,7 +8,7 @@ from utility.dataIO import fileIO
 import time
 import humanize
 import asyncio
-from disnake.ext import commands, components
+from disnake.ext import commands
 
 class Travelbtn(disnake.ui.View):
     def __init__(self):
@@ -78,6 +75,26 @@ class Choice(disnake.ui.View):
         await inter.response.defer()
 
         await inter.edit_original_message(components=[])
+        self.stop()
+
+class Explorebtn(disnake.ui.View):
+    def __init__(self):
+        super().__init__()
+        self.value = None
+
+    @disnake.ui.button(label="Fight", style=disnake.ButtonStyle.red)
+    async def fight(self, button: disnake.ui.Button, interaction: disnake.MessageInteraction):
+        self.value = "fight"
+        self.stop()
+
+    @disnake.ui.button(label="Use", style=disnake.ButtonStyle.gray)
+    async def use(self, button: disnake.ui.button, interaction: disnake.MessageInteraction):
+        self.value = "use"
+        self.stop()
+
+    @disnake.ui.button(label="Mercy", style=disnake.ButtonStyle.green)
+    async def mercy(self, button: disnake.ui.button, interaction: disnake.MessageInteraction):
+        self.value = "mercy"
         self.stop()
 
 class Battle:
@@ -166,26 +183,6 @@ class Explore(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @components.button_listener()
-    async def action(self, inter: disnake.MessageInteraction, *, action: str, uid: int) -> None:
-        if inter.author.id != uid:
-            await inter.send('This is not yours kiddo!', ephemeral=True)
-            return
-
-        try:
-            await inter.response.defer()
-        except:
-            pass
-
-        await inter.edit_original_message(components=[])
-        try:
-            msg_id = inter.bot.fights[str(uid)].menus[0]
-            inter.bot.fights[str(uid)].menus.remove(msg_id)
-        except:
-            pass
-
-        return await getattr(inter.bot.fights[str(uid)], action)()
-
     @commands.slash_command(description="explore to find monsters, xp, gold and items")
     @commands.cooldown(1, 12, commands.BucketType.user)
     async def explore(self, inter):
@@ -205,36 +202,71 @@ class Explore(commands.Cog):
             for i in monsters[location]:
                 random_monster.append(i)
 
-            print(random_monster)
-
             if len(random_monster) == 0:
                 return await inter.send(f"There are no monsters here?, You are for sure inside a /boss area only!")
 
             monster = random.choice(random_monster)
+            #player stats
+            location = data["location"]
+            user_hp = data["health"]
+            user_atk = data["attack"]
+            user_deff = data["defence"]
 
-            print(f"{inter.author} has entered a fight")
+            #monster stats
+            enemy_title = monsters[location][monster]["title"]
+            enemy_hp = monsters[location][monster]["hp"]
+            enemy_atk = monsters[location][monster]["attack"]
+            enemy_def = monsters[location][monster]["defence"]
+
+            em = disnake.Embed(
+                title=enemy_title,
+                description=f"**Location:** {location}",
+                color=0x0077ff
+            )
+            em.set_thumbnail(url=inter.author.avatar)
+            em.add_field(name=f"{monster}'s stats", value=f"**HP:** {enemy_hp}\n**Attack:** {enemy_atk}\n**Defence:** {enemy_def}")
+            em.add_field(name=f"{inter.author.name}'s stats", value=f"**HP:** {user_hp}\n**Attack:** {user_atk}\n**Defence:** {user_deff}")
+            view = Explorebtn()
+            msg = await inter.send(embed=em, view=view, ephemeral=True)
+            info = {"in_fight": True, "fight_monster": monster, "fight_hp": enemy_hp, "fight_atk": enemy_atk, "fight_def": enemy_def}
+            await inter.bot.players.update_one({"_id": inter.author.id}, {"$set": info})
+
+            print(f"{ConsoleColors.YELLOW}{inter.author} has entered a fight{ConsoleColors.ENDC}")
+
+
+            await view.wait()
+            if view.value == None:
+                return await inter.edit_original_message("You took to long to reply!")
+            else:
+                if view.value == "mercy":
+
+                    choice = random.randint(1, 3)
+                    if choice == 2:
+                        return
+
+
             #fight = Battle(inter.author, inter.bot, monster, inter, inter.channel)
 
             #await fight.menu()
 
-            await inter.send("Work in progress...")
+            #await inter.send(content="Work in progress...", ephemeral=True)
 
         if item[0] == "gold":
             found_gold = random.randint(150, 250)
             new_gold = data["gold"] + found_gold
             data["gold"] += found_gold
             await self.bot.players.update_one({"_id": inter.author.id}, {"$set": data})
-            await inter.send(f"You found `{found_gold}`**G**! you now have `{round(new_gold)}`**G**")
+            await inter.send(content=f"You found `{found_gold}`**G**! you now have `{round(new_gold)}`**G**", ephemeral=True)
             return
         
         if item[0] == "crate":
             data["determination crate"] += 1
             await self.bot.players.update_one({"_id": inter.author.id}, {"$set": data})
-            await inter.send("You found `1` Determination crate! you can open it with `/crates`")
+            await inter.send(content="You found `1` Determination crate! you can open it with `/crates`", ephemeral=True)
             return
 
         if item[0] == "puzzle":
-            await inter.send("coming soon! do the command again to fight monsters")
+            await inter.send(content="coming soon! do the command again to fight monsters", ephemeral=True)
             return
     
     @commands.slash_command(description="Reset your stats for multipliers of gold and exp.")

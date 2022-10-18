@@ -98,7 +98,7 @@ class Shop(commands.Cog):
             await inter.bot.players.update_one({"_id": inter.author.id}, {"$set": info})
 
             await inter.edit_original_message(
-                content=f"You opened a **{view.value}**...",
+                content=f"You are opening a **{view.value}**...",
                 embed=None,
                 components=[]
             )
@@ -138,6 +138,11 @@ class Shop(commands.Cog):
         )
 
         await inter.send(embed=em)
+
+    @commands.slash_command(description="equip/use items from your inventorys")
+    @commands.cooldown(1, 12, commands.BucketType.user)
+    async def use(self, inter):
+        return
 
 def setup(bot):
     bot.add_cog(Shop(bot))
