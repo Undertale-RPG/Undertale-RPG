@@ -61,8 +61,8 @@ async def create_player_info(inter, mem):
 
             "multi_g": 1,
             "multi_xp": 1,
-            "attack": 0,
-            "defence": 0,
+            "attack": 1,
+            "defence": 1,
 
             "exp": 0,
             "gold": 200,

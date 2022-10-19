@@ -1,3 +1,4 @@
+from discord import Embed
 import disnake
 from disnake.ext import commands
 from utility.utils import in_battle, in_shop, create_player_info, ConsoleColors
@@ -97,87 +98,8 @@ class Explorebtn(disnake.ui.View):
         self.value = "mercy"
         self.stop()
 
-class Battle:
-    def __init__(
-            self,
-            author: disnake.Member,
-            bot: commands.AutoShardedInteractionBot,
-            monster: str,
-            inter: disnake.CommandInteraction,
-            channel: disnake.TextChannel
-    ) -> None:
-
-        self.bot = bot
-        self.channel = channel
-        self.author = author
-        self.monster = monster
-        self.inter = inter
-        self.msg = None
-        self.time = int(time.time())
-        self.menus = []
-
-    async def check_level_up(self):
-        data = await self.inter.bot.players.find_one({"_id": self.inter.author.id})
-
-        curr_lvl = data["level"]
-        curr_exp = data["exp"]
-
-        exp_to_lvlup = curr_lvl * 100 / 0.4
-
-        if curr_exp < exp_to_lvlup:
-            return
-        else:
-            await self.inter.send("test")
-
-    async def menu(self):
-        data = await self.bot.players.find_one({"_id": self.author.id})
-
-        buttons = disnake.ui.ActionRow(
-            disnake.ui.Button(
-                style=disnake.ButtonStyle.red,
-                label="Fight",
-                custom_id=await Explore.action.build_custom_id(action="fight", uid=self.author.id)
-            ),
-            disnake.ui.Button(
-                style=disnake.ButtonStyle.secondary,
-                label="Item",
-                custom_id=await Explore.action.build_custom_id(action="item", uid=self.author.id)
-            ),
-            disnake.ui.Button(
-                style=disnake.ButtonStyle.green,
-                label="Mercy",
-                custom_id=await Explore.action.build_custom_id(action="mercy", uid=self.author.id)
-            )           
-        )
-        
-        monsters = fileIO("./data/monsters.json", "load")
-
-        #player stats
-        location = data["location"]
-        user_hp = data["health"]
-        user_atk = data["attack"]
-        user_deff = data["defence"]
-
-        #monster stats
-        enemy_title = monsters[location][self.monster]["title"]
-        enemy_hp = monsters[location][self.monster]["hp"]
-        enemy_atk = monsters[location][self.monster]["attack"]
-        enemy_deff = monsters[location][self.monster]["defence"]
-
-        em = disnake.Embed(
-            title=enemy_title,
-            description=f"**Location:** {location}",
-            color=0x0077ff
-        )
-        em.set_thumbnail(url=self.author.avatar)
-        em.add_field(name=f"{self.monster}'s stats", value=f"**HP:** {enemy_hp}\n**Attack:** {enemy_atk}\n**Defence:** {enemy_deff}")
-        em.add_field(name=f"{self.author.name}'s stats", value=f"**HP:** {user_hp}\n**Attack:** {user_atk}\n**Defence:** {user_deff}")
-        print(buttons)
-        await self.inter.send(embed=em, components=buttons)
-        
-
-    async def fight(self):
-        await self.inter.edit_original_message("test")
+async def Battle(self, inter, monster: str, user_hp: int, user_atk: int, user_def: int):
+    await inter.edit_original_message("test")
 
 class Explore(commands.Cog):
     def __init__(self, bot):
@@ -210,7 +132,7 @@ class Explore(commands.Cog):
             location = data["location"]
             user_hp = data["health"]
             user_atk = data["attack"]
-            user_deff = data["defence"]
+            user_def = data["defence"]
 
             #monster stats
             enemy_title = monsters[location][monster]["title"]
@@ -225,9 +147,9 @@ class Explore(commands.Cog):
             )
             em.set_thumbnail(url=inter.author.avatar)
             em.add_field(name=f"{monster}'s stats", value=f"**HP:** {enemy_hp}\n**Attack:** {enemy_atk}\n**Defence:** {enemy_def}")
-            em.add_field(name=f"{inter.author.name}'s stats", value=f"**HP:** {user_hp}\n**Attack:** {user_atk}\n**Defence:** {user_deff}")
+            em.add_field(name=f"{inter.author.name}'s stats", value=f"**HP:** {user_hp}\n**Attack:** {user_atk}\n**Defence:** {user_def}")
             view = Explorebtn()
-            msg = await inter.send(embed=em, view=view, ephemeral=True)
+            await inter.send(embed=em, view=view, ephemeral=True)
             info = {"in_fight": True, "fight_monster": monster, "fight_hp": enemy_hp, "fight_atk": enemy_atk, "fight_def": enemy_def}
             await inter.bot.players.update_one({"_id": inter.author.id}, {"$set": info})
 
@@ -238,18 +160,43 @@ class Explore(commands.Cog):
             if view.value == None:
                 return await inter.edit_original_message("You took to long to reply!")
             else:
+                if view.value == "fight":
+                    await Battle(self, inter, monster, user_hp, user_atk, user_def)
                 if view.value == "mercy":
+                    em = disnake.Embed(
+                        title="Mercy",
+                        color=0x0077ff,
+                        description=f"You tried to spare {monster}"
+                    )
+                    em.set_thumbnail(url="https://cdn.discordapp.com/attachments/900274624594575361/1032089003912089770/3abaf892f9a10b66e7341589a9b6d210.jpg")
+                    await inter.edit_original_message(embed=em, view=None)
+                    await asyncio.sleep(5)
 
-                    choice = random.randint(1, 3)
+                    choice = 2 #random.randint(1, 3)
                     if choice == 2:
+                        em = disnake.Embed(
+                            title="Mercy",
+                            color=0x0077ff,
+                            description=f"{monster} didn't accept your mercy!"
+                        )
+                        em.set_thumbnail(url="https://cdn.discordapp.com/attachments/900274624594575361/1032089003912089770/3abaf892f9a10b66e7341589a9b6d210.jpg")
+                        await inter.edit_original_message(embed=em)
+
+                        await Battle(self, inter)
+                    else:
+                        em = disnake.Embed(
+                            title="Mercy",
+                            color=0x0077ff,
+                            description=f"{monster} accepted your mercy!"
+                        )
+                        em.set_thumbnail(url="https://cdn.discordapp.com/attachments/900274624594575361/1032089003912089770/3abaf892f9a10b66e7341589a9b6d210.jpg")
+                        await inter.edit_original_message(embed=em)
+                        spares = data["spares"] =+ 1
+                        info = {"in_fight": False, "fight_monster": "", "fight_hp": 0, "fight_atk": 0, "fight_def": 0, "spares": spares}
+                        await inter.bot.players.update_one({"_id": inter.author.id}, {"$set": info})
+
+                        print(f"{ConsoleColors.LRED}{inter.author} has stopped a fight(spared){ConsoleColors.ENDC}")
                         return
-
-
-            #fight = Battle(inter.author, inter.bot, monster, inter, inter.channel)
-
-            #await fight.menu()
-
-            #await inter.send(content="Work in progress...", ephemeral=True)
 
         if item[0] == "gold":
             found_gold = random.randint(150, 250)
