@@ -4,17 +4,17 @@ import disnake
 from disnake.ext import commands
 
 class ConsoleColors:
-    HEADER = '\033[95m'
-    BLUE = '\033[94m'
-    CYAN = '\033[96m'
-    GREEN = '\033[92m'
-    YELLOW = '\033[1;33m'
-    LRED = '\033[1;31m'
+    HEADER  = '\033[95m'
+    BLUE    = '\033[94m'
+    CYAN    = '\033[96m'
+    GREEN   = '\033[92m'
+    YELLOW  = '\033[1;33m'
+    LRED    = '\033[1;31m'
     WARNING = '\033[93m'
-    FAIL = '\033[91m'
-    ENDC = '\033[0m'
-    BOLD = '\033[1m'
-    UNDER = '\033[4m'
+    FAIL    = '\033[91m'
+    ENDC    = '\033[0m'
+    BOLD    = '\033[1m'
+    UNDER   = '\033[4m'
 
 
 def in_battle():

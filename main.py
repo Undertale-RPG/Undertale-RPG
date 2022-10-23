@@ -26,12 +26,9 @@ class UndertaleBot(commands.AutoShardedInteractionBot):
         self.MongoUrl = os.getenv("MONGO_URL")
         self.error_webhook = os.getenv("ERROR_WEBHOOK")
         self.cluster = AsyncIOMotorClient(self.MongoUrl)
-        self.guilds_db = None
         self.players = None
         self.db = None
         self.boosters = None
-        self.shopping = None
-        self.fights = {}
 
     async def on_shard_connect(self, shard):
         print(

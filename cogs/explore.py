@@ -1,4 +1,3 @@
-from discord import Embed
 import disnake
 from disnake.ext import commands
 from utility.utils import in_battle, in_shop, create_player_info, ConsoleColors
@@ -85,21 +84,100 @@ class Explorebtn(disnake.ui.View):
 
     @disnake.ui.button(label="Fight", style=disnake.ButtonStyle.red)
     async def fight(self, button: disnake.ui.Button, interaction: disnake.MessageInteraction):
-        self.value = "fight"
-        self.stop()
+        await interaction.response.defer()
 
     @disnake.ui.button(label="Use", style=disnake.ButtonStyle.gray)
     async def use(self, button: disnake.ui.button, interaction: disnake.MessageInteraction):
-        self.value = "use"
-        self.stop()
+        await interaction.response.defer()
 
     @disnake.ui.button(label="Mercy", style=disnake.ButtonStyle.green)
-    async def mercy(self, button: disnake.ui.button, interaction: disnake.MessageInteraction):
-        self.value = "mercy"
-        self.stop()
+    async def mercy(self, button: disnake.ui.button, inter: disnake.MessageInteraction):
+        await inter.response.defer()
+        data = await inter.bot.players.find_one({"_id": inter.author.id})
+        view = Explorebtn()
+        view.disabled = True
 
-async def Battle(self, inter, monster: str, user_hp: int, user_atk: int, user_def: int):
-    await inter.edit_original_message("test")
+        location = data["location"]
+        monsters = fileIO("./data/monsters.json", "load")
+        monster = data["fight_monster"]
+        #player stats
+        location = data["location"]
+        user_hp = data["health"]
+        user_atk = data["attack"]
+        user_def = data["defence"]
+        #monster stats
+        enemy_title = monsters[location][monster]["title"]
+        enemy_hp = monsters[location][monster]["hp"]
+        enemy_atk = monsters[location][monster]["attack"]
+        enemy_def = monsters[location][monster]["defence"]
+
+        em = disnake.Embed(
+            title="Mercy",
+            color=0x0077ff,
+            description=f"You tried to spare {monster}"
+        )
+        em.set_thumbnail(url="https://cdn.discordapp.com/attachments/900274624594575361/1032089003912089770/3abaf892f9a10b66e7341589a9b6d210.jpg")
+        await inter.edit_original_message(embed=em, view=None)
+        await asyncio.sleep(5)
+
+        choice = random.randint(1, 3)
+        if choice == 2:
+            em = disnake.Embed(
+                title="Mercy",
+                color=0x0077ff,
+                description=f"{monster} didn't accept your mercy!"
+            )
+            em.set_thumbnail(url="https://cdn.discordapp.com/attachments/900274624594575361/1032089003912089770/3abaf892f9a10b66e7341589a9b6d210.jpg")
+            await inter.edit_original_message(embed=em)
+            await asyncio.sleep(5)
+
+            await Battle(self, inter, monster, user_hp, user_atk, user_def, enemy_title, enemy_hp, enemy_atk, enemy_def)
+        else:
+            em = disnake.Embed(
+                title="Mercy",
+                color=0x0077ff,
+                description=f"{monster} accepted your mercy!"
+            )
+            em.set_thumbnail(url="https://cdn.discordapp.com/attachments/900274624594575361/1032089003912089770/3abaf892f9a10b66e7341589a9b6d210.jpg")
+            await inter.edit_original_message(embed=em)
+            spares = data["spares"] =+ 1
+            info = {"in_fight": False, "fight_monster": "", "fight_hp": 0, "fight_atk": 0, "fight_def": 0, "spares": spares}
+            await inter.bot.players.update_one({"_id": inter.author.id}, {"$set": info})
+
+            print(f"{ConsoleColors.LRED}{inter.author} has stopped a fight(spared){ConsoleColors.ENDC}")
+            return
+
+
+async def Battle(self, inter, monster: str, user_hp: int, user_atk: int, user_def: int, enemy_title: str, enemy_hp: int, enemy_atk: int, enemy_def: int):
+    view = Explorebtn()
+
+    view.disabled = True
+
+    new_user_hp = user_hp - enemy_atk
+    new_enemy_hp = enemy_hp - user_atk
+
+    em = disnake.Embed(
+        title=f"You damaged {monster}",
+        color=0x0077ff,
+        description=f"""
+        **{monster}'s stats**
+        **HP:** {new_enemy_hp}
+        **Attack:** {enemy_atk}
+        **Defence:** {enemy_def}
+        """
+    )
+    em.set_thumbnail(url="https://cdn.discordapp.com/attachments/900274624594575361/1032250561610907650/download.png")
+    await inter.edit_original_message(embed=em)
+    await asyncio.sleep(5)
+
+    em = disnake.Embed(
+        title=enemy_title,
+        color=0x0077ff
+    )
+    em.set_thumbnail(url=inter.author.avatar)
+    em.add_field(name=f"{monster}'s stats", value=f"**HP:** {new_enemy_hp}\n**Attack:** {enemy_atk}\n**Defence:** {enemy_def}")
+    em.add_field(name=f"{inter.author.name}'s stats", value=f"**HP:** {new_user_hp}\n**Attack:** {user_atk}\n**Defence:** {user_def}")
+    await inter.edit_original_message(embed=em, view=view)
 
 class Explore(commands.Cog):
     def __init__(self, bot):
@@ -114,6 +192,7 @@ class Explore(commands.Cog):
         item = random.choices(choices, weights=(90, 10, 10, 10), k=1)
 
         data = await inter.bot.players.find_one({"_id": inter.author.id})
+        await inter.response.defer()
 
         if item[0] == "fight":
             location = data["location"]
@@ -154,49 +233,7 @@ class Explore(commands.Cog):
             await inter.bot.players.update_one({"_id": inter.author.id}, {"$set": info})
 
             print(f"{ConsoleColors.YELLOW}{inter.author} has entered a fight{ConsoleColors.ENDC}")
-
-
-            await view.wait()
-            if view.value == None:
-                return await inter.edit_original_message("You took to long to reply!")
-            else:
-                if view.value == "fight":
-                    await Battle(self, inter, monster, user_hp, user_atk, user_def)
-                if view.value == "mercy":
-                    em = disnake.Embed(
-                        title="Mercy",
-                        color=0x0077ff,
-                        description=f"You tried to spare {monster}"
-                    )
-                    em.set_thumbnail(url="https://cdn.discordapp.com/attachments/900274624594575361/1032089003912089770/3abaf892f9a10b66e7341589a9b6d210.jpg")
-                    await inter.edit_original_message(embed=em, view=None)
-                    await asyncio.sleep(5)
-
-                    choice = 2 #random.randint(1, 3)
-                    if choice == 2:
-                        em = disnake.Embed(
-                            title="Mercy",
-                            color=0x0077ff,
-                            description=f"{monster} didn't accept your mercy!"
-                        )
-                        em.set_thumbnail(url="https://cdn.discordapp.com/attachments/900274624594575361/1032089003912089770/3abaf892f9a10b66e7341589a9b6d210.jpg")
-                        await inter.edit_original_message(embed=em)
-
-                        await Battle(self, inter)
-                    else:
-                        em = disnake.Embed(
-                            title="Mercy",
-                            color=0x0077ff,
-                            description=f"{monster} accepted your mercy!"
-                        )
-                        em.set_thumbnail(url="https://cdn.discordapp.com/attachments/900274624594575361/1032089003912089770/3abaf892f9a10b66e7341589a9b6d210.jpg")
-                        await inter.edit_original_message(embed=em)
-                        spares = data["spares"] =+ 1
-                        info = {"in_fight": False, "fight_monster": "", "fight_hp": 0, "fight_atk": 0, "fight_def": 0, "spares": spares}
-                        await inter.bot.players.update_one({"_id": inter.author.id}, {"$set": info})
-
-                        print(f"{ConsoleColors.LRED}{inter.author} has stopped a fight(spared){ConsoleColors.ENDC}")
-                        return
+            return
 
         if item[0] == "gold":
             found_gold = random.randint(150, 250)
@@ -341,12 +378,13 @@ class Explore(commands.Cog):
     @commands.slash_command(description="View the top 10 players on specific stats.")
     @commands.cooldown(1, 12, commands.BucketType.user)
     async def leaderboard(self, inter, lb: str = None):
+        await inter.response.defer()
         if lb not in ["gold", "exp", "resets", "kills", "spares", "deaths"] or None:
             em = disnake.Embed(
                 title=f"There is no shuch leaderboard as {lb}",
                 description="""
                 You can choose from the following leaderboards:
-                **gold, exp, resets, kills, spared, deaths**
+                **gold, exp, resets, kills, spares, deaths**
                 """,
                 color=0x0077ff
             )
