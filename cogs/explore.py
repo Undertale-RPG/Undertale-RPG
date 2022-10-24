@@ -210,7 +210,9 @@ async def Battle(self, inter, monster: str, user_hp: int, user_atk: int, user_de
         kills = data["kills"] + 1
         info = {"in_fight": False, "kills": kills, "exp": new_exp, "gold": new_gold, "health": user_hp, "fight_monster": "", "fight_hp": 0, "fight_atk": 0, "fight_def": 0}
         await inter.bot.players.update_one({"_id": inter.author.id}, {"$set": info})
-        print(f"{ConsoleColors.LRED}{inter.author} has stopped a fight(died){ConsoleColors.ENDC}")
+        print(f"{ConsoleColors.LRED}{inter.author} has stopped a fight(won){ConsoleColors.ENDC}")
+
+        await levelup_check(self, inter)
         return
 
     em = disnake.Embed(
@@ -241,7 +243,7 @@ async def Battle(self, inter, monster: str, user_hp: int, user_atk: int, user_de
         deaths = data["deaths"] + 1
         info = {"in_fight": False, "deaths": deaths, "gold": new_gold, "health": 20, "fight_monster": "", "fight_hp": 0, "fight_atk": 0, "fight_def": 0}
         await inter.bot.players.update_one({"_id": inter.author.id}, {"$set": info})
-        print(f"{ConsoleColors.LRED}{inter.author} has stopped a fight(won){ConsoleColors.ENDC}")
+        print(f"{ConsoleColors.LRED}{inter.author} has stopped a fight(died){ConsoleColors.ENDC}")
         return
 
     em = disnake.Embed(
@@ -255,7 +257,28 @@ async def Battle(self, inter, monster: str, user_hp: int, user_atk: int, user_de
     info = {"health": new_user_hp, "fight_hp": new_enemy_hp, "fight_atk": enemy_atk, "fight_def": enemy_def}
     await inter.bot.players.update_one({"_id": inter.author.id}, {"$set": info})
 
-async def Battle(self, inter):
+async def levelup_check(self, inter):
+    data = await inter.bot.players.find_one({"_id": inter.author.id})
+    author = inter.author
+    exp = data["exp"]
+    level = data["level"]
+    exp_lvl_up = level * 100 / 0.4
+
+    if exp >= exp_lvl_up:
+        new_lvl = level + 1
+        new_exp = exp - exp_lvl_up
+        new_exp_lvl_up = new_lvl * 100 / 0.4
+        em = disnake.Embed(
+            title=f"{author.name} Leveled up!",
+            color=0x0077ff,
+            description=f"""
+            Your new level is **{new_lvl}!**
+            Your new exp is **{round(new_exp)}/{round(new_exp_lvl_up)}**
+            """
+        )
+        info = {"level": new_lvl, "exp": new_exp}
+        await inter.bot.players.update_one({"_id": inter.author.id}, {"$set": info})
+        await inter.send(embed=em)
     return
 
 class Explore(commands.Cog):
