@@ -82,8 +82,8 @@ class Help(commands.Cog):
         buttons = [
             Button(
                 style = ButtonStyle.link,
-                label = "Website",
-                url = "https://undertalerpg.monster/"
+                label = "FAQ",
+                url = "https://undertalerpg.monster/faq"
             ),
             Button(
                 style = ButtonStyle.link,

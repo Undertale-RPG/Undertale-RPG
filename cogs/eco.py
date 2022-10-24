@@ -62,11 +62,13 @@ class Economy(commands.Cog):
         health = data["health"]
         love = data["level"]
         exp = data["exp"]
+        exp_lvl_up = love * 100 / 0.4
         kills = data["kills"]
         deaths = data["deaths"]
+        spares = data["spares"]
+        gold = data["gold"]
         weapon = data["weapon"]
         armor = data["armor"]
-        gold = data["gold"]
         resets = data["resets"]
         multi_g = data["multi_g"] 
         multi_xp = data["multi_xp"]
@@ -79,12 +81,13 @@ class Economy(commands.Cog):
         em.set_thumbnail(url=player.display_avatar)
         em.add_field(name="▫️┃Health", value=f"{round(health)}")
         em.add_field(name="▫️┃LOVE", value=f"{round(love)}")
-        em.add_field(name="▫️┃EXP", value=f"{round(exp)}")
+        em.add_field(name="▫️┃EXP", value=f"{round(exp)}/{round(exp_lvl_up)}")
         em.add_field(name="▫️┃Kills", value=f"{round(kills)}")
         em.add_field(name="▫️┃Deaths", value=f"{round(deaths)}")
+        em.add_field(name="▫️┃Spares", value=f"{round(spares)}")
+        em.add_field(name="▫️┃Gold", value=f"{round(gold)}")
         em.add_field(name="▫️┃Weapon", value=f"{weapon}")
         em.add_field(name="▫️┃Armor", value=f"{armor}")
-        em.add_field(name="▫️┃Gold", value=f"{round(gold)}")
         em.add_field(name="▫️┃resets", value=f"{round(resets)}")
         em.add_field(name="▫️┃Gold Multiplier", value=f"{round(multi_g)}")
         em.add_field(name="▫️┃EXP Multiplier", value=f"{round(multi_xp)}")
@@ -113,7 +116,11 @@ class Economy(commands.Cog):
             data["gold"] += new_gold
             data["booster_block"]= curr_time
             await self.bot.players.update_one({"_id": author.id}, {"$set": data})
-            await inter.send(f"**You recieved your booster gold! {int(new_gold)} G**")
+            em = disnake.Embed(
+                description=f"**You recieved your booster gold! {int(new_gold)} G**",
+                color=0x0077ff
+            )
+            await inter.send(embed=em)
         else:
             seconds = 86400 - delta
             em = disnake.Embed(
@@ -138,7 +145,11 @@ class Economy(commands.Cog):
             data["gold"] += new_gold
             data["daily_block"] = curr_time
             await self.bot.players.update_one({"_id": inter.author.id}, {"$set": data})
-            await inter.send(f"**You recieved your daily gold! {int(new_gold)} G**")
+            em = disnake.Embed(
+                description=f"**You recieved your daily gold! {int(new_gold)} G**",
+                color=0x0077ff
+            )
+            await inter.send(embed=em)
         else:
             seconds = 86400 - delta
             em = disnake.Embed(
