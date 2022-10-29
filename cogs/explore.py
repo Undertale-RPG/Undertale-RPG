@@ -87,7 +87,7 @@ class Loading(disnake.ui.View):
 
 class Explorebtn(disnake.ui.View):
     def __init__(self):
-        super().__init__()
+        super().__init__(timeout=None)
         self.value = None
 
     @disnake.ui.button(label="Fight", style=disnake.ButtonStyle.red)
@@ -110,7 +110,7 @@ class Explorebtn(disnake.ui.View):
         await Battle(self, inter, monster, user_hp, user_atk, user_def, enemy_title, enemy_hp, enemy_atk, enemy_def)
         return
 
-    @disnake.ui.button(label="Use", style=disnake.ButtonStyle.gray)
+    @disnake.ui.button(label="Use", style=disnake.ButtonStyle.gray, disabled=True)
     async def use(self, button: disnake.ui.button, interaction: disnake.MessageInteraction):
         await interaction.response.defer()
 
