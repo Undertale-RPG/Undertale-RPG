@@ -56,7 +56,7 @@ class Bot(commands.Cog):
             color=0x0077ff
             )
         em.add_field(name="Voting on Top.gg", value="You will earn 500G and a standard crate.", inline=True)
-        em.add_field( name="Claim and support our server", value="You can claim an exclusive reward by joining our server and running u?supporter", inline=True)
+        em.add_field( name="Claim and support our server", value="You can claim an exclusive reward by joining our server and running /supporter", inline=True)
 
         buttons = [
             Button(
