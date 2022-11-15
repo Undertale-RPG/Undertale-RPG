@@ -49,6 +49,25 @@ class Economy(commands.Cog):
             info["supporter_block"] = 0
             await self.bot.players.update_one({"_id": author.id}, {"$set": info})
 
+    @commands.slash_command(description="Check your balance or other people's ones.")
+    @commands.cooldown(1, 12, commands.BucketType.user)
+    async def gold(self, inter, member: disnake.User = None):
+        player = member or inter.author
+        if player.bot:
+            await inter.send("Nice try!")
+            return
+        data = await inter.bot.players.find_one({"_id": player.id})
+        gold = data["gold"]
+
+        em = disnake.Embed(
+            title="Balance",
+            color=0x0077ff,
+            description=f"{player.name}'s balance\n**{gold}G**"
+        )
+        await inter.send(embed=em)
+
+        
+    
     @commands.slash_command(description="Check your Statistics or other people's ones.")
     @commands.cooldown(1, 12, commands.BucketType.user)
     async def stats(self, inter, member: disnake.User = None):
@@ -57,7 +76,7 @@ class Economy(commands.Cog):
         if player.bot:
             await inter.send("Nice try!")
             return
-        data = await inter.bot.players.find_one({"_id": inter.author.id})
+        data = await inter.bot.players.find_one({"_id": player.id})
 
         health = data["health"]
         love = data["level"]
@@ -76,7 +95,7 @@ class Economy(commands.Cog):
         em = disnake.Embed(
             title = f"{player}'s stats",
             color = 0x0077ff,
-            description = "Your Status and progress in the game"
+            description = "Status and progress in the game"
         )
         em.set_thumbnail(url=player.display_avatar)
         em.add_field(name="▫️┃Health", value=f"{round(health)}")

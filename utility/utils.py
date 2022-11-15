@@ -16,36 +16,6 @@ class ConsoleColors:
     BOLD    = '\033[1m'
     UNDER   = '\033[4m'
 
-
-def in_battle():
-    async def predicate(inter):
-        if str(inter.author.id) in inter.bot.fights:
-            embed = disnake.Embed(
-                title="You have a fight dialogue open",
-                description=f"> [Click here]({inter.bot.fights[str(inter.author.id)].msg.jump_url})",
-                color=disnake.Color.random()
-            )
-            await inter.send(embed=embed)
-            return False
-        return True
-
-    return commands.check(predicate)
-
-
-def in_shop():
-    async def predicate(inter):
-        if str(inter.author.id) in inter.bot.shops:
-            embed = disnake.Embed(
-                title="You have a shop dialogue open",
-                description=f"> [Click here]({inter.bot.shops[str(inter.author.id)].msg.jump_url})",
-                color=disnake.Color.random()
-            )
-            await inter.send(embed=embed)
-            return False
-        return True
-
-    return commands.check(predicate)
-
 async def create_player_info(inter, mem):
     dat = await inter.bot.players.find_one({"_id": mem.id})
     if dat is None:
@@ -61,13 +31,13 @@ async def create_player_info(inter, mem):
 
             "multi_g": 1,
             "multi_xp": 1,
-            "attack": 1,
-            "defence": 1,
+            "attack": 5,
+            "defence": 5,
 
             "exp": 0,
             "gold": 200,
             "armor": "bandage",
-            "inventory": [],
+            "inventory": ["monster candy"],
             "weapon": "stick",
             "location": "ruins",
 
@@ -99,7 +69,7 @@ async def create_player_info(inter, mem):
 
             # crates data
             "standard crate": 1,
-            "determination crate": 0,
+            "determination crate": 1,
             "soul crate": 0,
             "void crate": 0,
             "event crate": 0,

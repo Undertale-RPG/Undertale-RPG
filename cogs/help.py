@@ -48,9 +48,22 @@ class Help(commands.Cog):
     @commands.slash_command(description="Tutorial on how to use the bot")
     @commands.cooldown(1, 12, commands.BucketType.user)
     async def tutorial(self, inter):
-        """A tutorial for the undertale rpg bot."""
+        start = "**This bot is an Undertale Themed RPG!, You can fight monsters from Undertale on discord!**"
+        fight = "Using **/explore** You will find all kind of treasure and monsters in your area!"
+        travel = "Speaking of areas?, You can travel to other places using **/travel** command!, You gotta grind well tho!, On **Level 5**, You will unlock snowdin."
+        shop = "In the **/shop** you can buy armor, weapons, and food to power up and explore even more of the world!"
+        help_ = "You can use the command **/help** to see other commands!"
+        daily = "There are rewards commands, **/daily** & **/supporter**, You can earn based on your level"
+        reset = "There is a command called **/reset**, reach level **70**, and you can get multiplier for EXP and GOLD!!"
+        crates = "You can vote to get crates!, run the command **/vote**, then vote for us, then run the command **/crates** to open your crates"
 
-        await inter.send(content="There is currently no tutorial avaliable", ephemeral=True)
+        em = disnake.Embed(
+            title="Welcome to Undertale RPG!",
+            color=0x0077ff,
+            description=f"{start}\n\n{fight}\n\n{travel}\n\n{shop}\n\n{daily}\n\n{crates}\n\n{reset}\n\n{help_}"
+        )
+        em.set_thumbnail(url=self.bot.user.avatar.url)
+        await inter.send(embed=em)
 
     @commands.slash_command(description="a complete view of the bot's features and commands with useful links.")
     @commands.cooldown(1, 12, commands.BucketType.user)

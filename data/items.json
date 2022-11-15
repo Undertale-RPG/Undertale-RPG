@@ -9,14 +9,14 @@
             "faded_ribbon": {
                 "min_def": 6,
                 "max_def": 9,
-                "price": 700
+                "price": 150
             }
         },
         "weapons": {
             "toy_knife": {
                 "min_dmg": 10,
                 "max_dmg": 14,
-                "price": 1200
+                "price": 300
             },
             "stick": {
                 "min_dmg": 7,
