@@ -1,6 +1,6 @@
 import disnake
 from disnake.ext import commands
-from utility.utils import in_battle, in_shop, create_player_info, ConsoleColors
+from utility.utils import create_player_info, ConsoleColors
 from datetime import datetime
 import random
 from utility import utils

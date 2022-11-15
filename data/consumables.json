@@ -1,182 +1,196 @@
 {
-    "bandage": {
-        "name": "Bandage",
-        "description": "You re-applied the bandage.",
-        "heal": 10,
-        "price": 0
+    "ruins": {
+        "bandage": {
+            "name": "Bandage",
+            "description": "You re-applied the bandage.",
+            "heal": 10,
+            "price": 0
+        },
+        "monster_candy": {
+            "name": "Monster Candy",
+            "description": "You ate the Monster Candy. ... tastes like licorice.",
+            "heal": 10,
+            "price": 0
+        },
+        "spider_donut": {
+            "name": "Spider Donut",
+            "description": "A donut made with Spider Cider in the batter.",
+            "heal": 12,
+            "price": 7
+        },
+        "spider_cider": {
+            "name": "Spider Cider",
+            "description": "Made with whole spiders, not just the juice.",
+            "heal": 24,
+            "price": 18
+        }
     },
-    "monster_candy": {
-        "name": "Monster Candy",
-        "description": "You ate the Monster Candy. ... tastes like licorice.",
-        "heal": 10,
-        "price": 0
+    "snowdin": {
+        "buttterscotch_pie": {
+            "name": "Butterscotch Pie",
+            "description": "Butterscotch-cinnamon pie, one slice.",
+            "heal": 0,
+            "price": 0
+        },
+        "snail_pie": {
+            "name": "Snail Pie",
+            "description": "An acquired taste.",
+            "heal": 0,
+            "price": 0
+        },
+        "snowman_piece": {
+            "name": "Snowman Piece",
+            "description": "Please take this to the ends of the earth.",
+            "heal": 45,
+            "price": 0
+        },
+        "nice_cream": {
+            "name": "Nice Cream",
+            "description": "Instead of a joke, the wrapper says something nice.",
+            "heal": 15,
+            "price": 15
+        }
     },
-    "spider_donut": {
-        "name": "Spider Donut",
-        "description": "A donut made with Spider Cider in the batter.",
-        "heal": 12,
-        "price": 7
+    "waterfall": {
+        "bisicle": {
+            "name": "Bisicle",
+            "description": "It's a two-pronged popsicle, so you can eat it twice.",
+            "heal": 11,
+            "price": 15
+        },
+        "unisicle": {
+            "name": "Unisicle",
+            "description": "It's a SINGLE-pronged popsicle. Wait, that's just normal...",
+            "heal": 11,
+            "price": 0
+        },
+        "cinnamon_bunny": {
+            "name": "Cinnamon Bunny",
+            "description": "A Cinnamon roll in a shape of a bunny.",
+            "heal": 22,
+            "price": 25
+        },
+        "astronaut_food": {
+            "name": "Astronaut Food",
+            "description": "For feeding a pet astronaut.",
+            "heal": 21,
+            "price": 0
+        },
+        "crab_apple": {
+            "name": "Crab Apple",
+            "description": "An aquatic fruit that resembles a crustacean.",
+            "heal": 18,
+            "price": 25
+        }
     },
-    "spider_cider": {
-        "name": "Spider Cider",
-        "description": "Made with whole spiders, not just the juice.",
-        "heal": 24,
-        "price": 18
+    "hotland": {
+        "sea_tea": {
+            "name": "Sea Tea",
+            "description": "Made from glowing marsh water. Increases SPEED for one battle. ",
+            "heal": 10,
+            "price": 18
+        },
+        "sea_salt": {
+            "name": "Sea Salt",
+            "description": "A pinch of salt from the sea. Increases DEFENSE for one battle.",
+            "heal": 10,
+            "price": 18
+        },
+        "abandoned_quiche ": {
+            "name": "Abandoned Quiche",
+            "description": "A psychologically damaged spinach egg pie.",
+            "heal": 34,
+            "price": 0
+        },
+        "temmie_flakes": {
+            "name": "Temmie Flakes",
+            "description": "It's just torn up pieces of colored construction paper.",
+            "heal": 2,
+            "price": 3
+        },
+        "dog_salad": {
+            "name": "Dog Salad",
+            "description": "A salad made of dog food. It's not very good.",
+            "heal": 22,
+            "price": 0
+        }
     },
-    "buttterscotch_pie": {
-        "name": "Butterscotch Pie",
-        "description": "Butterscotch-cinnamon pie, one slice.",
-        "heal": 0,
-        "price": 0
+    "core": {
+        "instant_noodles": {
+            "name:": "Instant Noodles",
+            "description": "Comes with everything you need for a quick meal!",
+            "heal": 11,
+            "price": 0
+        },
+        "hot_dog": {
+            "name": "Hot Dog...?",
+            "description": "The \"meat\" is made of something called a \"water sausage.\"",
+            "heal": 20,
+            "price": 30
+        },
+        "hot_cat": {
+            "name": "Hot Cat",
+            "description": "Like a hot dog, but with little cat ears on the end.",
+            "heal": 21,
+            "price": 30
+        },
+        "junk_food": {
+            "name": "Junk Food",
+            "description": "Food that was probably once thrown away.",
+            "heal": 17,
+            "price": 25
+        }
     },
-    "snail_pie": {
-        "name": "Snail Pie",
-        "description": "An acquired taste.",
-        "heal": 0,
-        "price": 0
+    "barrier": {
+        "hush_puppy": {
+            "name": "Hush Puppy",
+            "description": "This wonderful spell will stop a dog from casting magic. ",
+            "heal": 65,
+            "price": 0
+        },
+        "starfait": {
+            "name": "Starfait",
+            "description": "A sweet treat made of sparkling stars.",
+            "heal": 14,
+            "price": 60
+        },
+        "glamburger": {
+            "name": "Glamburger",
+            "description": "A hamburger made of edible glitter and sequins.",
+            "heal": 27,
+            "price": 120
+        },
+        "legendary_hero": {
+            "name": "Legendary Hero",
+            "description": "Sandwich shaped like a sword. Increases ATTACK when eaten.",
+            "heal": 40,
+            "price": 300
+        }
     },
-    "snowman_piece": {
-        "name": "Snowman Piece",
-        "description": "Please take this to the ends of the earth.",
-        "heal": 45,
-        "price": 0
-    },
-    "nice_cream": {
-        "name": "Nice Cream",
-        "description": "Instead of a joke, the wrapper says something nice.",
-        "heal": 15,
-        "price": 15
-    },
-    "bisicle": {
-        "name": "Bisicle",
-        "description": "It's a two-pronged popsicle, so you can eat it twice.",
-        "heal": 11,
-        "price": 15
-    },
-    "unisicle": {
-        "name": "Unisicle",
-        "description": "It's a SINGLE-pronged popsicle. Wait, that's just normal...",
-        "heal": 11,
-        "price": 0
-    },
-    "cinnamon_bunny": {
-        "name": "Cinnamon Bunny",
-        "description": "A Cinnamon roll in a shape of a bunny.",
-        "heal": 22,
-        "price": 25
-    },
-    "astronaut_food": {
-        "name": "Astronaut Food",
-        "description": "For feeding a pet astronaut.",
-        "heal": 21,
-        "price": 0
-    },
-    "crab_apple": {
-        "name": "Crab Apple",
-        "description": "An aquatic fruit that resembles a crustacean.",
-        "heal": 18,
-        "price": 25
-    },
-    "sea_tea": {
-        "name": "Sea Tea",
-        "description": "Made from glowing marsh water. Increases SPEED for one battle. ",
-        "heal": 10,
-        "price": 18
-    },
-    "sea_salt": {
-        "name": "Sea Salt",
-        "description": "A pinch of salt from the sea. Increases DEFENSE for one battle.",
-        "heal": 10,
-        "price": 18
-    },
-    "abandoned_quiche ": {
-        "name": "Abandoned Quiche",
-        "description": "A psychologically damaged spinach egg pie.",
-        "heal": 34,
-        "price": 0
-    },
-    "temmie_flakes": {
-        "name": "Temmie Flakes",
-        "description": "It's just torn up pieces of colored construction paper.",
-        "heal": 2,
-        "price": 3
-    },
-    "dog_salad": {
-        "name": "Dog Salad",
-        "description": "A salad made of dog food. It's not very good.",
-        "heal": 22,
-        "price": 0
-    },
-    "instant_noodles": {
-        "name:": "Instant Noodles",
-        "description": "Comes with everything you need for a quick meal!",
-        "heal": 11,
-        "price": 0
-    },
-    "hot_dog": {
-        "name": "Hot Dog...?",
-        "description": "The \"meat\" is made of something called a \"water sausage.\"",
-        "heal": 20,
-        "price": 30
-    },
-    "hot_cat": {
-        "name": "Hot Cat",
-        "description": "Like a hot dog, but with little cat ears on the end.",
-        "heal": 21,
-        "price": 30
-    },
-    "junk_food": {
-        "name": "Junk Food",
-        "description": "Food that was probably once thrown away.",
-        "heal": 17,
-        "price": 25
-    },
-    "hush_puppy": {
-        "name": "Hush Puppy",
-        "description": "This wonderful spell will stop a dog from casting magic. ",
-        "heal": 65,
-        "price": 0
-    },
-    "starfait": {
-        "name": "Starfait",
-        "description": "A sweet treat made of sparkling stars.",
-        "heal": 14,
-        "price": 60
-    },
-    "glamburger": {
-        "name": "Glamburger",
-        "description": "A hamburger made of edible glitter and sequins.",
-        "heal": 27,
-        "price": 120
-    },
-    "legendary_hero": {
-        "name": "Legendary Hero",
-        "description": "Sandwich shaped like a sword. Increases ATTACK when eaten.",
-        "heal": 40,
-        "price": 300
-    },
-    "steak_in_the_shape_of_mettatons_face": {
-        "name": "Steak in the Shape of Mettaton's Face",
-        "description": "Huge steak in the shape of Mettaton's face. You don't feel like it's made of real meat...",
-        "heal": 60,
-        "price": 500
-    },
-    "popato_chisps": {
-        "name": "Popato Chisps",
-        "description": "Regular old popato chisps.",
-        "heal": 13,
-        "price": 25
-    },
-    "bad_memory": {
-        "name": "Bad Memory",
-        "description": "?????",
-        "heal": 0,
-        "price": 0
-    },
-    "last_dream": {
-        "name": "Last Dream",
-        "description": "The goal of \"Determination.\"",
-        "heal": 17,
-        "price": 0
+    "last_corridor": {
+        "steak_in_the_shape_of_mettatons_face": {
+            "name": "Steak in the Shape of Mettaton's Face",
+            "description": "Huge steak in the shape of Mettaton's face. You don't feel like it's made of real meat...",
+            "heal": 60,
+            "price": 500
+        },
+        "popato_chisps": {
+            "name": "Popato Chisps",
+            "description": "Regular old popato chisps.",
+            "heal": 13,
+            "price": 25
+        },
+        "bad_memory": {
+            "name": "Bad Memory",
+            "description": "?????",
+            "heal": 0,
+            "price": 0
+        },
+        "last_dream": {
+            "name": "Last Dream",
+            "description": "The goal of \"Determination.\"",
+            "heal": 17,
+            "price": 0
+        }
     }
 }

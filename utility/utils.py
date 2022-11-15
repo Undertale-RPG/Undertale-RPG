@@ -37,7 +37,7 @@ async def create_player_info(inter, mem):
             "exp": 0,
             "gold": 200,
             "armor": "bandage",
-            "inventory": ["monster candy"],
+            "inventory": ["monster_candy"],
             "weapon": "stick",
             "location": "ruins",
 

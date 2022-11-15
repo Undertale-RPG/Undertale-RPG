@@ -1,7 +1,17 @@
+from disnake.ui import Button, View
+from discord import ButtonStyle
 import disnake
 from disnake.ext import commands
 import asyncio
 from utility.dataIO import fileIO
+
+class Loading(disnake.ui.View):
+    def __init__(self):
+        super().__init__()
+
+    @disnake.ui.button(emoji="<a:loading:1033856122345508874>", style=disnake.ButtonStyle.gray, disabled=True)
+    async def loading(self):
+        return
 
 class Cratesbtn(disnake.ui.View):
     def __init__(self):
@@ -33,10 +43,93 @@ class Cratesbtn(disnake.ui.View):
         self.value = "event crate"
         self.stop()
 
+class Shopbtn(disnake.ui.View):
+    def __init__(self) -> None:
+        super().__init__()
+
+    @disnake.ui.button(label="Consumables", emoji="🍎", style=disnake.ButtonStyle.secondary)
+    async def consumables(self, button: disnake.ui.Button, inter: disnake.MessageInteraction):
+        await inter.response.defer()
+        await Consumables(self, inter, button)
+        return
+    
+    @disnake.ui.button(label="Armor", emoji="🔰", style=disnake.ButtonStyle.secondary)
+    async def armor(self, button: disnake.ui.Button, inter: disnake.MessageInteraction):
+        return
+    
+    @disnake.ui.button(label="Weapons", emoji="🪓", style=disnake.ButtonStyle.secondary)
+    async def weapons(self, button: disnake.ui.Button, inter: disnake.MessageInteraction):
+        return
+
+async def Consumables(self, inter, button: disnake.ui.Button):
+    data = await inter.bot.players.find_one({"_id": inter.author.id})
+    location = data["location"]
+    consumables = fileIO("./data/consumables.json", "load")
+
+    em = disnake.Embed(
+        title=f"{location}'s Shop",
+        color=0x0077ff
+    )
+    em.set_thumbnail(url="https://media.discordapp.net/attachments/900274624594575361/1041826617317666906/unknown.png?width=671&height=676")
+
+    items = []
+    for item in consumables[location]:
+        items.append(item)
+        item_name = consumables[location][item]["name"]
+        item_heal = consumables[location][item]["heal"]
+        item_price = consumables[location][item]["price"]
+        em.add_field(name=item_name,value=f"Heal: **{item_heal}**\nPrice: **{item_price}**")
+
+    view = Consbtn(location, items)
+    await inter.edit_original_message(embed=em, view=view)
+
+class Consbtn(disnake.ui.View):
+    def __init__(self, location, list) -> None:
+        super().__init__(timeout=None)
+        async def shared_callback(inter: disnake.MessageInteraction) -> None:
+            print(inter)
+            await inter.response.defer()
+            await ConsBuy(self, inter)
+        consumables = fileIO("./data/consumables.json", "load")
+        for item in list:
+            item_name = consumables[location][item]["name"]
+            button = Button(label=str(item_name), style=disnake.ButtonStyle.gray, custom_id=item)
+            button.callback = shared_callback()
+            self.add_item(button)
+    
+async def ConsBuy(self, inter, item):
+    data = await inter.bot.players.find_one({"_id": inter.author.id})
+    location = data["location"]
+    consumables = fileIO("./data/consumables.json", "load")
+    item_name = consumables[location][item]
+    item_cost = consumables[location][item]["price"]
+    gold = data["gold"]
+    inv = data["inventory"]
+    new_gold = gold - item_cost
+    print(item_cost)
+    print(gold)
+    print(new_gold)
+
+    await inter.edit_original_message("test")
+
 
 class Shop(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
+
+    @commands.slash_command(description="buy new items here!")
+    @commands.cooldown(1, 12, commands.BucketType.user)
+    async def shop(self, inter):
+        data = await inter.bot.players.find_one({"_id": inter.author.id})
+        location = data["location"]
+        view = Shopbtn()
+        em = disnake.Embed(
+            title=f"{location}'s Shop!",
+            color=0x0077ff,
+            description="Choose a category to buy a item from"
+        )
+        em.set_thumbnail(url="https://media.discordapp.net/attachments/900274624594575361/1041826617317666906/unknown.png?width=671&height=676")
+        await inter.send(embed=em, view=view)
 
     @commands.slash_command(description="Open your crates!")
     @commands.cooldown(1, 12, commands.BucketType.user)
@@ -136,6 +229,7 @@ class Shop(commands.Cog):
             color=0x0077ff,
             description=f"{inv}"
         )
+        em.set_thumbnail(url="https://cdn.discordapp.com/attachments/900274624594575361/1034392719675633745/unknown.png")
 
         await inter.send(embed=em)
 
