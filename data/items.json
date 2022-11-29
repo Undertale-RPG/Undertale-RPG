@@ -2,11 +2,13 @@
     "ruins": {
         "armor": {
             "bandage": {
+                "name": "bandage",
                 "min_def": 1,
                 "max_def": 3,
                 "price": 0
             },
             "faded_ribbon": {
+                "name": "faded_ribbon",
                 "min_def": 6,
                 "max_def": 9,
                 "price": 150
@@ -14,11 +16,13 @@
         },
         "weapons": {
             "toy_knife": {
+                "name": "toy_knife",
                 "min_dmg": 10,
                 "max_dmg": 14,
                 "price": 300
             },
             "stick": {
+                "name": "stick",
                 "min_dmg": 7,
                 "max_dmg": 8,
                 "price": 0
@@ -28,6 +32,7 @@
     "snowdin": {
         "armor": {
             "manly_bandanna": {
+                "name": "manly_bandanna",
                 "min_def": 12,
                 "max_def": 16,
                 "price": 1400
@@ -35,6 +40,7 @@
         },
         "weapons": {
             "tough_glove": {
+                "name": "tough_glove",
                 "min_dmg": 16,
                 "max_dmg": 18,
                 "price": 3200
@@ -44,11 +50,13 @@
     "waterfall": {
         "armor": {
             "faded_ribbon": {
+                "name": "faded_ribbon",
                 "min_def": 8,
                 "max_def": 14,
                 "price": 1700
             },
             "old_tutu": {
+                "name": "old_tutu",
                 "min_def": 17,
                 "max_def": 19,
                 "price": 1900
@@ -56,11 +64,13 @@
         },
         "weapons": {
             "torn_notebook": {
+                "name": "torn_notebook",
                 "min_dmg": 22,
                 "max_dmg": 25,
                 "price": 2200
             },
             "ballet_shoes": {
+                "name": "ballet_shoes",
                 "min_dmg": 22,
                 "max_dmg": 26,
                 "price": 4800
@@ -70,11 +80,13 @@
     "hotland": {
         "armor": {
             "stained_apron": {
+                "name": "stained_apron",
                 "min_def": 38,
                 "max_def": 42,
                 "price": 2500
             },
             "cowboy_hat": {
+                "name": "cowboy_hat",
                 "min_def": 43,
                 "max_def": 46,
                 "price": 3400
@@ -82,11 +94,13 @@
         },
         "weapons": {
             "burnt_pan": {
+                "name": "burnt_pan",
                 "min_dmg": 27,
                 "max_dmg": 32,
                 "price": 6600
             },
             "empty_gun": {
+                "name": "empty_gun",
                 "min_dmg": 40,
                 "max_dmg": 45,
                 "price": 8400
@@ -104,11 +118,13 @@
     "last_corridor": {
         "armor": {
             "heart_locked": {
+                "name": "heart_locked",
                 "min_def": 59,
                 "max_def": 62,
                 "price": 7200
             },
             "the_locket": {
+                "name": "the_locket",
                 "min_def": 76,
                 "max_def": 87,
                 "price": 10000
@@ -116,11 +132,13 @@
         },
         "weapons": {
             "worn_dagger": {
+                "name": "worn_dagger",
                 "min_dmg": 40,
                 "max_dmg": 45,
                 "price": 8400
             },
             "real_knife": {
+                "name": "real_knife",
                 "min_dmg": 80,
                 "max_dmg": 99,
                 "price": 20000

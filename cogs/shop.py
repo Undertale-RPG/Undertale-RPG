@@ -4,6 +4,7 @@ import disnake
 from disnake.ext import commands
 import asyncio
 from utility.dataIO import fileIO
+from utility import utils
 
 class Loading(disnake.ui.View):
     def __init__(self):
@@ -55,10 +56,14 @@ class Shopbtn(disnake.ui.View):
     
     @disnake.ui.button(label="Armor", emoji="🔰", style=disnake.ButtonStyle.secondary)
     async def armor(self, button: disnake.ui.Button, inter: disnake.MessageInteraction):
+        await inter.response.defer()
+        await Armor(self, inter, button)
         return
     
     @disnake.ui.button(label="Weapons", emoji="🪓", style=disnake.ButtonStyle.secondary)
     async def weapons(self, button: disnake.ui.Button, inter: disnake.MessageInteraction):
+        await inter.response.defer()
+        await Weapons(self, inter, button)
         return
 
 async def Consumables(self, inter, button: disnake.ui.Button):
@@ -70,7 +75,7 @@ async def Consumables(self, inter, button: disnake.ui.Button):
         title=f"{location}'s Shop",
         color=0x0077ff
     )
-    em.set_thumbnail(url="https://media.discordapp.net/attachments/900274624594575361/1041826617317666906/unknown.png?width=671&height=676")
+    em.set_thumbnail(url="https://cdn.discordapp.com/attachments/900274624594575361/1046934688914210906/unknown.png")
 
     items = []
     for item in consumables[location]:
@@ -84,34 +89,161 @@ async def Consumables(self, inter, button: disnake.ui.Button):
     await inter.edit_original_message(embed=em, view=view)
 
 class Consbtn(disnake.ui.View):
-    def __init__(self, location, list) -> None:
+    def __init__(self, location, items) -> None:
         super().__init__(timeout=None)
         async def shared_callback(inter: disnake.MessageInteraction) -> None:
-            print(inter)
             await inter.response.defer()
             await ConsBuy(self, inter)
         consumables = fileIO("./data/consumables.json", "load")
-        for item in list:
+        for item in items:
             item_name = consumables[location][item]["name"]
             button = Button(label=str(item_name), style=disnake.ButtonStyle.gray, custom_id=item)
-            button.callback = shared_callback()
+            button.callback = shared_callback
             self.add_item(button)
     
-async def ConsBuy(self, inter, item):
+async def ConsBuy(self, inter):
+    item = inter.component.custom_id
     data = await inter.bot.players.find_one({"_id": inter.author.id})
     location = data["location"]
     consumables = fileIO("./data/consumables.json", "load")
-    item_name = consumables[location][item]
+    item_name = consumables[location][item]["name"]
     item_cost = consumables[location][item]["price"]
     gold = data["gold"]
     inv = data["inventory"]
+    new_inv = []
+    new_inv.append(item)
+    for i in inv:
+        new_inv.append(i)
     new_gold = gold - item_cost
-    print(item_cost)
-    print(gold)
-    print(new_gold)
 
-    await inter.edit_original_message("test")
+    info = {"gold": new_gold, "inventory": new_inv}
+    await inter.bot.players.update_one({"_id": inter.author.id}, {"$set": info})
 
+    em = disnake.Embed(
+        description=f"You bought **{item_name}** for **{item_cost}G**\n\nBalance: **{new_gold}G**",
+        color=0x0077ff
+    )
+    await inter.send(embed=em, ephemeral=True)
+
+async def Armor(self, inter, button: disnake.ui.Button):
+    data = await inter.bot.players.find_one({"_id": inter.author.id})
+    location = data["location"]
+    armor = fileIO("./data/items.json", "load")
+
+    em = disnake.Embed(
+        title=f"{location}'s Shop",
+        color=0x0077ff
+    )
+    em.set_thumbnail(url="https://cdn.discordapp.com/attachments/900274624594575361/1046934688914210906/unknown.png")
+
+    items = []
+    for item in armor[location]["armor"]:
+        items.append(item)
+        item_name = armor[location]["armor"][item]["name"]
+        item_min_def = armor[location]["armor"][item]["min_def"]
+        item_max_def = armor[location]["armor"][item]["max_def"]
+        item_price = armor[location]["armor"][item]["price"]
+        em.add_field(name=item_name,value=f"Min deffence: **{item_min_def}**\nMax deffence: **{item_max_def}**\nPrice: **{item_price}**")
+
+    view = Armorbtn(location, items)
+    await inter.edit_original_message(embed=em, view=view)
+
+class Armorbtn(disnake.ui.View):
+    def __init__(self, location, items) -> None:
+        super().__init__(timeout=None)
+        async def shared_callback(inter: disnake.MessageInteraction) -> None:
+            await inter.response.defer()
+            await ArmorBuy(self, inter)
+        itemsfile = fileIO("./data/items.json", "load")
+        for item in items:
+            item_name = itemsfile[location]["armor"][item]["name"]
+            button = Button(label=str(item_name), style=disnake.ButtonStyle.gray, custom_id=item)
+            button.callback = shared_callback
+            self.add_item(button)
+    
+async def ArmorBuy(self, inter):
+    item = inter.component.custom_id
+    data = await inter.bot.players.find_one({"_id": inter.author.id})
+    location = data["location"]
+    items = fileIO("./data/items.json", "load")
+    item_name = items[location]["armor"][item]["name"]
+    item_cost = items[location]["armor"][item]["price"]
+    gold = data["gold"]
+    inv = data["inventory"]
+    new_inv = []
+    new_inv.append(item)
+    for i in inv:
+        new_inv.append(i)
+    new_gold = gold - item_cost
+
+    info = {"gold": new_gold, "inventory": new_inv}
+    await inter.bot.players.update_one({"_id": inter.author.id}, {"$set": info})
+
+    em = disnake.Embed(
+        description=f"You bought **{item_name}** for **{item_cost}G**\n\nBalance: **{new_gold}G**",
+        color=0x0077ff
+    )
+    await inter.send(embed=em, ephemeral=True)
+
+async def Weapons(self, inter, button: disnake.ui.Button):
+    data = await inter.bot.players.find_one({"_id": inter.author.id})
+    location = data["location"]
+    weapons = fileIO("./data/items.json", "load")
+
+    em = disnake.Embed(
+        title=f"{location}'s Shop",
+        color=0x0077ff
+    )
+    em.set_thumbnail(url="https://cdn.discordapp.com/attachments/900274624594575361/1046934688914210906/unknown.png")
+
+    items = []
+    for item in weapons[location]["weapons"]:
+        items.append(item)
+        item_name = weapons[location]["weapons"][item]["name"]
+        item_min_dmg = weapons[location]["weapons"][item]["min_dmg"]
+        item_max_dmg = weapons[location]["weapons"][item]["max_dmg"]
+        item_price = weapons[location]["weapons"][item]["price"]
+        em.add_field(name=item_name,value=f"Min deffence: **{item_min_dmg}**\nMax deffence: **{item_max_dmg}**\nPrice: **{item_price}**")
+
+    view = weaponsbtn(location, items)
+    await inter.edit_original_message(embed=em, view=view)
+
+class weaponsbtn(disnake.ui.View):
+    def __init__(self, location, items) -> None:
+        super().__init__(timeout=None)
+        async def shared_callback(inter: disnake.MessageInteraction) -> None:
+            await inter.response.defer()
+            await weaponsBuy(self, inter)
+        itemsfile = fileIO("./data/items.json", "load")
+        for item in items:
+            item_name = itemsfile[location]["weapons"][item]["name"]
+            button = Button(label=str(item_name), style=disnake.ButtonStyle.gray, custom_id=item)
+            button.callback = shared_callback
+            self.add_item(button)
+    
+async def weaponsBuy(self, inter):
+    item = inter.component.custom_id
+    data = await inter.bot.players.find_one({"_id": inter.author.id})
+    location = data["location"]
+    items = fileIO("./data/items.json", "load")
+    item_name = items[location]["weapons"][item]["name"]
+    item_cost = items[location]["weapons"][item]["price"]
+    gold = data["gold"]
+    inv = data["inventory"]
+    new_inv = []
+    new_inv.append(item)
+    for i in inv:
+        new_inv.append(i)
+    new_gold = gold - item_cost
+
+    info = {"gold": new_gold, "inventory": new_inv}
+    await inter.bot.players.update_one({"_id": inter.author.id}, {"$set": info})
+
+    em = disnake.Embed(
+        description=f"You bought **{item_name}** for **{item_cost}G**\n\nBalance: **{new_gold}G**",
+        color=0x0077ff
+    )
+    await inter.send(embed=em, ephemeral=True)
 
 class Shop(commands.Cog):
     def __init__(self, bot):
@@ -120,6 +252,7 @@ class Shop(commands.Cog):
     @commands.slash_command(description="buy new items here!")
     @commands.cooldown(1, 12, commands.BucketType.user)
     async def shop(self, inter):
+        await utils.create_player_info(inter, inter.author)
         data = await inter.bot.players.find_one({"_id": inter.author.id})
         location = data["location"]
         view = Shopbtn()
@@ -128,12 +261,13 @@ class Shop(commands.Cog):
             color=0x0077ff,
             description="Choose a category to buy a item from"
         )
-        em.set_thumbnail(url="https://media.discordapp.net/attachments/900274624594575361/1041826617317666906/unknown.png?width=671&height=676")
+        em.set_thumbnail(url="https://cdn.discordapp.com/attachments/900274624594575361/1046934688914210906/unknown.png")
         await inter.send(embed=em, view=view)
 
     @commands.slash_command(description="Open your crates!")
     @commands.cooldown(1, 12, commands.BucketType.user)
     async def crates(self, inter):
+        await utils.create_player_info(inter, inter.author)
         data = await inter.bot.players.find_one({"_id": inter.author.id})
         standard = data["standard crate"]
         determin = data["determination crate"]
@@ -217,10 +351,11 @@ class Shop(commands.Cog):
     @commands.slash_command(description="check all items in your inventory")
     @commands.cooldown(1, 12, commands.BucketType.user)
     async def inventory(self, inter):
+        await utils.create_player_info(inter, inter.author)
         data = await inter.bot.players.find_one({"_id": inter.author.id})
         inv = data["inventory"]
-        if len(inv) <= 0:
-            inv = None
+        if len(inv) == None:
+            inv = "None"
         else:
             inv = "".join(f" `{item}` • " for item in inv)
 
@@ -236,7 +371,7 @@ class Shop(commands.Cog):
     @commands.slash_command(description="equip/use items from your inventorys")
     @commands.cooldown(1, 12, commands.BucketType.user)
     async def use(self, inter):
-        return
+        await inter.send("coming soon")
 
 def setup(bot):
     bot.add_cog(Shop(bot))
