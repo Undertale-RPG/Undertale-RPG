@@ -107,7 +107,7 @@ class Economy(commands.Cog):
         em.add_field(name="▫️┃Gold", value=f"{round(gold)}")
         em.add_field(name="▫️┃Weapon", value=f"{weapon}")
         em.add_field(name="▫️┃Armor", value=f"{armor}")
-        em.add_field(name="▫️┃resets", value=f"{round(resets)}")
+        em.add_field(name="▫️┃Resets", value=f"{round(resets)}")
         em.add_field(name="▫️┃Gold Multiplier", value=f"{round(multi_g)}")
         em.add_field(name="▫️┃EXP Multiplier", value=f"{round(multi_xp)}")
 

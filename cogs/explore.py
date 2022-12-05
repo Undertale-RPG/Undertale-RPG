@@ -311,7 +311,7 @@ async def Battle(self, inter, monster: str, user_hp: int, user_atk: int, user_de
         return
 
     em = disnake.Embed(
-        title=f"{monster} damanged you",
+        title=f"{monster} damaged you",
         color=0x0077ff,
         description=f"""
         **{inter.author.name}'s stats**

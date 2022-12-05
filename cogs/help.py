@@ -53,9 +53,9 @@ class Help(commands.Cog):
         travel = "Speaking of areas?, You can travel to other places using **/travel** command!, You gotta grind well tho!, On **Level 5**, You will unlock snowdin."
         shop = "In the **/shop** you can buy armor, weapons, and food to power up and explore even more of the world!"
         help_ = "You can use the command **/help** to see other commands!"
-        daily = "There are rewards commands, **/daily** & **/supporter**, You can earn based on your level"
+        daily = "There are rewards commands such as **/daily** & **/supporter** with which you can earn based on your level."
         reset = "There is a command called **/reset**, reach level **70**, and you can get multiplier for EXP and GOLD!!"
-        crates = "You can vote to get crates!, run the command **/vote**, then vote for us, then run the command **/crates** to open your crates"
+        crates = "You can vote to get crates!, run the command **/vote**, then vote for us, then run the command **/crates** to open your crates."
 
         em = disnake.Embed(
             title="Welcome to Undertale RPG!",
