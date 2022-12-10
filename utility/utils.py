@@ -23,6 +23,7 @@ async def create_player_info(inter, mem):
             # unique idx
             "_id": mem.id,
             "registered_on": int(time.time()),
+            "badges": [],
 
             # statistics
             "level": 1,

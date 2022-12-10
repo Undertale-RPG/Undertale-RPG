@@ -19,6 +19,7 @@ class UndertaleBot(commands.AutoShardedInteractionBot):
         self.BotToken = os.getenv("TOKEN")
         self.invite_url = "https://discord.gg/FQYVpuNz4Q"
         self.vote_url = "https://top.gg/bot/815153881217892372"
+        self.website = "https://undertalerpg.monster/"
         self.patreon_link = "https://www.patreon.com/undertaleRPG"
         self.currency = ":coin:"
         self.activity = disnake.Game("Undertale | /help ")

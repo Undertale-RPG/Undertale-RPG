@@ -44,8 +44,16 @@ class Bot(commands.Cog):
         em.add_field(name="Shard count", value=f"`{len(self.bot.shards)}` shards")
         em.add_field(name="Creators", value="`LetsChill#7299` (founder)\n`yaki#8693` (bot dev)\n`Commander R#9371` (website dev)\n`СᏓᎾυdy#4204` (artist)")
         em.add_field(name="Disclaimer", value="All the designs/names of the pictures, locations, monsters and bosses belong to the official undertale creator: **Toby Fox**")
+        em.set_footer(text="you can find more info on our website")
 
-        await inter.send(inter.author.mention, embed=em)
+        buttons = [
+            Button(
+                style=ButtonStyle.link,
+                label="Website",
+                url=self.bot.website
+            )]
+
+        await inter.send(embed=em, components=buttons)
 
     @commands.slash_command()
     @commands.cooldown(1, 12, commands.BucketType.user)
@@ -61,16 +69,42 @@ class Bot(commands.Cog):
         buttons = [
             Button(
                 style=ButtonStyle.link,
-                label="Click to vote!",
+                label="Top.gg",
                 url=self.bot.vote_url
+        	),
+            Button(
+                style=ButtonStyle.link,
+                label="Univers-list",
+                url="https://universe-list.xyz/bots/815153881217892372"
             ),
             Button(
                 style=ButtonStyle.link,
                 label="Support server",
                 url="https://discord.gg/FQYVpuNz4Q"
-            )
+            ),
         ]
         await inter.send(inter.author.mention, embed=em, components=buttons)
+
+    @commands.slash_command()
+    @commands.cooldown(1, 12, commands.BucketType.user)
+    async def badges(self, inter):
+        em = disnake.Embed(
+            title="Here is a showcase of all the badges you can earn",
+            color=0x0077ff,
+            description="""
+            **__Disclaimer:__ This feature is a work in progress you are not able to earn all these badges at this moment.**
+            
+            <:developer:1051266723208241253> -> creator of the bot
+            <:staff:1051266679356792923> -> staff of the bot
+            <:beta:1051275494601011291> -> public beta tester
+            <:bughunter:1051275974702006352> -> find and report a valid bug
+            <:resets:1051277356813262858> -> reach max resets
+            <:trophy:1051281684894580736> -> get all achievements
+            <:booster:1051256363516436571> -> boosting our support server
+            <:blacklist:1051266962321317908> -> blacklisted user
+            """
+        )
+        await inter.send(embed=em)
 
 def setup(bot):
     bot.add_cog(Bot(bot))
