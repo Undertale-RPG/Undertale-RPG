@@ -28,6 +28,7 @@ class UndertaleBot(commands.AutoShardedInteractionBot):
         self.error_webhook = os.getenv("ERROR_WEBHOOK")
         self.cluster = AsyncIOMotorClient(self.MongoUrl)
         self.players = None
+        self.consumables = None
         self.db = None
         self.boosters = None
 
@@ -49,6 +50,7 @@ class UndertaleBot(commands.AutoShardedInteractionBot):
     def db_load(self):
         self.cluster = AsyncIOMotorClient(self.MongoUrl)
         self.db = self.cluster["database"]
+        self.consumables = self.db["consumables"]
         self.players = self.db["players"]
         self.guilds_db = self.db["guilds"]
         self.boosters = self.db["boosters"]

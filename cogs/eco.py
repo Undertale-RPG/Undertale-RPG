@@ -3,6 +3,7 @@ from xml.etree.ElementTree import tostring
 from disnake.ext import commands
 import disnake
 from utility.utils import create_player_info
+from utility import utils
 import time
 
 class Economy(commands.Cog):
@@ -72,6 +73,7 @@ class Economy(commands.Cog):
     @commands.cooldown(1, 12, commands.BucketType.user)
     async def stats(self, inter, member: disnake.User = None):
         """Check your stats and progress"""
+        await utils.create_player_info(inter, inter.author)
         player = member or inter.author
         if player.bot:
             await inter.send("Nice try!")

@@ -245,6 +245,41 @@ async def weaponsBuy(self, inter):
     )
     await inter.send(embed=em, ephemeral=True)
 
+class Usebtn(disnake.ui.View):
+    def __init__(self, inv) -> None:
+        super().__init__(timeout=None)
+        async def shared_callback(inter: disnake.MessageInteraction) -> None:
+            await inter.response.defer()
+            await UseItem(self, inter)
+        for i in inv:
+            button = Button(label=i, style=disnake.ButtonStyle.gray)
+            button.callback = shared_callback
+            self.add_item(button)
+
+async def UseItem(self, inter):
+    item = inter.component.label
+    print(item)
+    data = await inter.bot.players.find_one({"_id": inter.author.id})
+    consu = await inter.bot.consumables.find_one({"_id": item})
+    health = data["health"]
+    inv = data["inventory"]
+
+    new_health = health + consu["heal"]
+    new_inv = []
+    for i in inv:
+        new_inv.append(i)
+    new_inv.remove(item)
+    print(f"{new_health}\n{new_inv}")
+#
+    info = {"inventory": new_inv, "health": new_health}
+    #await inter.bot.players.update_one({"_id": inter.author.id}, {"$set": info})
+#
+    #em = disnake.Embed(
+    #    description=f"You used **{item}**",
+    #    color=0x0077ff
+    #)
+    #await inter.edit_original_message(embed=em, view=None)
+
 class Shop(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
@@ -371,7 +406,18 @@ class Shop(commands.Cog):
     @commands.slash_command(description="equip/use items from your inventorys")
     @commands.cooldown(1, 12, commands.BucketType.user)
     async def use(self, inter):
-        await inter.send("coming soon")
+        data = await inter.bot.players.find_one({"_id": inter.author.id})
+        inv = data["inventory"]
+
+        view = Usebtn(inv)
+
+        em = disnake.Embed(
+            title="Use a item",
+            color=0x0077ff
+        )
+        em.set_thumbnail(url="https://media.discordapp.net/attachments/900274624594575361/1034392719675633745/unknown.png?width=671&height=676")
+
+        await inter.send(embed=em, view=view)
 
 def setup(bot):
     bot.add_cog(Shop(bot))
