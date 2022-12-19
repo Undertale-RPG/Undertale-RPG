@@ -425,7 +425,7 @@ class Explore(commands.Cog):
         return
 
 
-    @commands.slash_command(description="explore to find monsters, xp, gold and items")
+    @commands.slash_command(description="Explore to find monsters, xp, gold and items.")
     @commands.cooldown(1, 12, commands.BucketType.user)
     async def explore(self, inter):
         """Explore and find all kinds of monsters and treasure!"""

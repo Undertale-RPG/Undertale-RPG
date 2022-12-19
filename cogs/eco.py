@@ -10,7 +10,7 @@ class Economy(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.slash_command(description="Get your supporter reward for being in our support server")
+    @commands.slash_command(description="Get your supporter reward for being in our support server.")
     @commands.cooldown(1, 12, commands.BucketType.user)
     async def supporter(self, inter):
         await utils.create_player_info(inter, inter.author)
@@ -154,7 +154,7 @@ class Economy(commands.Cog):
 
             await inter.send(embed=em)
 
-    @commands.slash_command(description="Claim your daily gold reward")
+    @commands.slash_command(description="Claim your daily gold reward.")
     @commands.cooldown(1, 12, commands.BucketType.user)
     async def daily(self, inter):
         await utils.create_player_info(inter, inter.author)

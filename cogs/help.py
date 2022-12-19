@@ -10,7 +10,7 @@ class Help(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.slash_command(description="Info on any ongoing events")
+    @commands.slash_command(description="Info on any ongoing events.")
     @commands.cooldown(1, 12, commands.BucketType.user)
     async def event(self, inter):
         events = await self.bot.db["events"].find_one({"_id": 0})
@@ -45,7 +45,7 @@ class Help(commands.Cog):
         em.set_thumbnail(url=self.bot.user.avatar.url)
         await inter.send(embed=em)
     
-    @commands.slash_command(description="Tutorial on how to use the bot")
+    @commands.slash_command(description="Tutorial on how to use the bot.")
     @commands.cooldown(1, 12, commands.BucketType.user)
     async def tutorial(self, inter):
         start = "**This bot is an Undertale Themed RPG!, You can fight monsters from Undertale on discord!**"
@@ -65,7 +65,7 @@ class Help(commands.Cog):
         em.set_thumbnail(url=self.bot.user.avatar.url)
         await inter.send(embed=em)
 
-    @commands.slash_command(description="a complete view of the bot's features and commands with useful links.")
+    @commands.slash_command(description="A complete view of the bot's features and commands with useful links.")
     @commands.cooldown(1, 12, commands.BucketType.user)
     async def help(self, inter):
         """Info on how to use the bot and it's commands."""

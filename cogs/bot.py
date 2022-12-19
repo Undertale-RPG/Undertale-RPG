@@ -10,7 +10,7 @@ class Bot(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.slash_command(description="link to the bot invite and support server")
+    @commands.slash_command(description="link to the bot invite and support server.")
     @commands.cooldown(1, 12, commands.BucketType.user)
     async def invite(self, inter):
         em = disnake.Embed(
@@ -23,13 +23,13 @@ class Bot(commands.Cog):
 
         await inter.send(embed=em)
 
-    @commands.slash_command(description="ping, pong")
+    @commands.slash_command(description="View the bots ping.")
     @commands.cooldown(1, 12, commands.BucketType.user)
     async def ping(self, inter):
         """Latency check for stability"""
         await inter.send(f"pong! **{round(self.bot.latency * 1000)}ms**")
 
-    @commands.slash_command(description="Info on the bot")
+    @commands.slash_command(description="Info on the bot.")
     @commands.cooldown(1, 12, commands.BucketType.user)
     async def botinfo(self, inter):
         """Info on the bot"""
@@ -55,7 +55,7 @@ class Bot(commands.Cog):
 
         await inter.send(embed=em, components=buttons)
 
-    @commands.slash_command()
+    @commands.slash_command(description="Vote for our bots and recieve rewards.")
     @commands.cooldown(1, 12, commands.BucketType.user)
     async def vote(self, inter):
         """Vote for the bot for special reward"""
@@ -85,7 +85,7 @@ class Bot(commands.Cog):
         ]
         await inter.send(inter.author.mention, embed=em, components=buttons)
 
-    @commands.slash_command()
+    @commands.slash_command(description="A list of all badges you can earn.")
     @commands.cooldown(1, 12, commands.BucketType.user)
     async def badges(self, inter):
         em = disnake.Embed(

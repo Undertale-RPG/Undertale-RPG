@@ -290,7 +290,7 @@ class Shop(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.slash_command(description="buy new items here!")
+    @commands.slash_command(description="Buy new items here!")
     @commands.cooldown(1, 12, commands.BucketType.user)
     async def shop(self, inter):
         await utils.create_player_info(inter, inter.author)
@@ -317,7 +317,7 @@ class Shop(commands.Cog):
         event = data["event crate"]
         embed = disnake.Embed(
             title="Your crates",
-            description="You can earn crates by exploring, voting, defeating bosses or in events",
+            description="You can earn crates by exploring, voting, defeating bosses or in events.",
             color=0x0077ff,
         )
         embed.set_thumbnail(url="https://media.discordapp.net/attachments/900274624594575361/1024789274840813568/Untitled379_202209282004321.png")
@@ -389,7 +389,7 @@ class Shop(commands.Cog):
                 embed=em
             )
 
-    @commands.slash_command(description="check all items in your inventory")
+    @commands.slash_command(description="Check all items in your inventory.")
     @commands.cooldown(1, 12, commands.BucketType.user)
     async def inventory(self, inter):
         await utils.create_player_info(inter, inter.author)
@@ -409,7 +409,7 @@ class Shop(commands.Cog):
 
         await inter.send(embed=em)
 
-    @commands.slash_command(description="equip/use items from your inventorys")
+    @commands.slash_command(description="Equip/use items from your inventorys.")
     @commands.cooldown(1, 12, commands.BucketType.user)
     async def use(self, inter):
         await utils.create_player_info(inter, inter.author)
