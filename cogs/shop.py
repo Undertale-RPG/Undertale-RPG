@@ -1,5 +1,4 @@
 from disnake.ui import Button, View
-from discord import ButtonStyle
 import disnake
 from disnake.ext import commands
 import asyncio
@@ -240,7 +239,7 @@ async def weaponsBuy(self, inter):
 
     if item_cost > gold:
         return await inter.send("You do not have enough gold for that!")
-        
+
     inv = data["inventory"]
     new_inv = []
     new_inv.append(item)
