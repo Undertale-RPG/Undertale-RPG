@@ -89,7 +89,7 @@ class Help(commands.Cog):
 
         em.add_field(
             name="> Useful links", 
-            value="[Website](https://undertalerpg.monster/) • [Support](https://discord.gg/FQYVpuNz4Q) • [Patreon](https://www.patreon.com/UndertaleRPG) • [Vote](https://top.gg/bot/815153881217892372)", inline=False
+            value="[Website](https://undertalerpg.monster/) • [Support](https://discord.gg/FQYVpuNz4Q) • [Vote](https://top.gg/bot/815153881217892372)", inline=False
             )
 
         buttons = [
@@ -101,7 +101,7 @@ class Help(commands.Cog):
             Button(
                 style = ButtonStyle.link,
                 label = "Support",
-                url = "https://www.patreon.com/UndertaleRPG"
+                url = "https://discord.gg/FQYVpuNz4Q"
             )
         ]
 
