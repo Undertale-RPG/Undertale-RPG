@@ -234,7 +234,7 @@ class Explorebtn(disnake.ui.View):
         em = disnake.Embed(
             title="Mercy",
             color=0x0077ff,
-            description=f"You tried to spare {monster}"
+            description=f"You tried to spare {monster}."
         )
         em.set_thumbnail(url="https://cdn.discordapp.com/attachments/900274624594575361/1032089003912089770/3abaf892f9a10b66e7341589a9b6d210.jpg")
         await inter.edit_original_message(embed=em, view=loading)
@@ -424,7 +424,6 @@ class Explore(commands.Cog):
         print(f"{ConsoleColors.YELLOW}{inter.author} has entered a fight{ConsoleColors.ENDC}")
         return
 
-
     @commands.slash_command(description="Explore to find monsters, xp, gold and items.")
     @commands.cooldown(1, 12, commands.BucketType.user)
     async def explore(self, inter):
@@ -502,7 +501,7 @@ class Explore(commands.Cog):
         data = await self.bot.players.find_one({"_id": inter.author.id})
 
         if data["level"] < 70:
-            await inter.send("You can not reset just yet. You will need to be **LOVE 70**")
+            await inter.send("You can not reset just yet. You will need to be **LOVE 70**.")
             return
         if data["resets"] >= 10:
             await inter.send("You are already at the max amount of resets!")
@@ -591,7 +590,7 @@ class Explore(commands.Cog):
 
             if locations[view.value]["level"] > lvl:
                 return await inter.edit_original_message(
-                    content=f"You are to low of a level to travel here!",
+                    content=f"Your level is too low to travel there!",
                     embed=None,
                     components=[]
                 )

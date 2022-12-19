@@ -97,7 +97,7 @@ class Economy(commands.Cog):
         em = disnake.Embed(
             title = f"{player}'s stats",
             color = 0x0077ff,
-            description = "Status and progress in the game"
+            description = "Status and progress in the game."
         )
         em.set_thumbnail(url=player.display_avatar)
         em.add_field(name="▫️┃Health", value=f"{round(health)}")

@@ -300,7 +300,7 @@ class Shop(commands.Cog):
         em = disnake.Embed(
             title=f"{location}'s Shop!",
             color=0x0077ff,
-            description="Choose a category to buy a item from"
+            description="Choose a category to buy a item from."
         )
         em.set_thumbnail(url="https://cdn.discordapp.com/attachments/900274624594575361/1046934688914210906/unknown.png")
         await inter.send(embed=em, view=view)
