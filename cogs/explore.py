@@ -110,7 +110,7 @@ class Bossbtn(disnake.ui.View):
         gold_min = monsters[location][monster]["gold_min"]
         gold_max = monsters[location][monster]["gold_max"]
 
-        await Battle(self, inter, monster, user_hp, user_atk, user_def, enemy_title, enemy_hp, enemy_atk, enemy_def, gold_min, gold_max)
+        await BossBattle(self, inter, monster, user_hp, user_atk, user_def, enemy_title, enemy_hp, enemy_atk, enemy_def, gold_min, gold_max)
         return
 
     @disnake.ui.button(label="Use", style=disnake.ButtonStyle.gray, disabled=True)
@@ -124,7 +124,7 @@ class Bossbtn(disnake.ui.View):
         loading = Loading()
 
         location = data["location"]
-        monsters = fileIO("./data/monsters.json", "load")
+        monsters = fileIO("./data/bosses.json", "load")
         monster = data["fight_monster"]
         #player stats
         location = data["location"]
@@ -267,6 +267,91 @@ class Explorebtn(disnake.ui.View):
             print(f"{ConsoleColors.LRED}{inter.author} has stopped a fight(spared){ConsoleColors.ENDC}")
             return
 
+async def BossBattle(self, inter, monster: str, user_hp: int, user_atk: int, user_def: int, enemy_title: str, enemy_hp: int, enemy_atk: int, enemy_def: int, gold_min: int, gold_max: int):
+    view = Explorebtn()
+    loading = Loading()
+    data = await inter.bot.players.find_one({"_id": inter.author.id})
+
+    new_user_hp = user_hp - enemy_atk
+    new_enemy_hp = enemy_hp - user_atk
+
+    em = disnake.Embed(
+        title=f"You damaged {monster}",
+        color=0x0077ff,
+        description=f"""
+        **{monster}'s stats**
+        **HP:** {new_enemy_hp}
+        **Attack:** {enemy_atk}
+        **Defence:** {enemy_def}
+        """
+    )
+    em.set_thumbnail(url="https://cdn.discordapp.com/attachments/900274624594575361/1032250561610907650/download.png")
+    await inter.edit_original_message(embed=em, view=loading)
+    await asyncio.sleep(5)
+
+    if new_enemy_hp <= 0:
+        location = data["location"]
+        monsters = fileIO("./data/bosses.json", "load")
+        exp = monsters[location][monster]["exp"]
+        gold = random.randint(gold_min, gold_max)
+        em = disnake.Embed(
+            title=f"{monster} died!",
+            color=0x0077ff,
+            description=f"You got **{exp}**EXP, **{gold}**G and **1** soul crate!"
+        )
+        await inter.edit_original_message(embed=em, view=None)
+        new_gold = data["gold"] + gold
+        new_exp = data["exp"] + exp
+        new_soul_crate = data["soul crate"] + 1
+        kills = data["kills"] + 1
+        info = {f"{location}_boss": True, "soul crate": new_soul_crate, "in_fight": False, "kills": kills, "exp": new_exp, "gold": new_gold, "health": user_hp, "fight_monster": "", "fight_hp": 0, "fight_atk": 0, "fight_def": 0}
+        await inter.bot.players.update_one({"_id": inter.author.id}, {"$set": info})
+        print(f"{ConsoleColors.LRED}{inter.author} has stopped a fight(won){ConsoleColors.ENDC}")
+
+        await levelup_check(self, inter)
+        return
+
+    em = disnake.Embed(
+        title=f"{monster} damaged you",
+        color=0x0077ff,
+        description=f"""
+        **{inter.author.name}'s stats**
+        **HP:** {new_user_hp}
+        **Attack:** {user_atk}
+        **Defence:** {user_atk}
+        """
+    )
+    em.set_thumbnail(url="https://cdn.discordapp.com/attachments/900274624594575361/1032250561610907650/download.png")
+    await inter.edit_original_message(embed=em)
+    await asyncio.sleep(5)
+
+    if new_user_hp <= 0:
+        location = data["location"]
+        monsters = fileIO("./data/bosses.json", "load")
+        em = disnake.Embed(
+            title="You died!",
+            color=0x0077ff,
+            description=f"You lost **{gold_min}**G"
+        )
+        await inter.edit_original_message(embed=em, view=None)
+        new_gold = data["gold"] - gold_min
+        deaths = data["deaths"] + 1
+        info = {"in_fight": False, "deaths": deaths, "gold": new_gold, "health": 20, "fight_monster": "", "fight_hp": 0, "fight_atk": 0, "fight_def": 0}
+        await inter.bot.players.update_one({"_id": inter.author.id}, {"$set": info})
+        print(f"{ConsoleColors.LRED}{inter.author} has stopped a fight(died){ConsoleColors.ENDC}")
+        return
+
+    em = disnake.Embed(
+        title=enemy_title,
+        color=0x0077ff
+    )
+    em.set_thumbnail(url=inter.author.avatar)
+    em.add_field(name=f"{monster}'s stats", value=f"**HP:** {new_enemy_hp}\n**Attack:** {enemy_atk}\n**Defence:** {enemy_def}")
+    em.add_field(name=f"{inter.author.name}'s stats", value=f"**HP:** {new_user_hp}\n**Attack:** {user_atk}\n**Defence:** {user_def}")
+    await inter.edit_original_message(embed=em, view=view)
+    info = {"health": new_user_hp, "fight_hp": new_enemy_hp, "fight_atk": enemy_atk, "fight_def": enemy_def}
+    await inter.bot.players.update_one({"_id": inter.author.id}, {"$set": info})
+
 async def Battle(self, inter, monster: str, user_hp: int, user_atk: int, user_def: int, enemy_title: str, enemy_hp: int, enemy_atk: int, enemy_def: int, gold_min: int, gold_max: int):
     view = Explorebtn()
     loading = Loading()
@@ -385,15 +470,14 @@ class Explore(commands.Cog):
         await utils.create_player_info(inter, inter.author)
         data = await inter.bot.players.find_one({"_id": inter.author.id})
         location = data["location"]
+        if data[f"{location}_boss"] == True:
+            return await inter.send("You already killed the boss of this location.")
         monsters = fileIO("./data/bosses.json", "load")
 
         random_monster = []
 
         for i in monsters[location]:
             random_monster.append(i)
-
-        if len(random_monster) == 0:
-            return await inter.send(f"There are no monsters here?, You are for sure inside a /boss area only!")
 
         monster = random.choice(random_monster)
         #player stats
