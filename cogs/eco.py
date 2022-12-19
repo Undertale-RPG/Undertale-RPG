@@ -65,7 +65,7 @@ class Economy(commands.Cog):
         em = disnake.Embed(
             title="Balance",
             color=0x0077ff,
-            description=f"{player.name}'s balance\n**{gold}G**"
+            description=f"{player.name}'s balance\n**{round(gold)}G**"
         )
         await inter.send(embed=em)
 

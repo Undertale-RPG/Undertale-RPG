@@ -620,7 +620,7 @@ class Explore(commands.Cog):
 
     @commands.slash_command(description="View the top 10 players on specific stats.")
     @commands.cooldown(1, 12, commands.BucketType.user)
-    async def leaderboard(self, inter, lb: str = None):
+    async def leaderboard(self, inter, lb:str = None):
         await inter.response.defer()
         if lb not in ["gold", "exp", "resets", "kills", "spares", "deaths"] or None:
             em = disnake.Embed(

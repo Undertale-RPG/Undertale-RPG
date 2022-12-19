@@ -109,6 +109,10 @@ async def ConsBuy(self, inter):
     item_name = consumables[location][item]["name"]
     item_cost = consumables[location][item]["price"]
     gold = data["gold"]
+
+    if item_cost > gold:
+        return await inter.send("You do not have enough gold for that!")
+
     inv = data["inventory"]
     new_inv = []
     new_inv.append(item)
@@ -169,6 +173,10 @@ async def ArmorBuy(self, inter):
     item_name = items[location]["armor"][item]["name"]
     item_cost = items[location]["armor"][item]["price"]
     gold = data["gold"]
+
+    if item_cost > gold:
+        return await inter.send("You do not have enough gold for that!")
+
     inv = data["inventory"]
     new_inv = []
     new_inv.append(item)
@@ -229,6 +237,10 @@ async def weaponsBuy(self, inter):
     item_name = items[location]["weapons"][item]["name"]
     item_cost = items[location]["weapons"][item]["price"]
     gold = data["gold"]
+
+    if item_cost > gold:
+        return await inter.send("You do not have enough gold for that!")
+        
     inv = data["inventory"]
     new_inv = []
     new_inv.append(item)
