@@ -86,7 +86,7 @@
     "hotland": {
         "sea_tea": {
             "name": "Sea Tea",
-            "description": "Made from glowing marsh water. Increases SPEED for one battle. ",
+            "description": "Made from glowing marsh water. Increases SPEED for one battle.",
             "heal": 10,
             "price": 18
         },
@@ -96,7 +96,7 @@
             "heal": 10,
             "price": 18
         },
-        "abandoned_quiche ": {
+        "abandoned_quiche": {
             "name": "Abandoned Quiche",
             "description": "A psychologically damaged spinach egg pie.",
             "heal": 34,
@@ -144,7 +144,7 @@
     "barrier": {
         "hush_puppy": {
             "name": "Hush Puppy",
-            "description": "This wonderful spell will stop a dog from casting magic. ",
+            "description": "This wonderful spell will stop a dog from casting magic.",
             "heal": 65,
             "price": 0
         },
@@ -162,7 +162,7 @@
         },
         "legendary_hero": {
             "name": "Legendary Hero",
-            "description": "Sandwich shaped like a sword. Increases ATTACK when eaten.",
+            "description": "Sandwich shaped like a sword.",
             "heal": 40,
             "price": 300
         }
