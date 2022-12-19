@@ -382,6 +382,7 @@ class Explore(commands.Cog):
     @commands.slash_command(description="Fight bosses!")
     @commands.cooldown(1, 12, commands.BucketType.user)
     async def boss(self, inter):
+        await utils.create_player_info(inter, inter.author)
         data = await inter.bot.players.find_one({"_id": inter.author.id})
         location = data["location"]
         monsters = fileIO("./data/bosses.json", "load")
@@ -497,6 +498,7 @@ class Explore(commands.Cog):
     @commands.slash_command(description="Reset your stats for multipliers of gold and exp.")
     @commands.cooldown(1, 12, commands.BucketType.user)
     async def reset(self, inter):
+        await utils.create_player_info(inter, inter.author)
         data = await self.bot.players.find_one({"_id": inter.author.id})
 
         if data["level"] < 70:
@@ -549,6 +551,7 @@ class Explore(commands.Cog):
     @commands.slash_command(description="Travel within the world of undertale and fight unique enemies.")
     @commands.cooldown(1, 12, commands.BucketType.user)
     async def travel(self, inter):
+        await utils.create_player_info(inter, inter.author)
         data = await self.bot.players.find_one({"_id": inter.author.id})
 
         curr_location = data["location"]

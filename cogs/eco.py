@@ -13,6 +13,7 @@ class Economy(commands.Cog):
     @commands.slash_command(description="Get your supporter reward for being in our support server")
     @commands.cooldown(1, 12, commands.BucketType.user)
     async def supporter(self, inter):
+        await utils.create_player_info(inter, inter.author)
         if inter.guild.id != 992432202002468895:
             return await inter.send(
                 "this command is exclusive for our support server, you can join via \n\n https://discord.gg/FQYVpuNz4Q"
@@ -53,6 +54,7 @@ class Economy(commands.Cog):
     @commands.slash_command(description="Check your balance or other people's ones.")
     @commands.cooldown(1, 12, commands.BucketType.user)
     async def gold(self, inter, member: disnake.User = None):
+        await utils.create_player_info(inter, inter.author)
         player = member or inter.author
         if player.bot:
             await inter.send("Nice try!")
@@ -67,8 +69,6 @@ class Economy(commands.Cog):
         )
         await inter.send(embed=em)
 
-        
-    
     @commands.slash_command(description="Check your Statistics or other people's ones.")
     @commands.cooldown(1, 12, commands.BucketType.user)
     async def stats(self, inter, member: disnake.User = None):
@@ -119,6 +119,7 @@ class Economy(commands.Cog):
     @commands.cooldown(1, 12, commands.BucketType.user)
     async def booster(self, inter):
         """Claim Your daily booster Reward!"""
+        await utils.create_player_info(inter, inter.author)
         author = inter.author
         data = await self.bot.players.find_one({"_id": author.id})
         boosters = await self.bot.db["boosters"].find_one({"_id": 0})
@@ -156,6 +157,7 @@ class Economy(commands.Cog):
     @commands.slash_command(description="Claim your daily gold reward")
     @commands.cooldown(1, 12, commands.BucketType.user)
     async def daily(self, inter):
+        await utils.create_player_info(inter, inter.author)
         data = await self.bot.players.find_one({"_id": inter.author.id})
 
         new_gold = 500 * data["multi_g"]

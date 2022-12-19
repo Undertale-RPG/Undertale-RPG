@@ -261,24 +261,30 @@ async def UseItem(self, inter):
     print(item)
     data = await inter.bot.players.find_one({"_id": inter.author.id})
     consu = await inter.bot.consumables.find_one({"_id": item})
-    health = data["health"]
-    inv = data["inventory"]
+    if consu == None:
+        return
+    else:
+        health = data["health"]
+        inv = data["inventory"]
+        lvl = data["level"]
+        max_health = lvl * 2 / 0.5 + 20
 
-    new_health = health + consu["heal"]
-    new_inv = []
-    for i in inv:
-        new_inv.append(i)
-    new_inv.remove(item)
-    print(f"{new_health}\n{new_inv}")
-#
-    info = {"inventory": new_inv, "health": new_health}
-    #await inter.bot.players.update_one({"_id": inter.author.id}, {"$set": info})
-#
-    #em = disnake.Embed(
-    #    description=f"You used **{item}**",
-    #    color=0x0077ff
-    #)
-    #await inter.edit_original_message(embed=em, view=None)
+        new_health = health + consu["heal"]
+        if new_health >= max_health:
+            new_health = max_health
+        new_inv = []
+        for i in inv:
+            new_inv.append(i)
+        new_inv.remove(item)
+        print(f"{new_health}\n{new_inv}")
+        info = {"inventory": new_inv, "health": new_health}
+        await inter.bot.players.update_one({"_id": inter.author.id}, {"$set": info})
+
+        em = disnake.Embed(
+            description=f"You used **{item}**",
+            color=0x0077ff
+        )
+        await inter.send(embed=em)
 
 class Shop(commands.Cog):
     def __init__(self, bot):
@@ -406,6 +412,7 @@ class Shop(commands.Cog):
     @commands.slash_command(description="equip/use items from your inventorys")
     @commands.cooldown(1, 12, commands.BucketType.user)
     async def use(self, inter):
+        await utils.create_player_info(inter, inter.author)
         data = await inter.bot.players.find_one({"_id": inter.author.id})
         inv = data["inventory"]
 
