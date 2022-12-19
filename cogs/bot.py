@@ -18,7 +18,7 @@ class Bot(commands.Cog):
             title="Wanna add me to your server huh?, click the link below!"
         )
         em.set_thumbnail(url=self.bot.user.avatar.url)
-        em.add_field(name="Bot invite", value="[Click here](https://discord.com/api/oauth2/authorize?client_id=815153881217892372&permissions=412421053760&scope=bot%20applications.commands)")
+        em.add_field(name="Bot invite", value="[Click here](https://discord.com/api/oauth2/authorize?client_id=748868577150369852&permissions=415001603136&scope=bot%20applications.commands)")
         em.add_field(name="Support server", value="[Click here](https://discord.gg/FQYVpuNz4Q)")
 
         await inter.send(embed=em)
@@ -42,7 +42,7 @@ class Bot(commands.Cog):
         em.add_field(name="Guild count", value=f"`{len(self.bot.guilds)}` Guilds")
         em.add_field(name="Latency", value=f"`{round(self.bot.latency * 1000)}`ms")
         em.add_field(name="Shard count", value=f"`{len(self.bot.shards)}` shards")
-        em.add_field(name="Creators", value="`LetsChill#7299` (founder)\n`yaki#8693` (bot dev)\n`Commander R#9371` (website dev)\n`СᏓᎾυdy#4204` (artist)")
+        em.add_field(name="Creators", value="`LetsChill#0001` (founder)\n`yaki#8693` (bot dev)\n`Commander R#9371` (website dev)\n`СᏓᎾυdy#4204` (artist)")
         em.add_field(name="Disclaimer", value="All the designs/names of the pictures, locations, monsters and bosses belong to the official undertale creator: **Toby Fox**")
         em.set_footer(text="you can find more info on our website")
 

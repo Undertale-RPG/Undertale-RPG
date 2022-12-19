@@ -512,7 +512,7 @@ class Explore(commands.Cog):
 
         embed = disnake.Embed(
             title="Reseting your world.",
-            description=("Are you sure you want to proceed\nYour progress will vanish, but you will gain multipliers"
+            description=("Are you sure you want to proceed?\nYour progress will vanish, but you will gain multipliers "
                          "for gold and xp.\n\n"
                          f"Your gold multiplier will be **{gold}x**"
                          f"\nYour XP multiplier will be **{xp}x**"
@@ -536,10 +536,10 @@ class Explore(commands.Cog):
             new_data["resets"] = data["resets"] + 1
             new_data["multi_g"] = data["multi_g"] + 0.4
             new_data["multi_xp"] = data["multi_xp"] + 0.2
-            new_data["tokens"] = data["tokens"]
             new_data["kills"] = data["kills"]
             new_data["deaths"] = data["deaths"]
             new_data["registered_on"] = data["registered_on"]
+            new_data["badges"] = data["badges"]
             await self.bot.players.update_one(
                 {"_id": inter.author.id}, {"$set": new_data}
             )
