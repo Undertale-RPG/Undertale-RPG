@@ -1,0 +1,28 @@
+
+name: "\U0001F4DD Feature Request"
+description: "Request a feature to be added/changed in our bot"
+title: "Feature Request: (fill in)"
+body:
+- type: markdown
+  attributes:
+    value: "## Welcome!"
+- type: input
+  attributes:
+    label: What feature would you like to see added/changed?
+  validations:
+    required: true
+- type: textarea
+  attributes:
+    label: Detailed description of your feature request?
+  validations:
+    required: true
+- type: checkboxes
+  attributes:
+    label: terms & Privicy
+    options:
+      - label: by checking this box you agree to our [Terms of Service](https://undertalerpg.monster/terms) and [Privicy Policy](https://undertalerpg.monster/privacy)
+        required: true
+- type: textarea
+  attributes:
+    label: Additional comments
+    description: Is there anything else that's important for the team to know?
