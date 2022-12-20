@@ -1,0 +1,27 @@
+name: "\U0001F41E Bug Report"
+description: "Report any bugs you may find in our bot"
+title: "Bug Report: (fill in)"
+body:
+- type: markdown
+  attributes:
+    value: "## Welcome!"
+- type: input
+  attributes:
+    label: What Feature do you want to report a bug for?
+  validations:
+    required: true
+- type: textarea
+  attributes:
+    label: Detailed description of the bug you wish to report?
+  validations:
+    required: true
+- type: checkboxes
+  attributes:
+    label: terms & Privicy
+    options:
+      - label: by checking this box you agree to our [Terms of Service](https://undertalerpg.monster/terms) and [Privicy Policy](https://undertalerpg.monster/privacy)
+        required: true
+- type: textarea
+  attributes:
+    label: Additional comments
+    description: Is there anything else that's important for the team to know?
