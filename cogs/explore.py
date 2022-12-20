@@ -5,7 +5,6 @@ from datetime import datetime
 import random
 from utility import utils
 from utility.dataIO import fileIO
-import time
 import humanize
 import asyncio
 from disnake.ext import commands
@@ -624,6 +623,7 @@ class Explore(commands.Cog):
             new_data["deaths"] = data["deaths"]
             new_data["registered_on"] = data["registered_on"]
             new_data["badges"] = data["badges"]
+            new_data["void crate"] = data["void crate"] + 1
             await self.bot.players.update_one(
                 {"_id": inter.author.id}, {"$set": new_data}
             )

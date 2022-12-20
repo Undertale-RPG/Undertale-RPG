@@ -4,7 +4,6 @@ __pycache__/
 *$py.class
 
 #bot files
-webhook.py
 test.py
 
 # C extensions
