@@ -1,6 +1,3 @@
-from cProfile import label
-from os import link
-from tkinter.ttk import Style
 import disnake 
 from disnake.ext import commands
 from disnake.enums import ButtonStyle
