@@ -29,6 +29,7 @@ class UndertaleBot(commands.AutoShardedInteractionBot):
         self.cluster = AsyncIOMotorClient(self.MongoUrl)
         self.players = None
         self.consumables = None
+        self.armor = None
         self.db = None
         self.boosters = None
 
@@ -51,6 +52,7 @@ class UndertaleBot(commands.AutoShardedInteractionBot):
         self.cluster = AsyncIOMotorClient(self.MongoUrl)
         self.db = self.cluster["database"]
         self.consumables = self.db["consumables"]
+        self.armor = self.db["armor"]
         self.players = self.db["players"]
         self.guilds_db = self.db["guilds"]
         self.boosters = self.db["boosters"]
