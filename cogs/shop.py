@@ -273,7 +273,22 @@ async def UseItem(self, inter):
     data = await inter.bot.players.find_one({"_id": inter.author.id})
     consu = await inter.bot.consumables.find_one({"_id": item})
     if consu == None:
-        return
+        armors = await inter.bot.armor.find_one({"_id": item})
+        if armors == None:
+            return
+        else: 
+            armor = data["armor"]
+            inv = data["inventory"]
+
+
+            new_inv = []
+            for i in inv:
+                new_inv.append(i)
+            new_inv.remove(item)
+            new_inv.append(armor)
+            new_armor = item
+            info = {"inventory": new_inv, "armor": new_armor}
+            await inter.bot.players.update_one({"_id": inter.author.id}, {"$set": info})
     else:
         health = data["health"]
         inv = data["inventory"]
@@ -287,7 +302,6 @@ async def UseItem(self, inter):
         for i in inv:
             new_inv.append(i)
         new_inv.remove(item)
-        print(f"{new_health}\n{new_inv}")
         info = {"inventory": new_inv, "health": new_health}
         await inter.bot.players.update_one({"_id": inter.author.id}, {"$set": info})
 
