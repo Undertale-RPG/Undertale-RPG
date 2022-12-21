@@ -49,12 +49,6 @@
     },
     "waterfall": {
         "armor": {
-            "faded_ribbon": {
-                "name": "faded_ribbon",
-                "min_def": 8,
-                "max_def": 14,
-                "price": 1700
-            },
             "old_tutu": {
                 "name": "old_tutu",
                 "min_def": 17,
