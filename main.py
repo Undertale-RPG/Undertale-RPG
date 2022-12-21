@@ -30,6 +30,7 @@ class UndertaleBot(commands.AutoShardedInteractionBot):
         self.players = None
         self.consumables = None
         self.armor = None
+        self.weapons = None
         self.db = None
         self.boosters = None
 
@@ -53,6 +54,7 @@ class UndertaleBot(commands.AutoShardedInteractionBot):
         self.db = self.cluster["database"]
         self.consumables = self.db["consumables"]
         self.armor = self.db["armor"]
+        self.weapons =self.db["weapons"]
         self.players = self.db["players"]
         self.guilds_db = self.db["guilds"]
         self.boosters = self.db["boosters"]

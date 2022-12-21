@@ -275,7 +275,24 @@ async def UseItem(self, inter):
     if consu == None:
         armors = await inter.bot.armor.find_one({"_id": item})
         if armors == None:
-            return
+            weapon = data["weapon"]
+            inv = data["inventory"]
+
+
+            new_inv = []
+            for i in inv:
+                new_inv.append(i)
+            new_inv.remove(item)
+            new_inv.append(weapon)
+            new_weapon = item
+            info = {"inventory": new_inv, "weapon": new_weapon}
+            await inter.bot.players.update_one({"_id": inter.author.id}, {"$set": info})
+
+            em = disnake.Embed(
+                description=f"You equiped {item}",
+                color=0x0077ff
+            )
+            await inter.send(embed=em)
         else: 
             armor = data["armor"]
             inv = data["inventory"]
@@ -289,6 +306,12 @@ async def UseItem(self, inter):
             new_armor = item
             info = {"inventory": new_inv, "armor": new_armor}
             await inter.bot.players.update_one({"_id": inter.author.id}, {"$set": info})
+
+            em = disnake.Embed(
+                description=f"You equiped {item}",
+                color=0x0077ff
+            )
+            await inter.send(embed=em)
     else:
         health = data["health"]
         inv = data["inventory"]
