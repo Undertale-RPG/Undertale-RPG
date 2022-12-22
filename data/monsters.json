@@ -1,21 +1,21 @@
 {
     "ruins": {
         "froggit": {
-            "hp": 20,
-            "attack": 4,
-            "defence": 1,
+            "hp": 25,
+            "attack": 7,
+            "defence": 0,
             "gold_min": 7,
             "gold_max": 14,
-            "exp": 3,
+            "exp": 20,
             "title": "Froggit hopped in."
         },
         "loox": {
             "hp": 50,
-            "attack": 5,
-            "defence": 4,
-            "gold_min": 10,
-            "gold_max": 40,
-            "exp": 7,
+            "attack": 11,
+            "defence": 0,
+            "gold_min": 15,
+            "gold_max": 45,
+            "exp": 50,
             "title": "Loox decided to bully you."
         },
         "whimsun": {
@@ -24,25 +24,25 @@
             "defence": 0,
             "gold_min": 1,
             "gold_max": 10,
-            "exp": 2,
+            "exp": 10,
             "title": "Whimsun is afraid of you."
         },
         "vegetoid": {
-            "hp": 72,
-            "attack": 5,
+            "hp": 73,
+            "attack": 15,
             "defence": 0,
-            "gold_min": 40,
-            "gold_max": 70,
-            "exp": 6,
+            "gold_min": 30,
+            "gold_max": 60,
+            "exp": 30,
             "title": "Vegetoid encourages healthy eating."
         },
         "migosp": {
             "hp": 40,
-            "attack": 5,
-            "defence": 4,
+            "attack": 8,
+            "defence": 0,
             "gold_min": 15,
             "gold_max": 17,
-            "exp": 5,
+            "exp": 15,
             "title": "Migosp has appeared"
         }
     },

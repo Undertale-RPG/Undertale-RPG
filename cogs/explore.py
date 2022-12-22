@@ -440,9 +440,13 @@ async def levelup_check(self, inter):
     author = inter.author
     exp = data["exp"]
     level = data["level"]
+    attack = data["attack"]
+    defence = data["defence"]
     exp_lvl_up = level * 100 / 0.4
 
     if exp >= exp_lvl_up:
+        new_attack = attack + 2
+        new_defence = defence + 2
         new_lvl = level + 1
         new_exp = exp - exp_lvl_up
         new_exp_lvl_up = new_lvl * 100 / 0.4
@@ -454,7 +458,7 @@ async def levelup_check(self, inter):
             Your new exp is **{round(new_exp)}/{round(new_exp_lvl_up)}**
             """
         )
-        info = {"level": new_lvl, "exp": new_exp}
+        info = {"level": new_lvl, "exp": new_exp, "attack": new_attack, "defence": new_defence}
         await inter.bot.players.update_one({"_id": inter.author.id}, {"$set": info})
         await inter.send(embed=em)
     return
