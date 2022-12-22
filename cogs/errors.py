@@ -34,10 +34,9 @@ class Errors(commands.Cog):
         result = requests.post(url, json=data)
         if 200 <= result.status_code < 300:
             print(f"Webhook sent {result.status_code}")
-            raise error
         else:
             print(f"{ConsoleColors.WARNING}Not sent with {result.status_code}, response:\n{result.json()}")
-            raise error
+
 
 
 def setup(bot):
