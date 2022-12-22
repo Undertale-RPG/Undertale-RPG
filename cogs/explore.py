@@ -203,9 +203,9 @@ class Explorebtn(disnake.ui.View):
         await Battle(self, inter, monster, user_hp, user_atk, user_def, enemy_title, enemy_hp, enemy_atk, enemy_def, gold_min, gold_max)
         return
 
-    @disnake.ui.button(label="Use", style=disnake.ButtonStyle.gray, disabled=True)
-    async def use(self, button: disnake.ui.button, interaction: disnake.MessageInteraction):
-        await interaction.response.defer()
+    #@disnake.ui.button(label="Use", style=disnake.ButtonStyle.gray, disabled=True)
+    #async def use(self, button: disnake.ui.button, interaction: disnake.MessageInteraction):
+    #    await interaction.response.defer()
 
     @disnake.ui.button(label="Mercy", style=disnake.ButtonStyle.green)
     async def mercy(self, button: disnake.ui.button, inter: disnake.MessageInteraction):
