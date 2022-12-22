@@ -267,7 +267,7 @@ class Explorebtn(disnake.ui.View):
             return
 
 async def BossBattle(self, inter, monster: str, user_hp: int, user_atk: int, user_def: int, enemy_title: str, enemy_hp: int, enemy_atk: int, enemy_def: int, gold_min: int, gold_max: int):
-    view = Explorebtn()
+    view = Bossbtn()
     loading = Loading()
     data = await inter.bot.players.find_one({"_id": inter.author.id})
 
@@ -334,6 +334,8 @@ async def BossBattle(self, inter, monster: str, user_hp: int, user_atk: int, use
         )
         await inter.edit_original_message(embed=em, view=None)
         new_gold = data["gold"] - gold_min
+        if new_gold < 0:
+            new_gold = 0
         deaths = data["deaths"] + 1
         info = {"in_fight": False, "deaths": deaths, "gold": new_gold, "health": 20, "fight_monster": "", "fight_hp": 0, "fight_atk": 0, "fight_def": 0}
         await inter.bot.players.update_one({"_id": inter.author.id}, {"$set": info})
@@ -418,6 +420,8 @@ async def Battle(self, inter, monster: str, user_hp: int, user_atk: int, user_de
         )
         await inter.edit_original_message(embed=em, view=None)
         new_gold = data["gold"] - gold_min
+        if new_gold < 0:
+            new_gold = 0
         deaths = data["deaths"] + 1
         info = {"in_fight": False, "deaths": deaths, "gold": new_gold, "health": 20, "fight_monster": "", "fight_hp": 0, "fight_atk": 0, "fight_def": 0}
         await inter.bot.players.update_one({"_id": inter.author.id}, {"$set": info})
