@@ -269,7 +269,6 @@ class Usebtn(disnake.ui.View):
 
 async def UseItem(self, inter):
     item = inter.component.label
-    print(item)
     data = await inter.bot.players.find_one({"_id": inter.author.id})
     consu = await inter.bot.consumables.find_one({"_id": item})
     if consu == None:
