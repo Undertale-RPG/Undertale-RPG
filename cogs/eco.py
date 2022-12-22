@@ -93,6 +93,7 @@ class Economy(commands.Cog):
         resets = data["resets"]
         multi_g = data["multi_g"] 
         multi_xp = data["multi_xp"]
+        max_health = love * 2 / 0.5 + 20
 
         em = disnake.Embed(
             title = f"{player}'s stats",
@@ -100,7 +101,7 @@ class Economy(commands.Cog):
             description = "Status and progress in the game."
         )
         em.set_thumbnail(url=player.display_avatar)
-        em.add_field(name="▫️┃Health", value=f"{round(health)}")
+        em.add_field(name="▫️┃Health", value=f"{round(health)}/{round(max_health)}")
         em.add_field(name="▫️┃LOVE", value=f"{round(love)}")
         em.add_field(name="▫️┃EXP", value=f"{round(exp)}/{round(exp_lvl_up)}")
         em.add_field(name="▫️┃Kills", value=f"{round(kills)}")
