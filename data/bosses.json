@@ -12,9 +12,9 @@
     },
     "snowdin": {
         "dogi": {
-            "hp": 108,
-            "attack": 14,
-            "defence": 5,
+            "hp": 136,
+            "attack": 17,
+            "defence": 0,
             "exp": 60,
             "gold_min": 40,
             "gold_max": 50,
