@@ -14,7 +14,7 @@ class Economy(commands.Cog):
     @commands.cooldown(1, 12, commands.BucketType.user)
     async def supporter(self, inter):
         await utils.create_player_info(inter, inter.author)
-        if inter.guild.id != 992432202002468895:
+        if inter.guild.id != 817437132397871135:
             return await inter.send(
                 "this command is exclusive for our support server, you can join via \n\n https://discord.gg/FQYVpuNz4Q"
             )
