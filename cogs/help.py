@@ -48,14 +48,14 @@ class Help(commands.Cog):
     @commands.slash_command(description="Tutorial on how to use the bot.")
     @commands.cooldown(1, 12, commands.BucketType.user)
     async def tutorial(self, inter):
-        start = "**This bot is an Undertale Themed RPG!, You can fight monsters from Undertale on discord!**"
-        fight = "Using **/explore** You will find all kind of treasure and monsters in your area!"
-        travel = "Speaking of areas?, You can travel to other places using **/travel** command!, You gotta grind well tho!, On **Level 5**, You will unlock snowdin."
+        start = "**This bot is an Undertale Themed RPG bot!, You can fight monsters from Undertale on discord!**"
+        fight = "Using **/explore**, you will find all kind of treasure and monsters in your area!"
+        travel = "Speaking of areas, you can travel to other places using the **/travel** command! You gotta grind a bit however! On **Level 5**, you will unlock snowdin."
         shop = "In the **/shop** you can buy armor, weapons, and food to power up and explore even more of the world!"
         help_ = "You can use the command **/help** to see other commands!"
-        daily = "There are rewards commands such as **/daily** & **/supporter** with which you can earn based on your level."
-        reset = "There is a command called **/reset**, reach level **70**, and you can get multiplier for EXP and GOLD!!"
-        crates = "You can vote to get crates!, run the command **/vote**, then vote for us, then run the command **/crates** to open your crates."
+        daily = "There are commands that give your rewards like **/daily** and **/supporter**! These will give you rewards based on your level!"
+        reset = "There is a command called **/reset** which you can use when you reach reach level **70**! You can use it to get a multiplier for EXP and GOLD!!"
+        crates = "You can vote to get crates! Run the command **/vote**, then vote for us. Then you can run the command **/crates** to open your crates."
 
         em = disnake.Embed(
             title="Welcome to Undertale RPG!",
