@@ -263,9 +263,11 @@ class Usebtn(disnake.ui.View):
             await inter.response.defer()
             await UseItem(self, inter)
         for i in inv:
-            button = Button(label=i, style=disnake.ButtonStyle.gray)
-            button.callback = shared_callback
-            self.add_item(button)
+            #Sorta fixes the /use bug by limiting the amount of buttons that will be displayed at once. (Sorry if this is bad. I am more like a discord.js coder)
+            if i < 25:
+                button = Button(label=i, style=disnake.ButtonStyle.gray)
+                button.callback = shared_callback
+                self.add_item(button)
 
 async def UseItem(self, inter):
     item = inter.component.label
