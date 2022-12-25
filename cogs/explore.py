@@ -281,7 +281,7 @@ async def BossBattle(self, inter, monster: str, user_hp: int, user_atk: int, use
         **{monster}'s stats**
         **HP:** {new_enemy_hp}
         **Attack:** {enemy_atk}
-        **Defence:** {enemy_def}
+        **Defense:** {enemy_def}
         """
     )
     em.set_thumbnail(url="https://cdn.discordapp.com/attachments/900274624594575361/1032250561610907650/download.png")
@@ -317,7 +317,7 @@ async def BossBattle(self, inter, monster: str, user_hp: int, user_atk: int, use
         **{inter.author.name}'s stats**
         **HP:** {new_user_hp}
         **Attack:** {user_atk}
-        **Defence:** {user_atk}
+        **Defense:** {user_atk}
         """
     )
     em.set_thumbnail(url="https://cdn.discordapp.com/attachments/900274624594575361/1032250561610907650/download.png")
@@ -347,8 +347,8 @@ async def BossBattle(self, inter, monster: str, user_hp: int, user_atk: int, use
         color=0x0077ff
     )
     em.set_thumbnail(url=inter.author.avatar)
-    em.add_field(name=f"{monster}'s stats", value=f"**HP:** {new_enemy_hp}\n**Attack:** {enemy_atk}\n**Defence:** {enemy_def}")
-    em.add_field(name=f"{inter.author.name}'s stats", value=f"**HP:** {new_user_hp}\n**Attack:** {user_atk}\n**Defence:** {user_def}")
+    em.add_field(name=f"{monster}'s stats", value=f"**HP:** {new_enemy_hp}\n**Attack:** {enemy_atk}\n**Defense:** {enemy_def}")
+    em.add_field(name=f"{inter.author.name}'s stats", value=f"**HP:** {new_user_hp}\n**Attack:** {user_atk}\n**Defense:** {user_def}")
     await inter.edit_original_message(embed=em, view=view)
     info = {"health": new_user_hp, "fight_hp": new_enemy_hp, "fight_atk": enemy_atk, "fight_def": enemy_def}
     await inter.bot.players.update_one({"_id": inter.author.id}, {"$set": info})
@@ -368,7 +368,7 @@ async def Battle(self, inter, monster: str, user_hp: int, user_atk: int, user_de
         **{monster}'s stats**
         **HP:** {new_enemy_hp}
         **Attack:** {enemy_atk}
-        **Defence:** {enemy_def}
+        **Defense:** {enemy_def}
         """
     )
     em.set_thumbnail(url="https://cdn.discordapp.com/attachments/900274624594575361/1032250561610907650/download.png")
@@ -403,7 +403,7 @@ async def Battle(self, inter, monster: str, user_hp: int, user_atk: int, user_de
         **{inter.author.name}'s stats**
         **HP:** {new_user_hp}
         **Attack:** {user_atk}
-        **Defence:** {user_atk}
+        **Defense:** {user_atk}
         """
     )
     em.set_thumbnail(url="https://cdn.discordapp.com/attachments/900274624594575361/1032250561610907650/download.png")
@@ -433,8 +433,8 @@ async def Battle(self, inter, monster: str, user_hp: int, user_atk: int, user_de
         color=0x0077ff
     )
     em.set_thumbnail(url=inter.author.avatar)
-    em.add_field(name=f"{monster}'s stats", value=f"**HP:** {new_enemy_hp}\n**Attack:** {enemy_atk}\n**Defence:** {enemy_def}")
-    em.add_field(name=f"{inter.author.name}'s stats", value=f"**HP:** {new_user_hp}\n**Attack:** {user_atk}\n**Defence:** {user_def}")
+    em.add_field(name=f"{monster}'s stats", value=f"**HP:** {new_enemy_hp}\n**Attack:** {enemy_atk}\n**Defense:** {enemy_def}")
+    em.add_field(name=f"{inter.author.name}'s stats", value=f"**HP:** {new_user_hp}\n**Attack:** {user_atk}\n**Defense:** {user_def}")
     await inter.edit_original_message(embed=em, view=view)
     info = {"health": new_user_hp, "fight_hp": new_enemy_hp, "fight_atk": enemy_atk, "fight_def": enemy_def}
     await inter.bot.players.update_one({"_id": inter.author.id}, {"$set": info})
@@ -505,8 +505,8 @@ class Explore(commands.Cog):
             color=0x0077ff
         )
         em.set_thumbnail(url=inter.author.avatar)
-        em.add_field(name=f"{monster}'s stats", value=f"**HP:** {enemy_hp}\n**Attack:** {enemy_atk}\n**Defence:** {enemy_def}")
-        em.add_field(name=f"{inter.author.name}'s stats", value=f"**HP:** {user_hp}\n**Attack:** {user_atk}\n**Defence:** {user_def}")
+        em.add_field(name=f"{monster}'s stats", value=f"**HP:** {enemy_hp}\n**Attack:** {enemy_atk}\n**Defense:** {enemy_def}")
+        em.add_field(name=f"{inter.author.name}'s stats", value=f"**HP:** {user_hp}\n**Attack:** {user_atk}\n**Defense:** {user_def}")
         view = Bossbtn()
         await inter.send(embed=em, view=view, ephemeral=True)
         info = {"in_fight": True, "fight_monster": monster, "fight_hp": enemy_hp, "fight_atk": enemy_atk, "fight_def": enemy_def}
@@ -536,7 +536,7 @@ class Explore(commands.Cog):
                 random_monster.append(i)
 
             if len(random_monster) == 0:
-                return await inter.send(f"There are no monsters here?, You are for sure inside a /boss area only!")
+                return await inter.send(f"There are no monsters here? You are inside a /boss area only!")
 
             monster = random.choice(random_monster)
             #player stats
@@ -557,8 +557,8 @@ class Explore(commands.Cog):
                 color=0x0077ff
             )
             em.set_thumbnail(url=inter.author.avatar)
-            em.add_field(name=f"{monster}'s stats", value=f"**HP:** {enemy_hp}\n**Attack:** {enemy_atk}\n**Defence:** {enemy_def}")
-            em.add_field(name=f"{inter.author.name}'s stats", value=f"**HP:** {user_hp}\n**Attack:** {user_atk}\n**Defence:** {user_def}")
+            em.add_field(name=f"{monster}'s stats", value=f"**HP:** {enemy_hp}\n**Attack:** {enemy_atk}\n**Defense:** {enemy_def}")
+            em.add_field(name=f"{inter.author.name}'s stats", value=f"**HP:** {user_hp}\n**Attack:** {user_atk}\n**Defense:** {user_def}")
             view = Explorebtn()
             await inter.send(embed=em, view=view, ephemeral=True)
             info = {"in_fight": True, "fight_monster": monster, "fight_hp": enemy_hp, "fight_atk": enemy_atk, "fight_def": enemy_def}
@@ -582,7 +582,7 @@ class Explore(commands.Cog):
             return
 
         if item[0] == "puzzle":
-            await inter.send(content="coming soon! do the command again to fight monsters", ephemeral=True)
+            await inter.send(content="coming soon! Do the command again to fight monsters", ephemeral=True)
             return
     
     @commands.slash_command(description="Reset your stats for multipliers of gold and exp.")
@@ -635,11 +635,11 @@ class Explore(commands.Cog):
             await self.bot.players.update_one(
                 {"_id": inter.author.id}, {"$set": new_data}
             )
-            await inter.send("You deleted your world, a new world appears in the horizon.")
+            await inter.send("You deleted your world and a new world appears in the horizon.")
         else:
             await inter.send("You should come back again!")
 
-    @commands.slash_command(description="Travel within the world of undertale and fight unique enemies.")
+    @commands.slash_command(description="Travel within the world of Undertale and fight unique enemies.")
     @commands.cooldown(1, 12, commands.BucketType.user)
     async def travel(self, inter):
         await utils.create_player_info(inter, inter.author)
@@ -716,7 +716,7 @@ class Explore(commands.Cog):
         await inter.response.defer()
         if lb not in ["gold", "exp", "resets", "kills", "spares", "deaths"] or None:
             em = disnake.Embed(
-                title=f"There is no shuch leaderboard as {lb}",
+                title=f"There is no leaderboard named {lb}!",
                 description="""
                 You can choose from the following leaderboards:
                 **gold, exp, resets, kills, spares, deaths**
