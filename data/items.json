@@ -2,13 +2,13 @@
     "ruins": {
         "armor": {
             "bandage": {
-                "name": "bandage",
+                "name": "Bandage",
                 "min_def": 1,
                 "max_def": 3,
                 "price": 0
             },
             "faded_ribbon": {
-                "name": "faded_ribbon",
+                "name": "Faded Ribbon",
                 "min_def": 6,
                 "max_def": 9,
                 "price": 150
@@ -16,13 +16,13 @@
         },
         "weapons": {
             "toy_knife": {
-                "name": "toy_knife",
+                "name": "Toy Knife",
                 "min_dmg": 10,
                 "max_dmg": 14,
                 "price": 300
             },
             "stick": {
-                "name": "stick",
+                "name": "Stick",
                 "min_dmg": 7,
                 "max_dmg": 8,
                 "price": 0
@@ -32,7 +32,7 @@
     "snowdin": {
         "armor": {
             "manly_bandanna": {
-                "name": "manly_bandanna",
+                "name": "Manly Bandanna",
                 "min_def": 12,
                 "max_def": 16,
                 "price": 1400
@@ -40,7 +40,7 @@
         },
         "weapons": {
             "tough_glove": {
-                "name": "tough_glove",
+                "name": "Tough Glove",
                 "min_dmg": 16,
                 "max_dmg": 18,
                 "price": 3200
@@ -50,7 +50,7 @@
     "waterfall": {
         "armor": {
             "old_tutu": {
-                "name": "old_tutu",
+                "name": "Old Tutu",
                 "min_def": 17,
                 "max_def": 19,
                 "price": 1900
@@ -58,13 +58,13 @@
         },
         "weapons": {
             "torn_notebook": {
-                "name": "torn_notebook",
+                "name": "Torn Notebook",
                 "min_dmg": 22,
                 "max_dmg": 25,
                 "price": 2200
             },
             "ballet_shoes": {
-                "name": "ballet_shoes",
+                "name": "Ballet Shoes",
                 "min_dmg": 22,
                 "max_dmg": 26,
                 "price": 4800
@@ -74,13 +74,13 @@
     "hotland": {
         "armor": {
             "stained_apron": {
-                "name": "stained_apron",
+                "name": "Stained Apron",
                 "min_def": 38,
                 "max_def": 42,
                 "price": 2500
             },
             "cowboy_hat": {
-                "name": "cowboy_hat",
+                "name": "Cowboy Hat",
                 "min_def": 43,
                 "max_def": 46,
                 "price": 3400
@@ -88,13 +88,13 @@
         },
         "weapons": {
             "burnt_pan": {
-                "name": "burnt_pan",
+                "name": "Burnt Pan",
                 "min_dmg": 27,
                 "max_dmg": 32,
                 "price": 6600
             },
             "empty_gun": {
-                "name": "empty_gun",
+                "name": "Empty Gun",
                 "min_dmg": 40,
                 "max_dmg": 45,
                 "price": 8400
@@ -112,13 +112,13 @@
     "last_corridor": {
         "armor": {
             "heart_locked": {
-                "name": "heart_locked",
+                "name": "Heart Locket",
                 "min_def": 59,
                 "max_def": 62,
                 "price": 7200
             },
             "the_locket": {
-                "name": "the_locket",
+                "name": "The Locket",
                 "min_def": 76,
                 "max_def": 87,
                 "price": 10000
@@ -126,13 +126,13 @@
         },
         "weapons": {
             "worn_dagger": {
-                "name": "worn_dagger",
+                "name": "Worn Dagger",
                 "min_dmg": 40,
                 "max_dmg": 45,
                 "price": 8400
             },
             "real_knife": {
-                "name": "real_knife",
+                "name": "Real Knife",
                 "min_dmg": 80,
                 "max_dmg": 99,
                 "price": 20000
