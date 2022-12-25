@@ -1,10 +1,10 @@
 {
     "ruins": {
         "toriel": {
-            "hp": 70,
+            "hp": 150,
             "attack": 8,
             "defence": 0,
-            "exp": 500,
+            "exp": 100,
             "gold_min": 0,
             "gold_max": 0,
             "title": "Toriel knows best for you."
@@ -12,10 +12,10 @@
     },
     "snowdin": {
         "dogi": {
-            "hp": 136,
+            "hp": 336,
             "attack": 17,
             "defence": 0,
-            "exp": 60,
+            "exp": 150,
             "gold_min": 40,
             "gold_max": 50,
             "title": "Dogs can pet other dogs??? A new world has opened up for us..."
@@ -24,27 +24,27 @@
             "hp": 680,
             "attack": 20,
             "defence": 20,
-            "exp": 200,
-            "gold_min": 80,
-            "gold_max": 109,
+            "exp": 400,
+            "gold_min": 120,
+            "gold_max": 209,
             "title": "He likes to say: 'Nyeh heh heh!'"
         }
     },
     "waterfall": {
         "mad_dummy": {
-            "hp": 300,
+            "hp": 800,
             "attack": 30,
             "defence": 0,
             "exp": 0,
-            "gold_min": 120,
-            "gold_max": 210,
+            "gold_min": 660,
+            "gold_max": 790,
             "title": "Because they're a ghost, physical attacks will fail."
         },
         "undyne": {
             "hp": 1500,
             "attack": 10,
             "defence": 10,
-            "exp": 0,
+            "exp": 800,
             "gold_min": 140,
             "gold_max": 180,
             "title": "The heroine that NEVER gives up."
@@ -52,7 +52,7 @@
     },
     "hotland": {
         "royal_guards": {
-            "hp": 150,
+            "hp": 800,
             "attack": 38,
             "defence": 24,
             "exp": 220,
@@ -61,10 +61,10 @@
             "title": "Two lovers staring over the edge of the cauldron of hell."
         },
         "muffet": {
-            "hp": 1250,
+            "hp": 880,
             "attack": 46,
             "defence": 18,
-            "exp": 300,
+            "exp": 1000,
             "gold_min": 110,
             "gold_max": 200,
             "title": "If she invites you to her parlor, excuse yourself."
@@ -75,7 +75,7 @@
             "hp": 1600,
             "attack": 47,
             "defence": 47,
-            "exp": 800,
+            "exp": 1500,
             "gold_min": 0,
             "gold_max": 0,
             "title": "Mettaton Ex has appeared"
