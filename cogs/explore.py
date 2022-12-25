@@ -582,7 +582,7 @@ class Explore(commands.Cog):
             return
 
         if item[0] == "puzzle":
-            await inter.send(content="coming soon! Do the command again to fight monsters", ephemeral=True)
+            await inter.send(content="coming soon! Run the command again!", ephemeral=True)
             return
     
     @commands.slash_command(description="Reset your stats for multipliers of gold and exp.")
