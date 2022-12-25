@@ -146,7 +146,7 @@ async def Armor(self, inter, button: disnake.ui.Button):
         item_min_def = armor[location]["armor"][item]["min_def"]
         item_max_def = armor[location]["armor"][item]["max_def"]
         item_price = armor[location]["armor"][item]["price"]
-        em.add_field(name=item_name,value=f"Min deffence: **{item_min_def}**\nMax deffence: **{item_max_def}**\nPrice: **{item_price}**")
+        em.add_field(name=item_name,value=f"Min deffense: **{item_min_def}**\nMax deffense: **{item_max_def}**\nPrice: **{item_price}**")
 
     view = Armorbtn(location, items)
     await inter.edit_original_message(embed=em, view=view)
@@ -210,7 +210,7 @@ async def Weapons(self, inter, button: disnake.ui.Button):
         item_min_dmg = weapons[location]["weapons"][item]["min_dmg"]
         item_max_dmg = weapons[location]["weapons"][item]["max_dmg"]
         item_price = weapons[location]["weapons"][item]["price"]
-        em.add_field(name=item_name,value=f"Min deffence: **{item_min_dmg}**\nMax deffence: **{item_max_dmg}**\nPrice: **{item_price}**")
+        em.add_field(name=item_name,value=f"Min deffense: **{item_min_dmg}**\nMax deffense: **{item_max_dmg}**\nPrice: **{item_price}**")
 
     view = weaponsbtn(location, items)
     await inter.edit_original_message(embed=em, view=view)
@@ -351,7 +351,7 @@ class Shop(commands.Cog):
         em = disnake.Embed(
             title=f"{location}'s Shop!",
             color=0x0077ff,
-            description="Choose a category to buy a item from."
+            description="Choose a category to buy an item from."
         )
         em.set_thumbnail(url="https://cdn.discordapp.com/attachments/900274624594575361/1046934688914210906/unknown.png")
         await inter.send(embed=em, view=view)
@@ -368,7 +368,7 @@ class Shop(commands.Cog):
         event = data["event crate"]
         embed = disnake.Embed(
             title="Your crates",
-            description="You can earn crates by exploring, voting, defeating bosses or in events.",
+            description="You can earn crates by exploring, voting, defeating bosses, or in events.",
             color=0x0077ff,
         )
         embed.set_thumbnail(url="https://media.discordapp.net/attachments/900274624594575361/1024789274840813568/Untitled379_202209282004321.png")
@@ -398,7 +398,7 @@ class Shop(commands.Cog):
 
         await view.wait()
         if view.value == None:
-            return await inter.edit_original_message("You took to long to reply!")
+            return await inter.edit_original_message("You took too long to reply!")
         else:
             crates = fileIO("data/crates.json", "load")
             image = crates[view.value]["image"]
@@ -460,7 +460,7 @@ class Shop(commands.Cog):
 
         await inter.send(embed=em)
 
-    @commands.slash_command(description="Equip/use items from your inventorys.")
+    @commands.slash_command(description="Equip/use items from your inventory.")
     @commands.cooldown(1, 12, commands.BucketType.user)
     async def use(self, inter):
         await utils.create_player_info(inter, inter.author)
