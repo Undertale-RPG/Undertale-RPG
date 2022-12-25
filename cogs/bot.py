@@ -12,7 +12,7 @@ class Bot(commands.Cog):
     async def invite(self, inter):
         em = disnake.Embed(
             color=0x0077ff,
-            title="Wanna add me to your server huh?, click the link below!"
+            title="Wanna add me to your server huh? Click the link below!"
         )
         em.set_thumbnail(url=self.bot.user.avatar.url)
         em.add_field(name="Bot invite", value="[Click here](https://discord.com/api/oauth2/authorize?client_id=748868577150369852&permissions=415001603136&scope=bot%20applications.commands)")
@@ -20,7 +20,7 @@ class Bot(commands.Cog):
 
         await inter.send(embed=em)
 
-    @commands.slash_command(description="View the bots ping.")
+    @commands.slash_command(description="Ping the bot.")
     @commands.cooldown(1, 12, commands.BucketType.user)
     async def ping(self, inter):
         """Latency check for stability"""
@@ -40,8 +40,8 @@ class Bot(commands.Cog):
         em.add_field(name="Latency", value=f"`{round(self.bot.latency * 1000)}`ms")
         em.add_field(name="Shard count", value=f"`{len(self.bot.shards)}` shards")
         em.add_field(name="Creators", value="`LetsChill#0001` (founder)\n`yaki#8693` (bot dev)\n`Commander R#9371` (website dev)\n`СᏓᎾυdy#4204` (artist)")
-        em.add_field(name="Disclaimer", value="All the designs/names of the pictures, locations, monsters and bosses belong to the official undertale creator: **Toby Fox**")
-        em.set_footer(text="you can find more info on our website")
+        em.add_field(name="Disclaimer", value="All the designs/names of the pictures, locations, monsters, and bosses belong to the official undertale creator: **Toby Fox**")
+        em.set_footer(text="You can find more info on our website")
 
         buttons = [
             Button(
@@ -89,7 +89,7 @@ class Bot(commands.Cog):
             title="Here is a showcase of all the badges you can earn",
             color=0x0077ff,
             description="""
-            **__Disclaimer:__ This feature is a work in progress you are not able to earn all these badges at this moment.**
+            **__Disclaimer:__ This feature is a work in progress. You are not able to earn all these badges at this moment.**
             
             <:developer:1051266723208241253> -> creator of the bot
             <:staff:1051266679356792923> -> staff of the bot
