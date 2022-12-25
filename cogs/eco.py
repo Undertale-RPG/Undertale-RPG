@@ -16,7 +16,7 @@ class Economy(commands.Cog):
         await utils.create_player_info(inter, inter.author)
         if inter.guild.id != 817437132397871135:
             return await inter.send(
-                "this command is exclusive for our support server, you can join via \n\n https://discord.gg/FQYVpuNz4Q"
+                "This command is exclusive for our support server. You can join via \n\n https://discord.gg/FQYVpuNz4Q"
             )
         
         author = inter.author
@@ -34,7 +34,7 @@ class Economy(commands.Cog):
                     {"_id": author.id}, {"$set": info}
                 )
                 em = disnake.Embed(
-                    description=f"**You received your supporter gold! {int(goldget)} G**",
+                    description=f"**You received your gold for being a supporter! {int(goldget)} G**",
                     color=0x0077ff,
                 )
             else:
@@ -128,7 +128,7 @@ class Economy(commands.Cog):
 
         if author.id not in boosters["boosters"]:
             await inter.send(
-                "You are not a booster!, only people who boost our support server are able to get the rewards!")
+                "Only people who boost this server can claim a booster reward!")
             return
        
         new_gold = 2500 * data["multi_g"]
