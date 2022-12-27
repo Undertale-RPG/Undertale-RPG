@@ -67,12 +67,13 @@ class Bot(commands.Cog):
             Button(
                 style=ButtonStyle.link,
                 label="Top.gg",
-                url=self.bot.vote_url
+                url=self.bot.vote_url,
+                disabled=True
         	),
             Button(
                 style=ButtonStyle.link,
                 label="Univers-list",
-                url="https://universe-list.xyz/bots/815153881217892372"
+                url="https://universe-list.xyz/bots/748868577150369852/"
             ),
             Button(
                 style=ButtonStyle.link,
