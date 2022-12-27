@@ -262,10 +262,15 @@ class Usebtn(disnake.ui.View):
         async def shared_callback(inter: disnake.MessageInteraction) -> None:
             await inter.response.defer()
             await UseItem(self, inter)
+        x = 0
         for i in inv:
+            if x >= 25:
+                return
             button = Button(label=i, style=disnake.ButtonStyle.gray)
             button.callback = shared_callback
             self.add_item(button)
+            x = x+1
+
 
 async def UseItem(self, inter):
     item = inter.component.label
