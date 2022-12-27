@@ -4,19 +4,19 @@
             "name": "Bandage",
             "description": "You re-applied the bandage.",
             "heal": 10,
-            "price": 0
+            "price": 10
         },
         "monster_candy": {
             "name": "Monster Candy",
             "description": "You ate the Monster Candy. ... tastes like licorice.",
             "heal": 10,
-            "price": 0
+            "price": 10
         },
         "spider_donut": {
             "name": "Spider Donut",
             "description": "A donut made with Spider Cider in the batter.",
-            "heal": 12,
-            "price": 7
+            "heal": 17,
+            "price": 15
         },
         "spider_cider": {
             "name": "Spider Cider",
