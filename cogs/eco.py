@@ -22,7 +22,7 @@ class Economy(commands.Cog):
         author = inter.author
 
         info = await self.bot.players.find_one({"_id": author.id})
-        goldget = random.randint(500, 1000) * info["multi_g"]
+        goldget = random.randint(200, 500) * info["multi_g"]
         try:
             curr_time = time.time()
             delta = int(curr_time) - int(info["supporter_block"])
@@ -131,7 +131,7 @@ class Economy(commands.Cog):
                 "You are not a booster!, only people who boost our support server are able to get the rewards!")
             return
        
-        new_gold = 2500 * data["multi_g"]
+        new_gold = 700 * data["multi_g"]
         curr_time = time.time()
         delta = int(curr_time) - int(int(data["booster_block"]))
 
@@ -161,7 +161,7 @@ class Economy(commands.Cog):
         await utils.create_player_info(inter, inter.author)
         data = await self.bot.players.find_one({"_id": inter.author.id})
 
-        new_gold = 500 * data["multi_g"]
+        new_gold = 250 * data["multi_g"]
         curr_time = time.time()
         delta = int(curr_time) - int(int(data["daily_block"]))
 
