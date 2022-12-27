@@ -5,7 +5,7 @@
                 "name": "bandage",
                 "min_def": 1,
                 "max_def": 3,
-                "price": 0
+                "price": 10
             },
             "faded_ribbon": {
                 "name": "faded_ribbon",
@@ -25,7 +25,7 @@
                 "name": "stick",
                 "min_dmg": 7,
                 "max_dmg": 8,
-                "price": 0
+                "price": 10
             }
         }
     },
