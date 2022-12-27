@@ -159,7 +159,7 @@ class Bossbtn(disnake.ui.View):
             await inter.edit_original_message(embed=em)
             await asyncio.sleep(5)
 
-            await Battle(self, inter, monster, user_hp, user_atk, user_def, enemy_title, enemy_hp, enemy_atk, enemy_def, gold_min, gold_max)
+            await BossBattle(self, inter, monster, user_hp, user_atk, user_def, enemy_title, enemy_hp, enemy_atk, enemy_def, gold_min, gold_max)
         else:
             em = disnake.Embed(
                 title="Mercy",
@@ -508,7 +508,7 @@ class Explore(commands.Cog):
         em.add_field(name=f"{monster}'s stats", value=f"**HP:** {enemy_hp}\n**Attack:** {enemy_atk}\n**Defence:** {enemy_def}")
         em.add_field(name=f"{inter.author.name}'s stats", value=f"**HP:** {user_hp}\n**Attack:** {user_atk}\n**Defence:** {user_def}")
         view = Bossbtn()
-        await inter.send(embed=em, view=view, ephemeral=True)
+        await inter.send(embed=em, view=view)
         info = {"in_fight": True, "fight_monster": monster, "fight_hp": enemy_hp, "fight_atk": enemy_atk, "fight_def": enemy_def}
         await inter.bot.players.update_one({"_id": inter.author.id}, {"$set": info})
 
