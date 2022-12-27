@@ -94,6 +94,8 @@ class Economy(commands.Cog):
         multi_g = data["multi_g"] 
         multi_xp = data["multi_xp"]
         max_health = love * 2 / 0.5 + 20
+        atk = data["attack"]
+        deff = data["defence"]
 
         em = disnake.Embed(
             title = f"{player}'s stats",
@@ -113,6 +115,8 @@ class Economy(commands.Cog):
         em.add_field(name="▫️┃Resets", value=f"{round(resets)}")
         em.add_field(name="▫️┃Gold Multiplier", value=f"{round(multi_g)}")
         em.add_field(name="▫️┃EXP Multiplier", value=f"{round(multi_xp)}")
+        em.add_field(name="▫️┃Attack", value=f"{round(atk)}")
+        em.add_field(name="▫️┃Defence", value=f"{round(deff)}")
 
         await inter.send(inter.author.mention, embed=em)
 
