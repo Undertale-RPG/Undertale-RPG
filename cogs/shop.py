@@ -210,7 +210,7 @@ async def Weapons(self, inter, button: disnake.ui.Button):
         item_min_dmg = weapons[location]["weapons"][item]["min_dmg"]
         item_max_dmg = weapons[location]["weapons"][item]["max_dmg"]
         item_price = weapons[location]["weapons"][item]["price"]
-        em.add_field(name=item_name,value=f"Min deffence: **{item_min_dmg}**\nMax deffence: **{item_max_dmg}**\nPrice: **{item_price}**")
+        em.add_field(name=item_name,value=f"Min attack: **{item_min_dmg}**\nMax attack: **{item_max_dmg}**\nPrice: **{item_price}**")
 
     view = weaponsbtn(location, items)
     await inter.edit_original_message(embed=em, view=view)
