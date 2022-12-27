@@ -28,11 +28,11 @@
             "title": "Whimsun is afraid of you."
         },
         "vegetoid": {
-            "hp": 73,
-            "attack": 15,
+            "hp": 65,
+            "attack": 10,
             "defence": 0,
-            "gold_min": 30,
-            "gold_max": 60,
+            "gold_min": 15,
+            "gold_max": 20,
             "exp": 40,
             "title": "Vegetoid encourages healthy eating."
         },
@@ -48,57 +48,57 @@
     },
     "snowdin": {
         "snowdrake": {
-            "hp": 75,
-            "attack": 6,
-            "defence": 2,
-            "gold_min": 15,
-            "gold_max": 25,
-            "exp": 18,
+            "hp": 80,
+            "attack": 12,
+            "defence": 0,
+            "gold_min": 20,
+            "gold_max": 40,
+            "exp": 30,
             "title": "Snowdrake waits for you to laugh."
         },
         "ice_cap": {
-            "hp": 48,
-            "attack": 6,
+            "hp": 60,
+            "attack": 10,
             "defence": 0,
             "gold_min": 25,
             "gold_max": 50,
-            "exp": 17,
+            "exp": 45,
             "title": "Ice Cap wants attention."
         },
         "gyftrot": {
             "hp": 114,
-            "attack": 7,
-            "defence": 3,
+            "attack": 20,
+            "defence": 0,
             "gold_min": 19,
             "gold_max": 23,
-            "exp": 30,
+            "exp": 60,
             "title": "Gyftrot has appeared"
         },
         "doggo": {
             "hp": 70,
-            "attack": 6,
-            "defence": 1,
-            "gold_min": 25,
-            "gold_max": 40,
-            "exp": 20,
-            "title": "Doggo is nervous."
-        },
-        "lesser_dog": {
-            "hp": 60,
-            "attack": 6,
+            "attack": 9,
             "defence": 0,
             "gold_min": 25,
             "gold_max": 40,
-            "exp": 15,
+            "exp": 100,
+            "title": "Doggo is nervous."
+        },
+        "lesser_dog": {
+            "hp": 65,
+            "attack": 11,
+            "defence": 0,
+            "gold_min": 25,
+            "gold_max": 40,
+            "exp": 50,
             "title": "Lesser Dog is excited."
         },
         "greater_dog": {
             "hp": 105,
-            "attack": 6,
-            "defence": 4,
+            "attack": 25,
+            "defence": 0,
             "gold_min": 30,
             "gold_max": 40,
-            "exp": 60,
+            "exp": 120,
             "title": "Greater Dog wants to play."
         }
     },
@@ -106,7 +106,7 @@
         "aaron": {
             "hp": 98,
             "attack": 7,
-            "defence": 2,
+            "defence": 0,
             "gold_min": 27,
             "gold_max": 80,
             "exp": 25,
@@ -115,7 +115,7 @@
         "woshua": {
             "hp": 70,
             "attack": 7,
-            "defence": 4,
+            "defence": 0,
             "gold_min": 28,
             "gold_max": 59,
             "exp": 25,
@@ -124,7 +124,7 @@
         "shyren": {
             "hp": 66,
             "attack": 7,
-            "defence": 2,
+            "defence": 0,
             "gold_min": 40,
             "gold_max": 90,
             "exp": 25,
@@ -144,7 +144,7 @@
         "pyrope": {
             "hp": 110,
             "attack": 8,
-            "defence": 1,
+            "defence": 0,
             "gold_min": 40,
             "gold_max": 90,
             "exp": 40,
@@ -153,7 +153,7 @@
         "tsunderplane": {
             "hp": 80,
             "attack": 8,
-            "defence": 6,
+            "defence": 0,
             "gold_min": 28,
             "gold_max": 59,
             "exp": 45,
@@ -182,7 +182,7 @@
         "astigmatism": {
             "hp": 50,
             "attack": 7,
-            "defence": 2,
+            "defence": 0,
             "gold_min": 25,
             "gold_max": 40,
             "exp": 6,
@@ -191,7 +191,7 @@
         "knight_knight": {
             "hp": 230,
             "attack": 8,
-            "defence": 2,
+            "defence": 0,
             "gold_min": 43,
             "gold_max": 50,
             "exp": 150,
