@@ -277,7 +277,6 @@ class Usebtn(disnake.ui.View):
             self.add_item(button)
             x = x+1
 
-
 async def UseItem(self, inter):
     item = inter.component.label
     data = await inter.bot.players.find_one({"_id": inter.author.id})
