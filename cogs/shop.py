@@ -113,6 +113,8 @@ async def ConsBuy(self, inter):
         return await inter.send("You do not have enough gold for that!")
 
     inv = data["inventory"]
+    if len(inv) >= 25:
+        return await inter.send("Your inventory is full! You can have a max of 25 items")
     new_inv = []
     new_inv.append(item)
     for i in inv:
@@ -177,6 +179,8 @@ async def ArmorBuy(self, inter):
         return await inter.send("You do not have enough gold for that!")
 
     inv = data["inventory"]
+    if len(inv) >= 25:
+        return await inter.send("Your inventory is full! You can have a max of 25 items")
     new_inv = []
     new_inv.append(item)
     for i in inv:
@@ -241,6 +245,8 @@ async def weaponsBuy(self, inter):
         return await inter.send("You do not have enough gold for that!")
 
     inv = data["inventory"]
+    if len(inv) >= 25:
+        return await inter.send("Your inventory is full! You can have a max of 25 items")
     new_inv = []
     new_inv.append(item)
     for i in inv:
