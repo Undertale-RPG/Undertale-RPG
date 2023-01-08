@@ -67,8 +67,7 @@ class Bot(commands.Cog):
             Button(
                 style=ButtonStyle.link,
                 label="Top.gg",
-                url=self.bot.vote_url,
-                disabled=True
+                url=self.bot.vote_url
         	),
             Button(
                 style=ButtonStyle.link,
