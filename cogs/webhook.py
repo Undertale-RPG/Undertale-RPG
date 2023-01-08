@@ -9,7 +9,7 @@ class TopGG(commands.Cog):
 
     def __init__(self, bot):
         self.bot = bot
-        self.bot.topggpy = topgg.WebhookManager(bot).dbl_webhook("/dblwebhook", "dady2005")
+        self.bot.topggpy = topgg.WebhookManager(bot).dbl_webhook("/dblwebhook", "LzV2lrrlSOifNz9q9a_fG_a-T4nazkwL-3VC4psnj3xwj9wNLVjxXIesz7RJ1R96XgvG")
         bot.topggpy.run(55111)
         self.cmds = []
 
