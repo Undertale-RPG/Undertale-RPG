@@ -60,7 +60,7 @@ class Bot(commands.Cog):
             title="<:DT:1010165881516609596> Voting",
             color=0x0077ff
             )
-        em.add_field(name="Voting on Top.gg", value="You will earn 300G and a standard crate.", inline=True)
+        em.add_field(name="Voting on Top.gg", value="Vote rewards coming soon any votes are still very much appriciated", inline=True)
         em.add_field( name="Claim and support our server", value="You can claim an exclusive reward by joining our server and running /supporter", inline=True)
 
         buttons = [
