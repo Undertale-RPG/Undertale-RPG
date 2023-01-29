@@ -10,12 +10,12 @@
             "title": "Froggit hopped in."
         },
         "loox": {
-            "hp": 50,
-            "attack": 11,
+            "hp": 40,
+            "attack": 7,
             "defence": 0,
             "gold_min": 15,
             "gold_max": 45,
-            "exp": 60,
+            "exp": 70,
             "title": "Loox decided to bully you."
         },
         "whimsun": {
@@ -37,8 +37,8 @@
             "title": "Vegetoid encourages healthy eating."
         },
         "migosp": {
-            "hp": 40,
-            "attack": 8,
+            "hp": 30,
+            "attack": 6,
             "defence": 0,
             "gold_min": 15,
             "gold_max": 17,
@@ -53,7 +53,7 @@
             "defence": 0,
             "gold_min": 20,
             "gold_max": 40,
-            "exp": 30,
+            "exp": 50,
             "title": "Snowdrake waits for you to laugh."
         },
         "ice_cap": {
@@ -71,7 +71,7 @@
             "defence": 0,
             "gold_min": 19,
             "gold_max": 23,
-            "exp": 60,
+            "exp": 75,
             "title": "Gyftrot has appeared"
         },
         "doggo": {

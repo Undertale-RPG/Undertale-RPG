@@ -259,7 +259,7 @@ class Explorebtn(disnake.ui.View):
             )
             em.set_thumbnail(url="https://cdn.discordapp.com/attachments/900274624594575361/1032089003912089770/3abaf892f9a10b66e7341589a9b6d210.jpg")
             await inter.edit_original_message(embed=em, view=None)
-            spares = data["spares"] =+ 1
+            spares = data["spares"] + 1
             info = {"in_fight": False, "fight_monster": "", "fight_hp": 0, "fight_atk": 0, "fight_def": 0, "spares": spares}
             await inter.bot.players.update_one({"_id": inter.author.id}, {"$set": info})
 
