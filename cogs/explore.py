@@ -471,6 +471,7 @@ class Explore(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
+    @utils.in_battle()
     @commands.slash_command(description="Fight bosses!")
     @commands.cooldown(1, 12, commands.BucketType.user)
     async def boss(self, inter):
@@ -515,6 +516,7 @@ class Explore(commands.Cog):
         print(f"{ConsoleColors.YELLOW}{inter.author} has entered a fight{ConsoleColors.ENDC}")
         return
 
+    @utils.in_battle()
     @commands.slash_command(description="Explore to find monsters, xp, gold and items.")
     @commands.cooldown(1, 12, commands.BucketType.user)
     async def explore(self, inter):
@@ -585,6 +587,7 @@ class Explore(commands.Cog):
             await inter.send(content="coming soon! do the command again to fight monsters", ephemeral=True)
             return
     
+    @utils.in_battle()
     @commands.slash_command(description="Reset your stats for multipliers of gold and exp.")
     @commands.cooldown(1, 12, commands.BucketType.user)
     async def reset(self, inter):
@@ -639,6 +642,7 @@ class Explore(commands.Cog):
         else:
             await inter.send("You should come back again!")
 
+    @utils.in_battle()
     @commands.slash_command(description="Travel within the world of undertale and fight unique enemies.")
     @commands.cooldown(1, 12, commands.BucketType.user)
     async def travel(self, inter):

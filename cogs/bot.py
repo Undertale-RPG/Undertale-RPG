@@ -1,8 +1,8 @@
 import disnake 
 from disnake.ext import commands
 from disnake.enums import ButtonStyle
-
 from disnake.ui import Button, ActionRow
+
 class Bot(commands.Cog):
     def __init__(self, bot):
         self.bot = bot

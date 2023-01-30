@@ -347,6 +347,7 @@ class Shop(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
+    @utils.in_battle()
     @commands.slash_command(description="Buy new items here!")
     @commands.cooldown(1, 12, commands.BucketType.user)
     async def shop(self, inter):
