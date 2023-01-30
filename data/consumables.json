@@ -41,7 +41,7 @@
         "snowman_piece": {
             "name": "Snowman Piece",
             "description": "Please take this to the ends of the earth.",
-            "heal": 45,
+            "heal": 24,
             "price": 10
         },
         "nice_cream": {
