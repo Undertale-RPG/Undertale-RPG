@@ -1,14 +1,97 @@
 import disnake
+import datetime
+from typing import List
 from disnake import Interaction
 from disnake.enums import ButtonStyle
-from disnake.ext import commands
+from disnake.ext import commands, components
 from disnake.ui import Button, ActionRow
-import datetime
-import os
+
+class Menu(disnake.ui.View):
+    def __init__(self, embeds: List[disnake.Embed]):
+        super().__init__(timeout=None)
+        self.embeds = embeds
+        self.index = 0
+
+        # Sets the footer of the embeds with their respective page numbers.
+        for i, embed in enumerate(self.embeds):
+            embed.set_footer(text=f"Page {i + 1} of {len(self.embeds)}")
+
+        self._update_state()
+
+    def _update_state(self) -> None:
+        self.prev_page.disabled = self.index == 0
+        self.next_page.disabled = self.index == len(self.embeds) - 1
+
+    @disnake.ui.button(emoji="◀", style=disnake.ButtonStyle.blurple)
+    async def prev_page(self, button: disnake.ui.Button, inter: disnake.MessageInteraction):
+        self.index -= 1
+        self._update_state()
+
+        await inter.response.edit_message(embed=self.embeds[self.index], view=self)
+
+    @disnake.ui.button(emoji="🗑️", style=disnake.ButtonStyle.red)
+    async def remove(self, button: disnake.ui.Button, inter: disnake.MessageInteraction):
+        await inter.response.edit_message(view=None)
+
+    @disnake.ui.button(emoji="▶", style=disnake.ButtonStyle.blurple)
+    async def next_page(self, button: disnake.ui.Button, inter: disnake.MessageInteraction):
+        self.index += 1
+        self._update_state()
+
+        await inter.response.edit_message(embed=self.embeds[self.index], view=self)
 
 class Help(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
+
+    @commands.slash_command(description="Intro to the undertale universe.")
+    @commands.cooldown(1, 12, commands.BucketType.user)
+    async def intro(self, inter):
+        embeds = [
+        disnake.Embed(
+            title="Long ago, two races ruled over Earth: HUMANS and MONSTERS.",
+            colour=0x0077ff,
+        ).set_image(url="https://cdn.discordapp.com/attachments/954829219756666890/955685312292593684/0.png"),
+        disnake.Embed(
+            title="One day, war broke out between the two races.",
+            colour=0x0077ff,
+        ).set_image(url="https://cdn.discordapp.com/attachments/954829219756666890/955685312561041469/1.png"),
+        disnake.Embed(
+            title="After a long battle, the humans were victorious.",
+            colour=0x0077ff,
+        ).set_image(url="https://cdn.discordapp.com/attachments/954829219756666890/955685312791711744/2.png"),
+        disnake.Embed(
+            title="They sealed the monsters underground with a magic spell.",
+            colour=0x0077ff,
+        ).set_image(url="https://cdn.discordapp.com/attachments/954829219756666890/955685310686195762/3.png"),
+        disnake.Embed(
+            title="Many years later...",
+            colour=0x0077ff,
+        ),
+        disnake.Embed(
+            title="MT. EBOTT 201X",
+            colour=0x0077ff,
+        ).set_image(url="https://cdn.discordapp.com/attachments/954829219756666890/955685310887505970/4.png"),
+        disnake.Embed(
+            title="Legends say that those who climb the mountain never return.",
+            colour=0x0077ff,
+        ).set_image(url="https://cdn.discordapp.com/attachments/954829219756666890/955685311093030982/5.png"),
+        disnake.Embed(
+            colour=0x0077ff,
+        ).set_image(url="https://cdn.discordapp.com/attachments/954829219756666890/955685311311138856/6.png"),
+        disnake.Embed(
+            colour=0x0077ff,
+        ).set_image(url="https://cdn.discordapp.com/attachments/954829219756666890/955685311600554044/7.png"),
+        disnake.Embed(
+            colour=0x0077ff,
+        ).set_image(url="https://cdn.discordapp.com/attachments/954829219756666890/955685311793496064/8.png"),
+        disnake.Embed(
+            colour=0x0077ff,
+        ).set_image(url="https://cdn.discordapp.com/attachments/954829219756666890/955685312007397436/9.png"),
+        ]
+
+        # Sends first embed with the buttons, it also passes the embeds list into the View class.
+        await inter.send(embed=embeds[0], view=Menu(embeds))
 
     @commands.slash_command(description="Info on any ongoing events.")
     @commands.cooldown(1, 12, commands.BucketType.user)
