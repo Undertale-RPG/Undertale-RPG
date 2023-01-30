@@ -69,9 +69,9 @@
             "hp": 114,
             "attack": 20,
             "defence": 0,
-            "gold_min": 19,
-            "gold_max": 23,
-            "exp": 75,
+            "gold_min": 44,
+            "gold_max": 55,
+            "exp": 136,
             "title": "Gyftrot has appeared"
         },
         "doggo": {
@@ -109,7 +109,7 @@
             "defence": 0,
             "gold_min": 27,
             "gold_max": 80,
-            "exp": 25,
+            "exp": 80,
             "title": "Aaron flexes very hard."
         },
         "woshua": {
@@ -118,7 +118,7 @@
             "defence": 0,
             "gold_min": 28,
             "gold_max": 59,
-            "exp": 25,
+            "exp": 67,
             "title": "Woshua doesn't like the dust on your clothes."
         },
         "shyren": {
@@ -127,7 +127,7 @@
             "defence": 0,
             "gold_min": 40,
             "gold_max": 90,
-            "exp": 25,
+            "exp": 54,
             "title": "Shyren somehow finds you."
         }
     },
