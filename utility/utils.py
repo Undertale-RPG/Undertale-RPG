@@ -25,6 +25,7 @@ async def create_player_info(inter, mem):
             "_id": mem.id,
             "registered_on": int(time.time()),
             "badges": [],
+            "character": "",
 
             # statistics
             "level": 1,
