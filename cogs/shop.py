@@ -287,7 +287,6 @@ async def UseItem(self, inter):
             weapon = data["weapon"]
             inv = data["inventory"]
 
-
             new_inv = []
             for i in inv:
                 new_inv.append(i)
@@ -305,7 +304,6 @@ async def UseItem(self, inter):
         else: 
             armor = data["armor"]
             inv = data["inventory"]
-
 
             new_inv = []
             for i in inv:
@@ -339,6 +337,81 @@ async def UseItem(self, inter):
 
         em = disnake.Embed(
             description=f"You used **{item}**",
+            color=0x0077ff
+        )
+        await inter.send(embed=em)
+
+class Sellbtn(disnake.ui.View):
+    def __init__(self, inv) -> None:
+        super().__init__(timeout=None)
+        async def shared_callback(inter: disnake.MessageInteraction) -> None:
+            await inter.response.defer()
+            await SellItem(self, inter)
+        x = 0
+        for i in inv:
+            if x >= 25:
+                return
+            button = Button(label=i, style=disnake.ButtonStyle.gray)
+            button.callback = shared_callback
+            self.add_item(button)
+            x = x+1
+
+async def SellItem(self, inter):
+    item = inter.component.label
+    data = await inter.bot.players.find_one({"_id": inter.author.id})
+    consu = await inter.bot.consumables.find_one({"_id": item})
+    if consu == None:
+        armors = await inter.bot.armor.find_one({"_id": item})
+        if armors == None:
+            weapons = await inter.bot.weapons.find_one({"_id": item})
+            inv = data["inventory"]
+            price = weapons["price"]
+            print(price)
+
+            new_inv = []
+            for i in inv:
+                new_inv.append(i)
+            new_inv.remove(item)
+            new_price = int(price)/2
+            info = {"inventory": new_inv, "gold": new_price}
+            await inter.bot.players.update_one({"_id": inter.author.id}, {"$set": info})
+
+            em = disnake.Embed(
+                description=f"You sold **{item}**\nfor **{new_price}G**",
+                color=0x0077ff
+            )
+            await inter.send(embed=em)
+        else: 
+            price = armors["price"]
+            inv = data["inventory"]
+
+            new_inv = []
+            for i in inv:
+                new_inv.append(i)
+            new_inv.remove(item)
+            new_price = int(price)/2
+            info = {"inventory": new_inv, "gold": new_price}
+            await inter.bot.players.update_one({"_id": inter.author.id}, {"$set": info})
+
+            em = disnake.Embed(
+                description=f"You sold **{item}**\nfor **{new_price}G**",
+                color=0x0077ff
+            )
+            await inter.send(embed=em)
+    else:
+        price = consu["price"]
+        inv = data["inventory"]
+
+        new_inv = []
+        for i in inv:
+            new_inv.append(i)
+        new_inv.remove(item)
+        new_price = int(price)/2
+        info = {"inventory": new_inv, "gold": new_price}
+        await inter.bot.players.update_one({"_id": inter.author.id}, {"$set": info})
+
+        em = disnake.Embed(
+            description=f"You sold **{item}**\nfor **{new_price}G**",
             color=0x0077ff
         )
         await inter.send(embed=em)
@@ -478,6 +551,23 @@ class Shop(commands.Cog):
 
         em = disnake.Embed(
             title="Use a item",
+            color=0x0077ff
+        )
+        em.set_thumbnail(url="https://media.discordapp.net/attachments/900274624594575361/1034392719675633745/unknown.png?width=671&height=676")
+
+        await inter.send(embed=em, view=view)
+
+    @commands.slash_command(description="sell items")
+    @commands.cooldown(1, 12, commands.BucketType.user)
+    async def sell(self, inter):
+        await utils.create_player_info(inter, inter.author)
+        data = await inter.bot.players.find_one({"_id": inter.author.id})
+        inv = data["inventory"]
+
+        view = Sellbtn(inv)
+
+        em = disnake.Embed(
+            title="Sell a item",
             color=0x0077ff
         )
         em.set_thumbnail(url="https://media.discordapp.net/attachments/900274624594575361/1034392719675633745/unknown.png?width=671&height=676")
