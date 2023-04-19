@@ -1,9 +1,12 @@
 import os
+
 import disnake
-from dotenv import load_dotenv
 from disnake.ext import commands
+from dotenv import load_dotenv
 from motor.motor_asyncio import AsyncIOMotorClient
+
 from utility.utils import ConsoleColors
+from typing import Dict
 
 load_dotenv()
 
@@ -12,6 +15,7 @@ description = """The undertale RPG Beta bot."""
 intents = disnake.Intents.none()
 intents.members = False
 intents.message_content = False
+
 
 class UndertaleBot(commands.AutoShardedInteractionBot):
     def __init__(self, **kwargs):
@@ -46,7 +50,9 @@ class UndertaleBot(commands.AutoShardedInteractionBot):
         for filename in os.listdir("./cogs"):
             if filename.endswith(".py") and not filename.startswith("_"):
                 self.load_extension(f"cogs.{filename[:-3]}")
-                print(f"{ConsoleColors.GREEN}🔁 cogs.{filename[:-3]} is loaded and ready.")
+                print(
+                    f"{ConsoleColors.GREEN}🔁 cogs.{filename[:-3]} is loaded and ready."
+                )
         return
 
     def db_load(self):
@@ -54,7 +60,7 @@ class UndertaleBot(commands.AutoShardedInteractionBot):
         self.db = self.cluster["database"]
         self.consumables = self.db["consumables"]
         self.armor = self.db["armor"]
-        self.weapons =self.db["weapons"]
+        self.weapons = self.db["weapons"]
         self.players = self.db["players"]
         self.guilds_db = self.db["guilds"]
         self.boosters = self.db["boosters"]
@@ -62,10 +68,7 @@ class UndertaleBot(commands.AutoShardedInteractionBot):
         return
 
 
-bot = UndertaleBot(
-    intents=intents,
-    owner_ids=[536538183555481601, 1023550762816638996]
-)
+bot = UndertaleBot(intents=intents, owner_ids=[536538183555481601, 1023550762816638996])
 
 bot.db_load()
 bot.load_all_cogs()
