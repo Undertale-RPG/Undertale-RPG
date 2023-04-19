@@ -129,7 +129,7 @@ def in_battle():
     async def predicate(inter: disnake.ApplicationCommandInteraction):
         data = await inter.bot.players.find_one({"_id": inter.author.id})
         if data["in_fight"] is not True:
-            return False
+            return True
 
         embed = disnake.Embed(
             title="You have a fight dialogue open",

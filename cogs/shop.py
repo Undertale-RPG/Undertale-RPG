@@ -614,7 +614,7 @@ class Shop(commands.Cog):
     @commands.slash_command(description="sell items")
     @commands.cooldown(1, 12, commands.BucketType.user)
     async def sell(self, inter):
-        await utils.create_player_info(inter, inter.author)
+        await create_player_info(inter, inter.author)
         data = await inter.bot.players.find_one({"_id": inter.author.id})
         inv = data["inventory"]
 
