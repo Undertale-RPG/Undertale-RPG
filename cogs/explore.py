@@ -979,15 +979,14 @@ class Explore(commands.Cog):
         self, inter: disnake.ApplicationCommandInteraction, leaderboard: str = None
     ):
         await inter.response.defer()
-        if (
-            leaderboard not in ["gold", "exp", "resets", "kills", "spares", "deaths"]
-            or None
-        ):
+
+        if lb not in ["gold", "exp", "resets", "kills", "spares", "deaths", "level"] or None:
             embed = disnake.Embed(
-                title=f"There is no such leaderboard as {leaderboard}",
+                title=f"There is no shuch leaderboard as {lb}",
+
                 description="""
                 You can choose from the following leaderboards:
-                **gold, exp, resets, kills, spares, deaths**
+                **gold, exp, resets, kills, spares, deaths, level**
                 """,
                 color=BLUE,
             )
