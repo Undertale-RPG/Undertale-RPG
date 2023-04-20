@@ -127,6 +127,7 @@ class InFight(disnake.ui.View):
 
 def in_battle():
     async def predicate(inter: disnake.ApplicationCommandInteraction):
+        await create_player_info(inter, inter.author)
         data = await inter.bot.players.find_one({"_id": inter.author.id})
         if data["in_fight"] is not True:
             return True

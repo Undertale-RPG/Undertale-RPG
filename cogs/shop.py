@@ -420,7 +420,6 @@ async def SellItem(self, inter):
             weapons = await inter.bot.weapons.find_one({"_id": item})
             inv = data["inventory"]
             price = weapons["price"]
-            print(price)
 
             new_inv = []
             for i in inv:
