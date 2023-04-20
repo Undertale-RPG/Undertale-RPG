@@ -412,6 +412,7 @@ class Sellbtn(disnake.ui.View):
 async def SellItem(self, inter):
     item = inter.component.label
     data = await inter.bot.players.find_one({"_id": inter.author.id})
+    gold = data["gold"]
     consu = await inter.bot.consumables.find_one({"_id": item})
     if consu == None:
         armors = await inter.bot.armor.find_one({"_id": item})
@@ -425,12 +426,12 @@ async def SellItem(self, inter):
             for i in inv:
                 new_inv.append(i)
             new_inv.remove(item)
-            new_price = int(price)/2
+            new_price = gold+price/2
             info = {"inventory": new_inv, "gold": new_price}
             await inter.bot.players.update_one({"_id": inter.author.id}, {"$set": info})
 
             em = disnake.Embed(
-                description=f"You sold **{item}**\nfor **{new_price}G**",
+                description=f"You sold **{item}**\nfor **{price/2}G**",
                 color=0x0077ff
             )
             await inter.send(embed=em)
@@ -442,12 +443,12 @@ async def SellItem(self, inter):
             for i in inv:
                 new_inv.append(i)
             new_inv.remove(item)
-            new_price = int(price)/2
+            new_price = gold+price/2
             info = {"inventory": new_inv, "gold": new_price}
             await inter.bot.players.update_one({"_id": inter.author.id}, {"$set": info})
 
             em = disnake.Embed(
-                description=f"You sold **{item}**\nfor **{new_price}G**",
+                description=f"You sold **{item}**\nfor **{price/2}G**",
                 color=0x0077ff
             )
             await inter.send(embed=em)
@@ -459,12 +460,12 @@ async def SellItem(self, inter):
         for i in inv:
             new_inv.append(i)
         new_inv.remove(item)
-        new_price = int(price)/2
+        new_price = gold+price/2
         info = {"inventory": new_inv, "gold": new_price}
         await inter.bot.players.update_one({"_id": inter.author.id}, {"$set": info})
 
         em = disnake.Embed(
-            description=f"You sold **{item}**\nfor **{new_price}G**",
+            description=f"You sold **{item}**\nfor **{price/2}G**",
             color=0x0077ff
         )
         await inter.send(embed=em)
