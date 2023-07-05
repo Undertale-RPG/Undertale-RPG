@@ -131,8 +131,8 @@ class Economy(commands.Cog):
         embed.add_field(name="▫️┃Weapon", value=f"{weapon}")
         embed.add_field(name="▫️┃Armor", value=f"{armor}")
         embed.add_field(name="▫️┃Resets", value=f"{round(resets)}")
-        embed.add_field(name="▫️┃Gold Multiplier", value=f"{round(multi_g)}")
-        embed.add_field(name="▫️┃EXP Multiplier", value=f"{round(multi_xp)}")
+        embed.add_field(name="▫️┃Gold Multiplier", value=f"{multi_g}")
+        embed.add_field(name="▫️┃EXP Multiplier", value=f"{multi_xp}")
         embed.add_field(name="▫️┃Attack", value=f"{round(atk)}")
         embed.add_field(name="▫️┃Defence", value=f"{round(deff)}")
 

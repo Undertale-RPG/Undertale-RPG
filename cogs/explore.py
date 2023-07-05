@@ -409,8 +409,8 @@ async def BossBattle(
     if new_enemy_hp <= 0:
         location = data["location"]
         monsters = fileIO("./data/bosses.json", "load")
-        exp = monsters[location][monster]["exp"]
-        gold = random.randint(gold_min, gold_max)
+        exp = monsters[location][monster]["exp"] * data["multi_xp"]
+        gold = random.randint(gold_min, gold_max) * data["multi_g"]
         embed = disnake.Embed(
             title=f"{monster} died!",
             color=BLUE,
@@ -545,12 +545,12 @@ async def Battle(
     if new_enemy_hp <= 0:
         location = data["location"]
         monsters = fileIO("./data/monsters.json", "load")
-        exp = monsters[location][monster]["exp"]
-        gold = random.randint(gold_min, gold_max)
+        exp = monsters[location][monster]["exp"] * data["multi_xp"]
+        gold = random.randint(gold_min, gold_max) * data["multi_g"]
         embed = disnake.Embed(
             title=f"{monster} died!",
             color=BLUE,
-            description=f"You got **{exp}**EXP and **{gold}**G",
+            description=f"You got **{round(exp)}**EXP and **{round(gold)}**G",
         )
         await inter.edit_original_message(embed=embed, view=None)
         new_gold = data["gold"] + gold
@@ -582,7 +582,7 @@ async def Battle(
         **{inter.author.name}'s stats**
         **HP:** {new_user_hp}
         **Attack:** {user_atk}
-        **Defence:** {user_atk}
+        **Defence:** {user_def}
         """,
     )
     embed.set_thumbnail(

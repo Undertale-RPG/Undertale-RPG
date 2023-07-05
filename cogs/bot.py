@@ -53,7 +53,7 @@ class Bot(commands.Cog):
         embed.add_field(name="Shard count", value=f"`{len(self.bot.shards)}` shards")
         embed.add_field(
             name="Creators",
-            value="`yaki#8693` (bot dev)\n`Commander R#9371` (website dev)\n`СᏓᎾυdy#4204` (artist)",
+            value="`yakirarage` (bot dev)\n`howlingarcher` (website dev)\n`СᏓᎾυdy#4204` (artist)",
         )
         embed.add_field(
             name="Disclaimer",
