@@ -21,10 +21,10 @@
             "title": "Dogs can pet other dogs??? A new world has opened up for us..."
         },
         "papyrus": {
-            "hp": 680,
-            "attack": 20,
-            "defence": 20,
-            "exp": 200,
+            "hp": 280,
+            "attack": 21,
+            "defence": 0,
+            "exp": 700,
             "gold_min": 80,
             "gold_max": 109,
             "title": "He likes to say: 'Nyeh heh heh!'"
@@ -32,85 +32,85 @@
     },
     "waterfall": {
         "mad_dummy": {
-            "hp": 300,
+            "hp": 375,
             "attack": 30,
             "defence": 0,
-            "exp": 0,
-            "gold_min": 120,
-            "gold_max": 210,
+            "exp": 790,
+            "gold_min": 109,
+            "gold_max": 147,
             "title": "Because they're a ghost, physical attacks will fail."
         },
         "undyne": {
-            "hp": 1500,
-            "attack": 10,
-            "defence": 10,
-            "exp": 0,
-            "gold_min": 140,
-            "gold_max": 180,
+            "hp": 440,
+            "attack": 38,
+            "defence": 0,
+            "exp": 860,
+            "gold_min": 147,
+            "gold_max": 198,
             "title": "The heroine that NEVER gives up."
         }
     },
     "hotland": {
         "royal_guards": {
-            "hp": 150,
-            "attack": 38,
-            "defence": 24,
-            "exp": 220,
-            "gold_min": 100,
-            "gold_max": 110,
+            "hp": 530,
+            "attack": 44,
+            "defence": 0,
+            "exp": 910,
+            "gold_min": 198,
+            "gold_max": 230,
             "title": "Two lovers staring over the edge of the cauldron of hell."
         },
         "muffet": {
-            "hp": 1250,
-            "attack": 46,
-            "defence": 18,
-            "exp": 300,
-            "gold_min": 110,
-            "gold_max": 200,
+            "hp": 587,
+            "attack": 51,
+            "defence": 0,
+            "exp": 970,
+            "gold_min": 230,
+            "gold_max": 287,
             "title": "If she invites you to her parlor, excuse yourself."
         }
     },
     "core": {
         "mettaton_ex": {
-            "hp": 1600,
-            "attack": 47,
-            "defence": 47,
-            "exp": 800,
-            "gold_min": 0,
-            "gold_max": 0,
+            "hp": 695,
+            "attack": 65,
+            "defence": 0,
+            "exp": 1010,
+            "gold_min": 287,
+            "gold_max": 350,
             "title": "Mettaton Ex has appeared"
         }
     },
     "barrier": {
         "asgore": {
-            "hp": 3500,
-            "attack": 90,
-            "defence": 80,
-            "exp": 0,
-            "gold_min": 0,
-            "gold_max": 0,
+            "hp": 810,
+            "attack": 86,
+            "defence": 0,
+            "exp": 1140,
+            "gold_min": 350,
+            "gold_max": 410,
             "title": "Asgore has appeared"
         }
     },
     "last_corridor": {
         "sans": {
-            "hp": 1,
-            "attack": 1,
-            "defence": 1,
-            "exp": 420,
-            "gold_min": 0,
-            "gold_max": 0,
+            "hp": 890,
+            "attack": 99,
+            "defence": 0,
+            "exp": 1220,
+            "gold_min": 410,
+            "gold_max": 500,
             "title": "Sans has appeared"
         }
     },
     "void": {
         "chara": {
-            "hp": 0,
-            "attack": 0,
+            "hp": 999,
+            "attack": 110,
             "defence": 0,
-            "exp": 0,
-            "gold_min": 0,
-            "gold_max": 0,
+            "exp": 1200,
+            "gold_min": 500,
+            "gold_max": 550,
             "title": "Chara has appeared"
         }
     }
