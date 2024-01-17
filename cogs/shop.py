@@ -390,7 +390,7 @@ async def UseItem(self, inter: disnake.MessageInteraction):
         info = {"inventory": new_inv, "health": new_health}
         await inter.bot.players.update_one({"_id": inter.author.id}, {"$set": info})
 
-        embed = disnake.Embed(description=f"You used **{item}**", color=BLUE)
+        embed = disnake.Embed(description=f"You used **{item}**\nYour health: **{round(new_health)}/{round(max_health)}**", color=BLUE)
         await inter.send(embed=embed)
 
 

@@ -10,7 +10,7 @@ from typing import Dict
 
 load_dotenv()
 
-description = """The undertale RPG Beta bot."""
+description = """The undertale RPG bot."""
 
 intents = disnake.Intents.none()
 intents.members = False
