@@ -205,7 +205,7 @@ class Help(commands.Cog):
 
         em.add_field(
             name="> Useful links",
-            value="[Website](https://undertalerpg.monster/) • [Support](https://discord.gg/FQYVpuNz4Q) • [Vote](https://top.gg/bot/815153881217892372)",
+            value="[Support](https://discord.gg/FQYVpuNz4Q) • [Vote](https://top.gg/bot/815153881217892372)",
             inline=False,
         )
 
@@ -213,7 +213,7 @@ class Help(commands.Cog):
             Button(
                 style=ButtonStyle.link,
                 label="FAQ",
-                url="https://undertalerpg.monster/faq",
+                url="https://discord.com/channels/817437132397871135/1198314647879692308",
             ),
             Button(
                 style=ButtonStyle.link,

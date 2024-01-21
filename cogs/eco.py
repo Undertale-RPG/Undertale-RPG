@@ -13,9 +13,7 @@ class Economy(commands.Cog):
     def __init__(self, bot: UndertaleBot):
         self.bot = bot
 
-    @commands.slash_command(
-        description="Get your supporter reward for being in our support server."
-    )
+    @commands.slash_command(description="Get your supporter reward for being in our support server.")
     @commands.cooldown(1, 12, commands.BucketType.user)
     async def supporter(self, inter: disnake.ApplicationCommandInteraction):
         """Get your supporter reward for being in our support server."""

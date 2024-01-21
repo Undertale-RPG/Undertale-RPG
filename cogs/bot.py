@@ -57,7 +57,7 @@ class Bot(commands.Cog):
         )
         embed.add_field(
             name="Disclaimer",
-            value="All the designs/names of the pictures, locations, monsters and bosses belong to the official undertale creator: **Toby Fox**",
+            value="All the designs/names of any original undertale content belong to the official undertale creator: **Toby Fox**",
         )
         embed.set_footer(text="you can find more info on our website.")
 
@@ -108,9 +108,6 @@ class Bot(commands.Cog):
             <:booster:1051256363516436571> -> boosting our support server
             <:blacklist:1051266962321317908> -> blacklisted user
             """,
-        )
-        embed.set_footer(
-            "This feature is a work in progress you are not able to earn all these badges at this moment."
         )
         await inter.send(embed=embed)
 

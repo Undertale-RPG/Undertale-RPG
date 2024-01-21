@@ -30,16 +30,12 @@ class Cratesbtn(disnake.ui.View):
         self.value = None
 
     @disnake.ui.button(label="Standard crate", style=disnake.ButtonStyle.secondary)
-    async def standard(
-        self, button: disnake.ui.Button, inter: disnake.MessageInteraction
-    ):
+    async def standard(self, button: disnake.ui.Button, inter: disnake.MessageInteraction):
         self.value = "standard crate"
         self.stop()
 
     @disnake.ui.button(label="Determination crate", style=disnake.ButtonStyle.secondary)
-    async def determination(
-        self, button: disnake.ui.Button, inter: disnake.MessageInteraction
-    ):
+    async def determination(self, button: disnake.ui.Button, inter: disnake.MessageInteraction):
         self.value = "determination crate"
         self.stop()
 
@@ -329,17 +325,17 @@ class Usebtn(disnake.ui.View):
             await inter.response.defer()
             await UseItem(self, inter)
 
-        for x, i in enumerate(inv):
-            if x >= 25:
-                return
+        inv_dict = {i:inv.count(i) for i in inv}
+        for key in inv_dict:
+            value = inv_dict[key]
 
-            button = Button(label=i, style=disnake.ButtonStyle.gray)
+            button = Button(label=f"{key}: {value}", style=disnake.ButtonStyle.gray, custom_id=key)
             button.callback = shared_callback
             self.add_item(button)
 
 
 async def UseItem(self, inter: disnake.MessageInteraction):
-    item = inter.component.label
+    item = inter.component.custom_id
     data = await inter.bot.players.find_one({"_id": inter.author.id})
     consu = await inter.bot.consumables.find_one({"_id": item})
     if consu is None:
@@ -392,6 +388,9 @@ async def UseItem(self, inter: disnake.MessageInteraction):
 
         embed = disnake.Embed(description=f"You used **{item}**\nYour health: **{round(new_health)}/{round(max_health)}**", color=BLUE)
         await inter.send(embed=embed)
+    inv = new_inv
+    view = Usebtn(inv)
+    await inter.edit_original_message(view=view)
 
 
 class Sellbtn(disnake.ui.View):
@@ -400,17 +399,17 @@ class Sellbtn(disnake.ui.View):
         async def shared_callback(inter: disnake.MessageInteraction) -> None:
             await inter.response.defer()
             await SellItem(self, inter)
-        x = 0
-        for i in inv:
-            if x >= 25:
-                return
-            button = Button(label=i, style=disnake.ButtonStyle.gray)
+
+        inv_dict = {i:inv.count(i) for i in inv}
+        for key in inv_dict:
+            value = inv_dict[key]
+            
+            button = Button(label=f"{key}: {value}", style=disnake.ButtonStyle.gray, custom_id=key)
             button.callback = shared_callback
             self.add_item(button)
-            x = x+1
 
 async def SellItem(self, inter):
-    item = inter.component.label
+    item = inter.component.custom_id
     data = await inter.bot.players.find_one({"_id": inter.author.id})
     gold = data["gold"]
     consu = await inter.bot.consumables.find_one({"_id": item})
@@ -468,6 +467,9 @@ async def SellItem(self, inter):
             color=0x0077ff
         )
         await inter.send(embed=em)
+    inv = new_inv
+    view = Usebtn(inv)
+    await inter.edit_original_message(view=view)
 
 class Shop(commands.Cog):
     def __init__(self, bot: UndertaleBot):
@@ -580,18 +582,18 @@ class Shop(commands.Cog):
         await create_player_info(inter, inter.author)
         data = await inter.bot.players.find_one({"_id": inter.author.id})
         inv = data["inventory"]
+        inv_dict = {i:inv.count(i) for i in inv}
         if len(inv) == 0:
             inv = "None"
 
         else:
-            inv = "".join(f" `{item}` • " for item in inv)
+            inv = ""
+            for key in inv_dict:
+                value = inv_dict[key]
+                inv += f"**{key}**: {value}\n"
 
-        embed = disnake.Embed(
-            title=f"{inter.user.name}'s inventory", color=BLUE, description=f"{inv}"
-        )
-        embed.set_thumbnail(
-            url="https://cdn.discordapp.com/attachments/900274624594575361/1034392719675633745/unknown.png"
-        )
+        embed = disnake.Embed(title=f"{inter.user.name}'s inventory", color=BLUE, description=f"{inv}")
+        embed.set_thumbnail(url="https://cdn.discordapp.com/attachments/900274624594575361/1034392719675633745/unknown.png")
 
         await inter.send(embed=embed)
 
