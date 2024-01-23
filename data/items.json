@@ -23,8 +23,8 @@
             },
             "stick": {
                 "name": "stick",
-                "min_dmg": 7,
-                "max_dmg": 8,
+                "min_dmg": 2,
+                "max_dmg": 7,
                 "price": 10
             }
         }

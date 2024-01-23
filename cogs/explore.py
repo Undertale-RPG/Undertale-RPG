@@ -116,6 +116,8 @@ class BossButton(disnake.ui.View):
     async def fight(self, button: disnake.ui.Button, inter: disnake.MessageInteraction):
         await inter.response.defer()
         data = await inter.bot.players.find_one({"_id": inter.author.id})
+        armor = await inter.bot.armor.find_one({"_id": data["armor"]})
+        weapon = await inter.bot.weapons.find_one({"_id": data["weapon"]})
         monsters = fileIO("./data/bosses.json", "load")
         monster = data["fight_monster"]
         # player stats
@@ -247,6 +249,8 @@ class ExploreButton(disnake.ui.View):
     async def fight(self, button: disnake.ui.Button, inter: disnake.MessageInteraction):
         await inter.response.defer()
         data = await inter.bot.players.find_one({"_id": inter.author.id})
+        armor = await inter.bot.armor.find_one({"_id": data["armor"]})
+        weapon = await inter.bot.weapons.find_one({"_id": data["weapon"]})
         monsters = fileIO("./data/monsters.json", "load")
         monster = data["fight_monster"]
         # player stats
@@ -279,9 +283,9 @@ class ExploreButton(disnake.ui.View):
         )
         return
 
-    # @disnake.ui.button(label="Use", style=disnake.ButtonStyle.gray, disabled=True)
-    # async def use(self, button: disnake.ui.button, inter: disnake.MessageInteraction):
-    #    await inter.response.defer()
+    @disnake.ui.button(label="Use", style=disnake.ButtonStyle.gray, disabled=True)
+    async def use(self, button: disnake.ui.button, inter: disnake.MessageInteraction):
+       await inter.response.defer()
 
     @disnake.ui.button(label="Mercy", style=disnake.ButtonStyle.green)
     async def mercy(self, button: disnake.ui.button, inter: disnake.MessageInteraction):
@@ -386,9 +390,12 @@ async def BossBattle(
     view = BossButton()
     loading = Loading()
     data = await inter.bot.players.find_one({"_id": inter.author.id})
+    armor = await inter.bot.armor.find_one({"_id": data["armor"]})
+    weapon = await inter.bot.weapons.find_one({"_id": data["weapon"]})
 
+    custom_user_atk = user_atk + random.randint(weapon["min_dmg"], weapon["max_dmg"])
     new_user_hp = user_hp - enemy_atk
-    new_enemy_hp = enemy_hp - user_atk
+    new_enemy_hp = enemy_hp - custom_user_atk
 
     embed = disnake.Embed(
         title=f"You damaged {monster}",
@@ -448,8 +455,8 @@ async def BossBattle(
         description=f"""
         **{inter.author.name}'s stats**
         **HP:** {new_user_hp}
-        **Attack:** {user_atk}
-        **Defence:** {user_atk}
+        **Attack:** {user_atk} (base damage)
+        **Defence:** {user_def}
         """,
     )
     embed.set_thumbnail(
@@ -493,8 +500,9 @@ async def BossBattle(
     )
     embed.add_field(
         name=f"{inter.author.name}'s stats",
-        value=f"**HP:** {new_user_hp}\n**Attack:** {user_atk}\n**Defence:** {user_def}",
+        value=f"**HP:** {new_user_hp}\n**Attack:** {user_atk} (base damage)\n**Defence:** {user_def}",
     )
+    embed.set_footer(text="with each hit a random amount of damage is added to your base damage depending on your weapon")
     await inter.edit_original_message(embed=embed, view=view)
     info = {
         "health": new_user_hp,
@@ -522,9 +530,12 @@ async def Battle(
     view = ExploreButton()
     loading = Loading()
     data = await inter.bot.players.find_one({"_id": inter.author.id})
+    armor = await inter.bot.armor.find_one({"_id": data["armor"]})
+    weapon = await inter.bot.weapons.find_one({"_id": data["weapon"]})
 
+    custom_user_atk = user_atk + random.randint(weapon["min_dmg"], weapon["max_dmg"])
     new_user_hp = user_hp - enemy_atk
-    new_enemy_hp = enemy_hp - user_atk
+    new_enemy_hp = enemy_hp - custom_user_atk
 
     embed = disnake.Embed(
         title=f"You damaged {monster}",
@@ -581,7 +592,7 @@ async def Battle(
         description=f"""
         **{inter.author.name}'s stats**
         **HP:** {new_user_hp}
-        **Attack:** {user_atk}
+        **Attack:** {user_atk} (base damage)
         **Defence:** {user_def}
         """,
     )
@@ -626,8 +637,9 @@ async def Battle(
     )
     embed.add_field(
         name=f"{inter.author.name}'s stats",
-        value=f"**HP:** {new_user_hp}\n**Attack:** {user_atk}\n**Defence:** {user_def}",
+        value=f"**HP:** {new_user_hp}\n**Attack:** {user_atk} (base damage)\n**Defence:** {user_def}",
     )
+    embed.set_footer(text="with each hit a random amount of damage is added to your base damage depending on your weapon")
     await inter.edit_original_message(embed=embed, view=view)
     info = {
         "health": new_user_hp,
@@ -716,8 +728,9 @@ class Explore(commands.Cog):
         )
         embed.add_field(
             name=f"{inter.author.name}'s stats",
-            value=f"**HP:** {user_hp}\n**Attack:** {user_atk}\n**Defence:** {user_def}",
+            value=f"**HP:** {user_hp}\n**Attack:** {user_atk} (base damage)\n**Defence:** {user_def}",
         )
+        embed.set_footer(text="with each hit a random amount of damage is added to your base damage depending on your weapon")
         view = BossButton()
         await inter.send(embed=embed, view=view)
         info = {
@@ -744,6 +757,8 @@ class Explore(commands.Cog):
         item = random.choices(choices, weights=(90, 10, 10, 10), k=1)
 
         data = await inter.bot.players.find_one({"_id": inter.author.id})
+        armor = await inter.bot.armor.find_one({"_id": data["armor"]})
+        weapon = await inter.bot.weapons.find_one({"_id": data["weapon"]})
         await inter.response.defer()
 
         if item[0] == "fight":
@@ -785,8 +800,9 @@ class Explore(commands.Cog):
             )
             embed.add_field(
                 name=f"{inter.author.name}'s stats",
-                value=f"**HP:** {user_hp}\n**Attack:** {user_atk}\n**Defence:** {user_def}",
+                value=f"**HP:** {user_hp}\n**Attack:** {user_atk} (base damage)\n**Defence:** {user_def}",
             )
+            embed.set_footer(text="with each hit a random amount of damage is added to your base damage depending on your weapon")
             view = ExploreButton()
             await inter.send(embed=embed, view=view, ephemeral=True)
             info = {
