@@ -55,9 +55,10 @@ class Help(commands.Cog):
     def __init__(self, bot: UndertaleBot):
         self.bot = bot
 
-    @commands.slash_command(description="Intro to the undertale universe.")
+    @commands.slash_command()
     @commands.cooldown(1, 12, commands.BucketType.user)
     async def intro(self, inter: disnake.ApplicationCommandInteraction):
+        """Intro to the undertale universe."""
         embeds = [
             disnake.Embed(
                 title="Long ago, two races ruled over Earth: HUMANS and MONSTERS.",
@@ -124,9 +125,10 @@ class Help(commands.Cog):
         # Sends first embed with the buttons, it also passes the embeds list into the View class.
         await inter.send(embed=embeds[0], view=Menu(embeds))
 
-    @commands.slash_command(description="Info on any ongoing events.")
+    @commands.slash_command()
     @commands.cooldown(1, 12, commands.BucketType.user)
     async def event(self, inter: disnake.ApplicationCommandInteraction):
+        """Info on any ongoing events."""
         events = await self.bot.db["events"].find_one({"_id": 0})
         if events["active"] is False:
             embed = disnake.Embed(
@@ -179,9 +181,7 @@ class Help(commands.Cog):
         embed.set_thumbnail(url=self.bot.user.avatar.url)
         await inter.send(embed=embed)
 
-    @commands.slash_command(
-        description="A complete view of the bot's features and commands with useful links."
-    )
+    @commands.slash_command()
     @commands.cooldown(1, 12, commands.BucketType.user)
     async def help(self, inter: disnake.ApplicationCommandInteraction):
         """Info on how to use the bot and it's commands."""

@@ -476,9 +476,10 @@ class Shop(commands.Cog):
         self.bot = bot
 
     @in_battle()
-    @commands.slash_command(description="Buy new items here!")
+    @commands.slash_command()
     @commands.cooldown(1, 12, commands.BucketType.user)
     async def shop(self, inter: disnake.ApplicationCommandInteraction):
+        """Buy new items here!"""
         await create_player_info(inter, inter.author)
         data = await inter.bot.players.find_one({"_id": inter.author.id})
         location = data["location"]
@@ -493,9 +494,10 @@ class Shop(commands.Cog):
         )
         await inter.send(embed=embed, view=view)
 
-    @commands.slash_command(description="Open your crates!")
+    @commands.slash_command()
     @commands.cooldown(1, 12, commands.BucketType.user)
     async def crates(self, inter: disnake.ApplicationCommandInteraction):
+        """Open your crates!"""
         await create_player_info(inter, inter.author)
         data = await inter.bot.players.find_one({"_id": inter.author.id})
         standard = data["standard crate"]
@@ -576,9 +578,10 @@ class Shop(commands.Cog):
         await asyncio.sleep(3)
         await inter.edit_original_message(content=None, embed=embed)
 
-    @commands.slash_command(description="Check all items in your inventory.")
+    @commands.slash_command()
     @commands.cooldown(1, 12, commands.BucketType.user)
     async def inventory(self, inter: disnake.ApplicationCommandInteraction):
+        """Check all items in your inventory."""
         await create_player_info(inter, inter.author)
         data = await inter.bot.players.find_one({"_id": inter.author.id})
         inv = data["inventory"]
@@ -597,9 +600,10 @@ class Shop(commands.Cog):
 
         await inter.send(embed=embed)
 
-    @commands.slash_command(description="Equip/use items from your inventory.")
+    @commands.slash_command()
     @commands.cooldown(1, 12, commands.BucketType.user)
     async def use(self, inter: disnake.ApplicationCommandInteraction):
+        """Equip/use items from your inventory."""
         await create_player_info(inter, inter.author)
         data = await inter.bot.players.find_one({"_id": inter.author.id})
         inv = data["inventory"]
@@ -613,9 +617,10 @@ class Shop(commands.Cog):
 
         await inter.send(embed=embed, view=view)
 
-    @commands.slash_command(description="sell items")
+    @commands.slash_command()
     @commands.cooldown(1, 12, commands.BucketType.user)
     async def sell(self, inter):
+        """sell items"""
         await create_player_info(inter, inter.author)
         data = await inter.bot.players.find_one({"_id": inter.author.id})
         inv = data["inventory"]

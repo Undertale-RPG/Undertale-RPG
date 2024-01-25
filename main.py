@@ -37,6 +37,7 @@ class UndertaleBot(commands.AutoShardedInteractionBot):
         self.weapons = None
         self.db = None
         self.boosters = None
+        self.data = None
 
     async def on_shard_connect(self, shard):
         print(
@@ -64,11 +65,12 @@ class UndertaleBot(commands.AutoShardedInteractionBot):
         self.players = self.db["players"]
         self.guilds_db = self.db["guilds"]
         self.boosters = self.db["boosters"]
+        self.data = self.db["data"]
         print(f"{ConsoleColors.GREEN}✅ the database has loaded")
         return
 
 
-bot = UndertaleBot(intents=intents, owner_ids=[536538183555481601, 1023550762816638996])
+bot = UndertaleBot(intents=intents, owner_ids=[536538183555481601])
 
 bot.db_load()
 bot.load_all_cogs()

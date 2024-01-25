@@ -13,7 +13,7 @@ class Economy(commands.Cog):
     def __init__(self, bot: UndertaleBot):
         self.bot = bot
 
-    @commands.slash_command(description="Get your supporter reward for being in our support server.")
+    @commands.slash_command()
     @commands.cooldown(1, 12, commands.BucketType.user)
     async def supporter(self, inter: disnake.ApplicationCommandInteraction):
         """Get your supporter reward for being in our support server."""
@@ -54,14 +54,10 @@ class Economy(commands.Cog):
             info["supporter_block"] = 0
             await self.bot.players.update_one({"_id": inter.author.id}, {"$set": info})
 
-    @commands.slash_command(description="Check your balance or other people's ones.")
+    @commands.slash_command()
     @commands.cooldown(1, 12, commands.BucketType.user)
-    async def gold(
-        self,
-        inter: disnake.ApplicationCommandInteraction,
-        member: disnake.User = None,
-    ):
-        """Check your gold and progress"""
+    async def gold(self, inter: disnake.ApplicationCommandInteraction, member: disnake.User = None):
+        """Check your gold balance"""
         player = member or inter.author
 
         if player.bot:
@@ -79,13 +75,9 @@ class Economy(commands.Cog):
         )
         await inter.send(embed=embed)
 
-    @commands.slash_command(description="Check your Statistics or other people's ones.")
+    @commands.slash_command()
     @commands.cooldown(1, 12, commands.BucketType.user)
-    async def stats(
-        self,
-        inter: disnake.ApplicationCommandInteraction,
-        member: disnake.User = None,
-    ):
+    async def stats(self, inter: disnake.ApplicationCommandInteraction, member: disnake.User = None):
         """Check your stats and progress"""
         player = member or inter.author
         if player.bot:
@@ -95,6 +87,7 @@ class Economy(commands.Cog):
         await create_player_info(inter, player)
 
         data = await self.bot.players.find_one({"_id": player.id})
+        badge_data = await self.bot.data.find_one({"_id": "badges"})
 
         health = data["health"]
         love = data["level"]
@@ -113,12 +106,19 @@ class Economy(commands.Cog):
         atk = data["attack"]
         deff = data["defence"]
 
+        badges = ""
+        for i in data["badges"]:
+            badges += f"{badge_data[i]} "
+        if len(data["badges"]) == 0:
+            badges = "None"
+
         embed = disnake.Embed(
             title=f"{player}'s stats",
             color=BLUE,
             description="Status and progress in the game.",
         )
         embed.set_thumbnail(url=player.display_avatar)
+        embed.add_field(name="▫️┃Badges", value=f"{badges}", inline=False)
         embed.add_field(name="▫️┃Health", value=f"{round(health)}/{round(max_health)}")
         embed.add_field(name="▫️┃LOVE", value=f"{round(love)}")
         embed.add_field(name="▫️┃EXP", value=f"{round(exp)}/{round(exp_lvl_up)}")
@@ -136,7 +136,7 @@ class Economy(commands.Cog):
 
         await inter.send(inter.author.mention, embed=embed)
 
-    @commands.slash_command(description="Claim your booster rewards.")
+    @commands.slash_command()
     @commands.cooldown(1, 12, commands.BucketType.user)
     async def booster(self, inter: disnake.ApplicationCommandInteraction):
         """Claim Your daily booster Reward!"""
@@ -176,7 +176,7 @@ class Economy(commands.Cog):
 
         await inter.send(embed=embed, ephemeral=True)
 
-    @commands.slash_command(description="Claim your daily gold reward.")
+    @commands.slash_command()
     @commands.cooldown(1, 12, commands.BucketType.user)
     async def daily(self, inter: disnake.ApplicationCommandInteraction):
         """Claim Your daily Reward!"""

@@ -11,7 +11,7 @@ class Bot(commands.Cog):
     def __init__(self, bot: UndertaleBot):
         self.bot = bot
 
-    @commands.slash_command(description="link to the bot invite and support server.")
+    @commands.slash_command()
     @commands.cooldown(1, 12, commands.BucketType.user)
     async def invite(self, inter: disnake.ApplicationCommandInteraction):
         """Invite the bot to your server and join our support server!"""
@@ -30,7 +30,7 @@ class Bot(commands.Cog):
 
         await inter.send(embed=embed, ephemeral=True)
 
-    @commands.slash_command(description="View the bots ping.")
+    @commands.slash_command()
     @commands.cooldown(1, 12, commands.BucketType.user)
     async def ping(self, inter: disnake.ApplicationCommandInteraction):
         """Latency check for stability"""
@@ -38,7 +38,7 @@ class Bot(commands.Cog):
             f"pong! **{round(self.bot.latency * 1000)}ms**", ephemeral=True
         )
 
-    @commands.slash_command(description="Info on the bot.")
+    @commands.slash_command()
     @commands.cooldown(1, 12, commands.BucketType.user)
     async def botinfo(self, inter: disnake.ApplicationCommandInteraction):
         """Info on the bot"""
@@ -67,10 +67,10 @@ class Bot(commands.Cog):
 
         await inter.send(embed=embed, components=buttons, ephemeral=True)
 
-    @commands.slash_command(description="Vote for our bots and receive rewards.")
+    @commands.slash_command()
     @commands.cooldown(1, 12, commands.BucketType.user)
     async def vote(self, inter: disnake.ApplicationCommandInteraction):
-        """Vote for the bot for special reward"""
+        """Vote for the bot for special rewards"""
         embed = disnake.Embed(title="<:DT:1010165881516609596> Voting", color=BLUE)
         embed.add_field(
             name="Voting on Top.gg",
@@ -91,7 +91,7 @@ class Bot(commands.Cog):
         ]
         await inter.send(inter.author.mention, embed=embed, components=buttons)
 
-    @commands.slash_command(description="A list of all badges you can earn.")
+    @commands.slash_command()
     @commands.cooldown(1, 12, commands.BucketType.user)
     async def badges(self, inter: disnake.ApplicationCommandInteraction):
         """A list of all badges you can earn."""
@@ -100,14 +100,12 @@ class Bot(commands.Cog):
             color=BLUE,
             description="""
             <:developer:1051266723208241253> -> creator of the bot
-            <:staff:1051266679356792923> -> staff of the bot
-            <:beta:1051275494601011291> -> public beta tester
             <:bughunter:1051275974702006352> -> find and report a valid bug
-            <:resets:1051277356813262858> -> reach max resets
+            ⬅️ -> reach max resets
             <:trophy:1051281684894580736> -> get all achievements
             <:booster:1051256363516436571> -> boosting our support server
             <:blacklist:1051266962321317908> -> blacklisted user
-            """,
+            """
         )
         await inter.send(embed=embed)
 

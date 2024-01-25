@@ -690,9 +690,10 @@ class Explore(commands.Cog):
         self.bot = bot
 
     @in_battle()
-    @commands.slash_command(description="Fight bosses!")
+    @commands.slash_command()
     @commands.cooldown(1, 12, commands.BucketType.user)
     async def boss(self, inter: disnake.ApplicationCommandInteraction):
+        """Fight bosses!"""
         await create_player_info(inter, inter.author)
         data = await inter.bot.players.find_one({"_id": inter.author.id})
         location = data["location"]
@@ -748,7 +749,7 @@ class Explore(commands.Cog):
         return
 
     @in_battle()
-    @commands.slash_command(description="Explore to find monsters, xp, gold and items.")
+    @commands.slash_command()
     @commands.cooldown(1, 12, commands.BucketType.user)
     async def explore(self, inter: disnake.ApplicationCommandInteraction):
         """Explore and find all kinds of monsters and treasure!"""
@@ -847,11 +848,10 @@ class Explore(commands.Cog):
             return
 
     @in_battle()
-    @commands.slash_command(
-        description="Reset your stats for multipliers of gold and exp."
-    )
+    @commands.slash_command()
     @commands.cooldown(1, 12, commands.BucketType.user)
     async def reset(self, inter: disnake.ApplicationCommandInteraction):
+        """Reset your stats for multipliers of gold and exp"""
         await create_player_info(inter, inter.author)
         data = await self.bot.players.find_one({"_id": inter.author.id})
 
@@ -914,11 +914,10 @@ class Explore(commands.Cog):
         )
 
     @in_battle()
-    @commands.slash_command(
-        description="Travel within the world of undertale and fight unique enemies."
-    )
+    @commands.slash_command()
     @commands.cooldown(1, 12, commands.BucketType.user)
     async def travel(self, inter: disnake.ApplicationCommandInteraction):
+        """Travel within the world of undertale and fight unique enemies"""
         await create_player_info(inter, inter.author)
         data = await self.bot.players.find_one({"_id": inter.author.id})
 
@@ -989,11 +988,10 @@ class Explore(commands.Cog):
         await asyncio.sleep(3)
         await inter.edit_original_message(content=f"You arrived at **{view.value}**")
 
-    @commands.slash_command(description="View the top 10 players on specific stats.")
+    @commands.slash_command()
     @commands.cooldown(1, 12, commands.BucketType.user)
-    async def leaderboard(
-        self, inter: disnake.ApplicationCommandInteraction, leaderboard: str = None
-    ):
+    async def leaderboard(self, inter: disnake.ApplicationCommandInteraction, leaderboard: str = None):
+        """View the top 10 players on specifc stats"""
         await inter.response.defer()
 
         if leaderboard not in ["gold", "exp", "resets", "kills", "spares", "deaths", "level"] or None:
