@@ -23,6 +23,13 @@ async def create_player_info(
     inter: disnake.ApplicationCommandInteraction,
     player: typing.Union[disnake.Member, disnake.User],
 ):
+    """
+    Creates player information if not already present in the database.
+
+    Parameters:
+    - inter (disnake.ApplicationCommandInteraction): The interaction.
+    - player (typing.Union[disnake.Member, disnake.User]): The player for whom to create information.
+    """
     dat = await inter.bot.players.find_one({"_id": player.id})
     if dat:
         return
