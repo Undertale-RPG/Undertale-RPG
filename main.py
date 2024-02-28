@@ -1,4 +1,5 @@
 import os
+from typing import Dict
 
 import disnake
 from disnake.ext import commands
@@ -6,7 +7,12 @@ from dotenv import load_dotenv
 from motor.motor_asyncio import AsyncIOMotorClient
 
 from utility.utils import ConsoleColors
-from typing import Dict
+
+# Constants for URLs
+INVITE_URL = "https://discord.gg/FQYVpuNz4Q"
+VOTE_URL = "https://top.gg/bot/748868577150369852/vote"
+WEBSITE = "https://undertalerpg.monster/"
+PATREON_LINK = "https://www.patreon.com/undertaleRPG"
 
 load_dotenv()
 
@@ -21,10 +27,10 @@ class UndertaleBot(commands.AutoShardedInteractionBot):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.BotToken = os.getenv("TOKEN")
-        self.invite_url = "https://discord.gg/FQYVpuNz4Q"
-        self.vote_url = "https://top.gg/bot/748868577150369852/vote"
-        self.website = "https://undertalerpg.monster/"
-        self.patreon_link = "https://www.patreon.com/undertaleRPG"
+        self.invite_url = INVITE_URL
+        self.vote_url = VOTE_URL
+        self.website = WEBSITE
+        self.patreon_link = PATREON_LINK
         self.currency = ":coin:"
         self.activity = disnake.Game("Undertale | /help ")
         self.help_command = None
