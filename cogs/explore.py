@@ -7,7 +7,6 @@ import humanize
 from disnake.ext import commands
 from main import UndertaleBot
 
-from utility import utils
 from utility.dataIO import fileIO
 from utility.utils import ConsoleColors, create_player_info, in_battle
 from utility.constants import BLUE

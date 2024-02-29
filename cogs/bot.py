@@ -47,7 +47,7 @@ class Bot(commands.Cog):
             description="An undertale rpg themed discord bot.",
             color=BLUE,
         )
-        embed.set_thumbnail(url=self.bot.user.avatar.url)
+        embed.set_thumbnail(url=self.bot.user.display_avatar.url)
         embed.add_field(name="Guild count", value=f"`{len(self.bot.guilds)}` Guilds")
         embed.add_field(name="Latency", value=f"`{round(self.bot.latency * 1000)}`ms")
         embed.add_field(name="Shard count", value=f"`{len(self.bot.shards)}` shards")

@@ -131,6 +131,7 @@ class Consbtn(disnake.ui.View):
 async def ConsBuy(self, inter: disnake.MessageInteraction):
     item = inter.component.custom_id
     data = await inter.bot.players.find_one({"_id": inter.author.id})
+
     location = data["location"]
     consumables = fileIO("./data/consumables.json", "load")
     item_name = consumables[location][item]["name"]
@@ -209,6 +210,7 @@ class Armorbtn(disnake.ui.View):
 async def ArmorBuy(self, inter: disnake.MessageInteraction):
     item = inter.component.custom_id
     data = await inter.bot.players.find_one({"_id": inter.author.id})
+
     location = data["location"]
     items = fileIO("./data/items.json", "load")
     item_name = items[location]["armor"][item]["name"]
@@ -287,6 +289,7 @@ class weaponsbtn(disnake.ui.View):
 async def weaponsBuy(self, inter: disnake.MessageInteraction):
     item = inter.component.custom_id
     data = await inter.bot.players.find_one({"_id": inter.author.id})
+
     location = data["location"]
     items = fileIO("./data/items.json", "load")
     item_name = items[location]["weapons"][item]["name"]

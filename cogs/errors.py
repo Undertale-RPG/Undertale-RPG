@@ -25,6 +25,9 @@ class Errors(commands.Cog):
 
         url = self.bot.error_webhook
 
+        if url is None:
+            raise error
+
         embed = {
             "description": f"{error}",
             "title": "An error has occurred",
