@@ -72,7 +72,7 @@ class UndertaleBot(commands.AutoShardedInteractionBot):
         self.guilds_db = self.db["guilds"]
         self.boosters = self.db["boosters"]
         self.data = self.db["data"]
-        print(f"{ConsoleColors.GREEN}✅ the database has loaded test test")
+        print(f"{ConsoleColors.GREEN}✅ the database has loaded")
         return
 
 
