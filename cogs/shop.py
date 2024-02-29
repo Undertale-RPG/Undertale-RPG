@@ -131,6 +131,18 @@ class Consbtn(disnake.ui.View):
 async def ConsBuy(self, inter: disnake.MessageInteraction):
     item = inter.component.custom_id
     data = await inter.bot.players.find_one({"_id": inter.author.id})
+
+    if data["in_fight"]:
+        embed = disnake.Embed(
+            title="You have a fight dialogue open",
+            description=f"Did the fight message get deleted or can you not find it anymore?\nYou can click the button below to end your fight.\n- gold will be removed\n- health will be taken away\n- death count will go up by 1",
+            color=0x0077FF,
+        )
+
+        view = InFight()
+        await inter.send(embed=embed, view=view, ephemeral=True)
+        return
+
     location = data["location"]
     consumables = fileIO("./data/consumables.json", "load")
     item_name = consumables[location][item]["name"]
@@ -209,6 +221,18 @@ class Armorbtn(disnake.ui.View):
 async def ArmorBuy(self, inter: disnake.MessageInteraction):
     item = inter.component.custom_id
     data = await inter.bot.players.find_one({"_id": inter.author.id})
+
+    if data["in_fight"]:
+        embed = disnake.Embed(
+            title="You have a fight dialogue open",
+            description=f"Did the fight message get deleted or can you not find it anymore?\nYou can click the button below to end your fight.\n- gold will be removed\n- health will be taken away\n- death count will go up by 1",
+            color=0x0077FF,
+        )
+
+        view = InFight()
+        await inter.send(embed=embed, view=view, ephemeral=True)
+        return
+
     location = data["location"]
     items = fileIO("./data/items.json", "load")
     item_name = items[location]["armor"][item]["name"]
@@ -287,6 +311,18 @@ class weaponsbtn(disnake.ui.View):
 async def weaponsBuy(self, inter: disnake.MessageInteraction):
     item = inter.component.custom_id
     data = await inter.bot.players.find_one({"_id": inter.author.id})
+
+    if data["in_fight"]:
+        embed = disnake.Embed(
+            title="You have a fight dialogue open",
+            description=f"Did the fight message get deleted or can you not find it anymore?\nYou can click the button below to end your fight.\n- gold will be removed\n- health will be taken away\n- death count will go up by 1",
+            color=0x0077FF,
+        )
+
+        view = InFight()
+        await inter.send(embed=embed, view=view, ephemeral=True)
+        return
+
     location = data["location"]
     items = fileIO("./data/items.json", "load")
     item_name = items[location]["weapons"][item]["name"]
