@@ -136,7 +136,7 @@ class Help(commands.Cog):
                 title="There is currently no event going on",
                 description="You can join our [support server](https://discord.gg/FQYVpuNz4Q) to learn about any upcoming events.",
             )
-            embed.set_thumbnail(url=self.bot.user.avatar.url)
+            embed.set_thumbnail(url=self.bot.user.display_avatar.url)
             return await inter.send(embed=embed)
 
         name = events["name"]
@@ -178,7 +178,7 @@ class Help(commands.Cog):
             color=BLUE,
             description=f"{start}\n\n{fight}\n\n{travel}\n\n{shop}\n\n{daily}\n\n{crates}\n\n{reset}\n\n{help_}",
         )
-        embed.set_thumbnail(url=self.bot.user.avatar.url)
+        embed.set_thumbnail(url=self.bot.user.display_avatar.url)
         await inter.send(embed=embed)
 
     @commands.slash_command()
@@ -189,7 +189,7 @@ class Help(commands.Cog):
         em = disnake.Embed(
             title="📜 | Help Menu!", color=BLUE, timestamp=datetime.datetime.now()
         )
-        em.set_thumbnail(url=self.bot.user.avatar.url)
+        em.set_thumbnail(url=self.bot.user.display_avatar.url)
         forbid = ["Event", "TopGG", "Errors", "Test"]
 
         for cog in self.bot.cogs:
