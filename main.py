@@ -21,7 +21,6 @@ description = """The undertale RPG bot."""
 class UndertaleBot(commands.AutoShardedInteractionBot):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.BotToken = os.getenv("TOKEN")
         self.invite_url = INVITE_URL
         self.vote_url = VOTE_URL
         self.website = WEBSITE
@@ -29,16 +28,20 @@ class UndertaleBot(commands.AutoShardedInteractionBot):
         self.currency = ":coin:"
         self.activity = disnake.Game("Undertale | /help ")
         self.help_command = None
-        self.MongoUrl = os.getenv("MONGO_URL")
         self.error_webhook = os.getenv("ERROR_WEBHOOK")
-        self.cluster = AsyncIOMotorClient(self.MongoUrl)
-        self.players = None
-        self.consumables = None
-        self.armor = None
-        self.weapons = None
-        self.db = None
-        self.boosters = None
-        self.data = None
+
+        self.load_all_cogs()
+
+        self.cluster = AsyncIOMotorClient(os.getenv("MONGO_URL"))
+        self.db = self.cluster["database"]
+        self.consumables = self.db["consumables"]
+        self.armor = self.db["armor"]
+        self.weapons = self.db["weapons"]
+        self.players = self.db["players"]
+        self.guilds_db = self.db["guilds"]
+        self.boosters = self.db["boosters"]
+        self.data = self.db["data"]
+        print(f"{ConsoleColors.GREEN}✅ the database has loaded")
 
     async def on_shard_connect(self, shard):
         print(
@@ -55,27 +58,8 @@ class UndertaleBot(commands.AutoShardedInteractionBot):
         for filename in os.listdir("./cogs"):
             if filename.endswith(".py") and not filename.startswith("_"):
                 self.load_extension(f"cogs.{filename[:-3]}")
-                print(
-                    f"{ConsoleColors.GREEN}🔁 cogs.{filename[:-3]} is loaded and ready."
-                )
-        return
-
-    def db_load(self):
-        self.cluster = AsyncIOMotorClient(self.MongoUrl)
-        self.db = self.cluster["database"]
-        self.consumables = self.db["consumables"]
-        self.armor = self.db["armor"]
-        self.weapons = self.db["weapons"]
-        self.players = self.db["players"]
-        self.guilds_db = self.db["guilds"]
-        self.boosters = self.db["boosters"]
-        self.data = self.db["data"]
-        print(f"{ConsoleColors.GREEN}✅ the database has loaded")
-        return
+                print(f"{ConsoleColors.GREEN}🔁 cogs.{filename[:-3]} is loaded and ready.")
 
 
-bot = UndertaleBot(intents=intents, owner_ids=[536538183555481601])
-
-bot.db_load()
-bot.load_all_cogs()
-bot.run(bot.BotToken)
+if __name__ == "__main__":
+    UndertaleBot(intents=disnake.Intents.none(), owner_ids=[536538183555481601]).run(os.getenv("TOKEN"))
