@@ -8,7 +8,7 @@ from main import UndertaleBot
 from utility.constants import BLUE
 
 from utility.dataIO import fileIO
-from utility.utils import create_player_info, in_battle
+from utility.utils import create_player_info, in_battle, InFight
 
 
 class Loading(disnake.ui.View):

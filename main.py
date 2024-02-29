@@ -1,5 +1,4 @@
 import os
-from typing import Dict
 
 import disnake
 from disnake.ext import commands
@@ -17,10 +16,6 @@ PATREON_LINK = "https://www.patreon.com/undertaleRPG"
 load_dotenv()
 
 description = """The undertale RPG bot."""
-
-intents = disnake.Intents.none()
-intents.members = False
-intents.message_content = False
 
 
 class UndertaleBot(commands.AutoShardedInteractionBot):
@@ -47,7 +42,10 @@ class UndertaleBot(commands.AutoShardedInteractionBot):
 
     async def on_shard_connect(self, shard):
         print(
-            f"{ConsoleColors.CYAN}---------- {ConsoleColors.GREEN}Shard {shard} is on {ConsoleColors.CYAN}-------------\n"
+            f"{ConsoleColors.CYAN}"
+            f"---------- "
+            f"{ConsoleColors.GREEN}Shard {shard} is on {ConsoleColors.CYAN}"
+            f" -------------\n"
             f"{ConsoleColors.GREEN}Total Guilds: {len(self.guilds)}\n"
             f"{ConsoleColors.GREEN}Total Shards: {len(self.shards)}\n"
             f"{ConsoleColors.CYAN}--------------------------------------{ConsoleColors.ENDC}"
