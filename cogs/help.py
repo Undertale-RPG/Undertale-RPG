@@ -189,7 +189,7 @@ class Help(commands.Cog):
         em = disnake.Embed(
             title="📜 | Help Menu!", color=BLUE, timestamp=datetime.datetime.now()
         )
-        em.set_thumbnail(url=self.bot.user.avatar.url)
+        em.set_thumbnail(url=self.bot.user.display_avatar.url)
         forbid = ["Event", "TopGG", "Errors", "Test"]
 
         for cog in self.bot.cogs:
