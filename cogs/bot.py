@@ -3,9 +3,8 @@ from disnake.enums import ButtonStyle
 from disnake.ext import commands
 from disnake.ui import Button
 
-from main import UndertaleBot
 from utility.constants import BLUE
-
+from main import UndertaleBot
 
 class Bot(commands.Cog):
     def __init__(self, bot: UndertaleBot):
