@@ -113,7 +113,7 @@ class Economy(commands.Cog):
             badges = "None"
 
         embed = disnake.Embed(
-            title=f"{str(player)}'s stats",
+            title=f"{player.name}'s stats",
             color=BLUE,
             description="Status and progress in the game.",
         )
