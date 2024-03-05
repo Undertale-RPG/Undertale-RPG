@@ -4,10 +4,10 @@ from disnake.ext import commands
 from disnake.ui import Button
 
 from utility.constants import BLUE
-
+from main import UndertaleBot
 
 class Bot(commands.Cog):
-    def __init__(self, bot):
+    def __init__(self, bot: UndertaleBot):
         self.bot = bot
 
     @commands.slash_command()
