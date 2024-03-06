@@ -24,7 +24,7 @@ class TopGG(commands.Cog):
 
         await self.bot.players.update_one(
             {"_id": voter.id},
-            {"inc": {"gold": 300, "standard crate": 1}, "$set": {"last_voted": round(time.time())}}
+            {"$inc": {"gold": 300, "standard crate": 1}, "$set": {"last_voted": round(time.time())}}
         )
 
         print(f"Received a vote from {str(voter)}, They got their rewards successfully")
@@ -43,7 +43,7 @@ class TopGG(commands.Cog):
 
         await self.bot.players.update_one(
             {"_id": voter.id},
-            {"inc": {"gold": 300, "standard crate": 1}, "$set": {"last_voted": round(time.time())}}
+            {"$inc": {"gold": 300, "standard crate": 1}, "$set": {"last_voted": round(time.time())}}
         )
 
         print(f"Received a vote from {str(voter)}, They got their rewards successfully")
