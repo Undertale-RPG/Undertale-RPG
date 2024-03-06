@@ -27,10 +27,7 @@ class TopGG(commands.Cog):
             {"$inc": {"gold": 300, "standard crate": 1}, "$set": {"last_voted": round(time.time())}}
         )
 
-        print(f"Received a vote from {str(voter)}, They got their rewards successfully")
-
-        cha = self.bot.get_channel(1010596574155522078)
-        await cha.send(content=f"{str(voter)} voted.")
+        print(f"Received a vote from {str(voter.id)}, They got their rewards successfully")
 
     @commands.Cog.listener()
     async def on_dbl_test(self, data):
@@ -46,10 +43,7 @@ class TopGG(commands.Cog):
             {"$inc": {"gold": 300, "standard crate": 1}, "$set": {"last_voted": round(time.time())}}
         )
 
-        print(f"Received a vote from {str(voter)}, They got their rewards successfully")
-
-        cha = self.bot.get_channel(1010596574155522078)
-        await cha.send(content=f"{str(voter)} voted.")
+        print(f"Received a vote from {str(voter.id)}, They got their rewards successfully")
 
 
 def setup(bot: UndertaleBot):
