@@ -29,6 +29,7 @@ class UndertaleBot(commands.AutoShardedInteractionBot):
         self.activity = disnake.Game("Undertale | /help ")
         self.help_command = None
         self.error_webhook = os.getenv("ERROR_WEBHOOK")
+        self.top_gg_auth = os.getenv("TOPGG_AUTH")
 
         self.load_all_cogs()
 
