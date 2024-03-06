@@ -11,7 +11,7 @@ class TopGG(commands.Cog):
     def __init__(self, bot: UndertaleBot):
         self.bot = bot
         self.topggpy = topgg.WebhookManager(bot).dbl_webhook(auth_key=bot.top_gg_auth)
-        self.topggpy.run(80)
+        self.topggpy.run(55566)
 
     @commands.Cog.listener()
     async def on_dbl_vote(self, data: BotVoteData):
