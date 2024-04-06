@@ -157,7 +157,7 @@ async def ConsBuy(self, inter: disnake.MessageInteraction):
     await inter.bot.players.update_one({"_id": inter.author.id}, {"$set": info})
 
     embed = disnake.Embed(
-        description=f"You bought **{item_name}** for **{item_cost}G**\n\nBalance: **{new_gold}G**",
+        description=f"You bought **{item_name}** for **{item_cost}G**\n\nBalance: **{round(new_gold)}G**",
         color=BLUE,
     )
     await inter.send(embed=embed, ephemeral=True)
