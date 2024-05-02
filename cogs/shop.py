@@ -5,7 +5,7 @@ import disnake
 from disnake.ext import commands
 from disnake.ui import Button
 from main import UndertaleBot
-from utility.constants import BLUE
+from utility.constants import BLUE,GOLD
 
 from utility.dataIO import fileIO
 from utility.utils import create_player_info, in_battle
@@ -103,7 +103,7 @@ async def Consumables(
         item_heal = consumables[location][item]["heal"]
         item_price = consumables[location][item]["price"]
         embed.add_field(
-            name=item_name, value=f"Heal: **{item_heal}**\nPrice: **{item_price}**"
+            name=item_name, value=f"Heal: **{item_heal}**\nPrice: **{item_price} {GOLD}**"
         )
 
     view = Consbtn(location, items)
@@ -157,7 +157,7 @@ async def ConsBuy(self, inter: disnake.MessageInteraction):
     await inter.bot.players.update_one({"_id": inter.author.id}, {"$set": info})
 
     embed = disnake.Embed(
-        description=f"You bought **{item_name}** for **{item_cost}G**\n\nBalance: **{round(new_gold)}G**",
+        description=f"You bought **{item_name}** for **{item_cost} {GOLD}**\n\nBalance: **{round(new_gold)} {GOLD}**",
         color=BLUE,
     )
     await inter.send(embed=embed, ephemeral=True)
@@ -182,7 +182,7 @@ async def Armor(self, inter: disnake.MessageInteraction, button: disnake.ui.Butt
         item_price = armor[location]["armor"][item]["price"]
         embed.add_field(
             name=item_name,
-            value=f"Min defence: **{item_min_def}**\nMax defence: **{item_max_def}**\nPrice: **{item_price}**",
+            value=f"Min defence: **{item_min_def}**\nMax defence: **{item_max_def}**\nPrice: **{item_price} {GOLD}**",
         )
 
     view = Armorbtn(location, items)
@@ -236,7 +236,7 @@ async def ArmorBuy(self, inter: disnake.MessageInteraction):
     await inter.bot.players.update_one({"_id": inter.author.id}, {"$set": info})
 
     embed = disnake.Embed(
-        description=f"You bought **{item_name}** for **{item_cost}G**\n\nBalance: **{new_gold}G**",
+        description=f"You bought **{item_name}** for **{item_cost} {GOLD}**\n\nBalance: **{new_gold} {GOLD}**",
         color=BLUE,
     )
     await inter.send(embed=embed, ephemeral=True)
@@ -261,7 +261,7 @@ async def Weapons(self, inter: disnake.MessageInteraction, button: disnake.ui.Bu
         item_price = weapons[location]["weapons"][item]["price"]
         embed.add_field(
             name=item_name,
-            value=f"Min attack: **{item_min_dmg}**\nMax attack: **{item_max_dmg}**\nPrice: **{item_price}**",
+            value=f"Min attack: **{item_min_dmg}**\nMax attack: **{item_max_dmg}**\nPrice: **{item_price} {GOLD}**",
         )
 
     view = weaponsbtn(location, items)
@@ -314,7 +314,7 @@ async def weaponsBuy(self, inter: disnake.MessageInteraction):
     await inter.bot.players.update_one({"_id": inter.author.id}, {"$set": info})
 
     embed = disnake.Embed(
-        description=f"You bought **{item_name}** for **{item_cost}G**\n\nBalance: **{new_gold}G**",
+        description=f"You bought **{item_name}** for **{item_cost} {GOLD}**\n\nBalance: **{new_gold} {GOLD}**",
         color=BLUE,
     )
     await inter.send(embed=embed, ephemeral=True)
@@ -432,7 +432,7 @@ async def SellItem(self, inter):
             await inter.bot.players.update_one({"_id": inter.author.id}, {"$set": info})
 
             em = disnake.Embed(
-                description=f"You sold **{item}**\nfor **{price/2}G**",
+                description=f"You sold **{item}**\nfor **{price/2} {GOLD}**",
                 color=0x0077ff
             )
             await inter.send(embed=em)
@@ -449,7 +449,7 @@ async def SellItem(self, inter):
             await inter.bot.players.update_one({"_id": inter.author.id}, {"$set": info})
 
             em = disnake.Embed(
-                description=f"You sold **{item}**\nfor **{price/2}G**",
+                description=f"You sold **{item}**\nfor **{price/2} {GOLD}**",
                 color=0x0077ff
             )
             await inter.send(embed=em)
@@ -466,7 +466,7 @@ async def SellItem(self, inter):
         await inter.bot.players.update_one({"_id": inter.author.id}, {"$set": info})
 
         em = disnake.Embed(
-            description=f"You sold **{item}**\nfor **{price/2}G**",
+            description=f"You sold **{item}**\nfor **{price/2} {GOLD}**",
             color=0x0077ff
         )
         await inter.send(embed=em)
@@ -572,7 +572,7 @@ class Shop(commands.Cog):
             description=f"""
                 You found the following inside the crate.
 
-                Gold: {round(earned_gold)}
+                Gold: {round(earned_gold)} {GOLD}
                 Items: None
             """,
         )
