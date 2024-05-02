@@ -9,7 +9,7 @@ from main import UndertaleBot
 
 from utility.dataIO import fileIO
 from utility.utils import ConsoleColors, create_player_info, in_battle
-from utility.constants import BLUE
+from utility.constants import BLUE,GOLD,EXP
 
 
 class TravelButton(disnake.ui.View):
@@ -420,7 +420,7 @@ async def BossBattle(
         embed = disnake.Embed(
             title=f"{monster} died!",
             color=BLUE,
-            description=f"You got **{exp}**EXP, **{gold}**G and **1** soul crate!",
+            description=f"You got **{exp}** {EXP}, **{gold}** {GOLD} and **1** soul crate!",
         )
         await inter.edit_original_message(embed=embed, view=None)
         new_gold = data["gold"] + gold
@@ -468,7 +468,7 @@ async def BossBattle(
         location = data["location"]
         monsters = fileIO("./data/bosses.json", "load")
         embed = disnake.Embed(
-            title="You died!", color=BLUE, description=f"You lost **{gold_min}**G"
+            title="You died!", color=BLUE, description=f"You lost **{gold_min}** {GOLD}"
         )
         await inter.edit_original_message(embed=embed, view=None)
         new_gold = data["gold"] - gold_min
@@ -560,7 +560,7 @@ async def Battle(
         embed = disnake.Embed(
             title=f"{monster} died!",
             color=BLUE,
-            description=f"You got **{round(exp)}**EXP and **{round(gold)}**G",
+            description=f"You got **{round(exp)}** {EXP} and **{round(gold)}** {GOLD}",
         )
         await inter.edit_original_message(embed=embed, view=None)
         new_gold = data["gold"] + gold
@@ -605,7 +605,7 @@ async def Battle(
         location = data["location"]
         monsters = fileIO("./data/monsters.json", "load")
         embed = disnake.Embed(
-            title="You died!", color=BLUE, description=f"You lost **{gold_min}**G"
+            title="You died!", color=BLUE, description=f"You lost **{gold_min}** {GOLD}"
         )
         await inter.edit_original_message(embed=embed, view=None)
         new_gold = data["gold"] - gold_min

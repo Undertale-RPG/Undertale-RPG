@@ -3,9 +3,11 @@ import time
 
 import disnake
 from disnake.ext import commands
+from disnake.ui import Button
+from disnake.enums import ButtonStyle
 
 from main import UndertaleBot
-from utility.constants import BLUE
+from utility.constants import BLUE,HEALTH,GOLD,ATTACK,DEFENCE,LEVEL,EXP
 from utility.utils import create_player_info
 
 
@@ -19,10 +21,20 @@ class Economy(commands.Cog):
         """Get your supporter reward for being in our support server."""
         await create_player_info(inter, inter.author)
         if inter.guild.id != 817437132397871135:
-            return await inter.send(
-                "this command is exclusive for our support server, you can join via \n\n https://discord.gg/FQYVpuNz4Q",
-                ephemeral=True,
+            em = disnake.Embed(
+                description=f"This command is specifically for our support server, which you can access by joining through the link below. Click the button to join:",
+                color=BLUE
             )
+
+            buttons = [
+            Button(
+                style=ButtonStyle.link,
+                label="Support server",
+                url="https://discord.gg/FQYVpuNz4Q",
+            ),
+            ]
+            
+            return await inter.send(embed=em, ephemeral=True, components=buttons)
 
         info = await self.bot.players.find_one({"_id": inter.author.id})
         gold_amount = random.randint(200, 500) * info["multi_g"]
@@ -37,7 +49,7 @@ class Economy(commands.Cog):
                     {"_id": inter.author.id}, {"$set": info}
                 )
                 embed = disnake.Embed(
-                    description=f"**You received your supporter gold! {int(gold_amount)} G**",
+                    description=f"**You received your supporter gold! {int(gold_amount)} {GOLD}**",
                     color=BLUE,
                 )
             else:
@@ -71,7 +83,7 @@ class Economy(commands.Cog):
         embed = disnake.Embed(
             title="Balance",
             color=BLUE,
-            description=f"{player.name}'s balance\n**{round(gold)}G**",
+            description=f"{player.name}'s balance\n**{round(gold)} {GOLD}**",
         )
         await inter.send(embed=embed)
 
@@ -90,9 +102,9 @@ class Economy(commands.Cog):
         badge_data = await self.bot.data.find_one({"_id": "badges"})
 
         health = data["health"]
-        love = data["level"]
+        level = data["level"]
         exp = data["exp"]
-        exp_lvl_up = love * 100 / 0.4
+        exp_lvl_up = level * 100 / 0.4
         kills = data["kills"]
         deaths = data["deaths"]
         spares = data["spares"]
@@ -102,7 +114,7 @@ class Economy(commands.Cog):
         resets = data["resets"]
         multi_g = data["multi_g"]
         multi_xp = data["multi_xp"]
-        max_health = love * 2 / 0.5 + 20
+        max_health = level * 2 / 0.5 + 20
         atk = data["attack"]
         deff = data["defence"]
 
@@ -115,26 +127,26 @@ class Economy(commands.Cog):
         embed = disnake.Embed(
             title=f"{player.name}'s stats",
             color=BLUE,
-            description="Status and progress in the game.",
+            description=f"""
+            ▫️ **Badges:** {badges}
+            {HEALTH} **Health:** `{round(health)}/{round(max_health)}`
+            {LEVEL} **Level:** `{round(level)}`
+            ▫️ **Exp:** `{round(exp)}/{round(exp_lvl_up)}`
+            ▫️ **Deaths:** `{round(deaths)}`
+            ▫️ **Spares:** `{round(spares)}`
+            {GOLD} **Gold:** `{round(gold)}`
+            ▫️ **Weapon:** `{weapon}`
+            ▫️ **Armor:** `{armor}`
+            ▫️ **Resets:** `{round(resets)}`
+            {ATTACK} **Attack:** `{round(atk)}`
+            {DEFENCE} **Defence:** `{round(deff)}`
+            ▫️ **Gold Multiplier:** `{multi_g}`
+            ▫️ **Exp Multiplier:** `{multi_xp}`
+            """,
         )
         embed.set_thumbnail(url=player.display_avatar)
-        embed.add_field(name="▫️┃Badges", value=f"{badges}", inline=False)
-        embed.add_field(name="▫️┃Health", value=f"{round(health)}/{round(max_health)}")
-        embed.add_field(name="▫️┃LOVE", value=f"{round(love)}")
-        embed.add_field(name="▫️┃EXP", value=f"{round(exp)}/{round(exp_lvl_up)}")
-        embed.add_field(name="▫️┃Kills", value=f"{round(kills)}")
-        embed.add_field(name="▫️┃Deaths", value=f"{round(deaths)}")
-        embed.add_field(name="▫️┃Spares", value=f"{round(spares)}")
-        embed.add_field(name="▫️┃Gold", value=f"{round(gold)}")
-        embed.add_field(name="▫️┃Weapon", value=f"{weapon}")
-        embed.add_field(name="▫️┃Armor", value=f"{armor}")
-        embed.add_field(name="▫️┃Resets", value=f"{round(resets)}")
-        embed.add_field(name="▫️┃Gold Multiplier", value=f"{multi_g}")
-        embed.add_field(name="▫️┃EXP Multiplier", value=f"{multi_xp}")
-        embed.add_field(name="▫️┃Attack", value=f"{round(atk)}")
-        embed.add_field(name="▫️┃Defence", value=f"{round(deff)}")
 
-        await inter.send(inter.author.mention, embed=embed)
+        await inter.send(embed=embed)
 
     @commands.slash_command()
     @commands.cooldown(1, 12, commands.BucketType.user)
@@ -160,7 +172,7 @@ class Economy(commands.Cog):
             data["booster_block"] = current_time
             await self.bot.players.update_one({"_id": author.id}, {"$set": data})
             embed = disnake.Embed(
-                description=f"**You received your booster gold! {int(new_gold)} G**",
+                description=f"**You received your booster gold! {int(new_gold)} {GOLD}**",
                 color=BLUE,
             )
             return await inter.send(embed=embed, ephemeral=True)
@@ -192,7 +204,7 @@ class Economy(commands.Cog):
             data["daily_block"] = current_time
             await self.bot.players.update_one({"_id": inter.author.id}, {"$set": data})
             embed = disnake.Embed(
-                description=f"**You received your daily gold! {int(new_gold)} G**",
+                description=f"**You received your daily gold! {int(new_gold)} {GOLD}**",
                 color=BLUE,
             )
             return await inter.send(embed=embed)

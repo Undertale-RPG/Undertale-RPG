@@ -16,7 +16,7 @@ class Bot(commands.Cog):
         """Invite the bot to your server and join our support server!"""
         embed = disnake.Embed(
             color=BLUE,
-            title="Wanna add me to your server huh?, click the link below!",
+            title="Wanna add me to your server?, click the link below!",
         )
         embed.set_thumbnail(url=self.bot.user.avatar.url)
         embed.add_field(
@@ -28,14 +28,6 @@ class Bot(commands.Cog):
         )
 
         await inter.send(embed=embed, ephemeral=True)
-
-    @commands.slash_command()
-    @commands.cooldown(1, 12, commands.BucketType.user)
-    async def ping(self, inter: disnake.ApplicationCommandInteraction):
-        """Latency check for stability"""
-        await inter.send(
-            f"pong! **{round(self.bot.latency * 1000)}ms**", ephemeral=True
-        )
 
     @commands.slash_command()
     @commands.cooldown(1, 12, commands.BucketType.user)
@@ -60,11 +52,7 @@ class Bot(commands.Cog):
         )
         embed.set_footer(text="you can find more info on our website.")
 
-        buttons = [
-            Button(style=ButtonStyle.link, label="Website", url=self.bot.website)
-        ]
-
-        await inter.send(embed=embed, components=buttons, ephemeral=True)
+        await inter.send(embed=embed)
 
     @commands.slash_command()
     @commands.cooldown(1, 12, commands.BucketType.user)
@@ -88,7 +76,7 @@ class Bot(commands.Cog):
                 url="https://discord.gg/FQYVpuNz4Q",
             ),
         ]
-        await inter.send(inter.author.mention, embed=embed, components=buttons)
+        await inter.send(embed=embed, components=buttons)
 
     @commands.slash_command()
     @commands.cooldown(1, 12, commands.BucketType.user)
@@ -98,12 +86,12 @@ class Bot(commands.Cog):
             title="Here is a showcase of all the badges you can earn",
             color=BLUE,
             description="""
-            <:developer:1051266723208241253> -> creator of the bot
-            <:bughunter:1051275974702006352> -> find and report a valid bug
-            ⬅️ -> reach max resets
-            <:trophy:1051281684894580736> -> get all achievements
-            <:booster:1051256363516436571> -> boosting our support server
-            <:blacklist:1051266962321317908> -> blacklisted user
+            <:developer:1051266723208241253> → creator of the bot
+            <:bughunter:1051275974702006352> → find and report a valid bug
+            ⬅️ → reach max resets
+            <:trophy:1051281684894580736> → get all achievements
+            <:booster:1051256363516436571> → boosting our support server
+            <:blacklist:1051266962321317908> → blacklisted user
             """
         )
         await inter.send(embed=embed)
