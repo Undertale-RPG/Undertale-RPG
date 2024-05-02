@@ -203,26 +203,20 @@ class Help(commands.Cog):
                 name=cog.qualified_name, value=f"• {commands_per} \n\n", inline=False
             )
 
-        em.add_field(
-            name="> Useful links",
-            value="[Support](https://discord.gg/FQYVpuNz4Q) • [Vote](https://top.gg/bot/815153881217892372)",
-            inline=False,
-        )
-
         buttons = [
-            Button(
-                style=ButtonStyle.link,
-                label="FAQ",
-                url="https://discord.com/channels/817437132397871135/1198314647879692308",
-            ),
             Button(
                 style=ButtonStyle.link,
                 label="Support",
                 url="https://discord.gg/FQYVpuNz4Q",
             ),
+            Button(
+                style=ButtonStyle.link,
+                label="Vote",
+                url="https://top.gg/bot/748868577150369852/vote"
+            )
         ]
 
-        await inter.send(inter.author.mention, embed=em, components=buttons)
+        await inter.send(embed=em, components=buttons)
 
 
 def setup(bot: UndertaleBot):

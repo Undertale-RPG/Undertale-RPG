@@ -3,6 +3,8 @@ import time
 
 import disnake
 from disnake.ext import commands
+from disnake.ui import Button
+from disnake.enums import ButtonStyle
 
 from main import UndertaleBot
 from utility.constants import BLUE,HEALTH,GOLD,ATTACK,DEFENCE,LEVEL,EXP
@@ -19,10 +21,20 @@ class Economy(commands.Cog):
         """Get your supporter reward for being in our support server."""
         await create_player_info(inter, inter.author)
         if inter.guild.id != 817437132397871135:
-            return await inter.send(
-                "this command is exclusive for our support server, you can join via \n\n https://discord.gg/FQYVpuNz4Q",
-                ephemeral=True,
+            em = disnake.Embed(
+                description=f"This command is specifically for our support server, which you can access by joining through the link below. Click the button to join:",
+                color=BLUE
             )
+
+            buttons = [
+            Button(
+                style=ButtonStyle.link,
+                label="Support server",
+                url="https://discord.gg/FQYVpuNz4Q",
+            ),
+            ]
+            
+            return await inter.send(embed=em, ephemeral=True, components=buttons)
 
         info = await self.bot.players.find_one({"_id": inter.author.id})
         gold_amount = random.randint(200, 500) * info["multi_g"]

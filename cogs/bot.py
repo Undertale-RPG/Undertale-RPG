@@ -31,14 +31,6 @@ class Bot(commands.Cog):
 
     @commands.slash_command()
     @commands.cooldown(1, 12, commands.BucketType.user)
-    async def ping(self, inter: disnake.ApplicationCommandInteraction):
-        """Latency check for stability"""
-        await inter.send(
-            f"pong! **{round(self.bot.latency * 1000)}ms**", ephemeral=True
-        )
-
-    @commands.slash_command()
-    @commands.cooldown(1, 12, commands.BucketType.user)
     async def botinfo(self, inter: disnake.ApplicationCommandInteraction):
         """Info on the bot"""
         embed = disnake.Embed(
@@ -84,7 +76,7 @@ class Bot(commands.Cog):
                 url="https://discord.gg/FQYVpuNz4Q",
             ),
         ]
-        await inter.send(inter.author.mention, embed=embed, components=buttons)
+        await inter.send(embed=embed, components=buttons)
 
     @commands.slash_command()
     @commands.cooldown(1, 12, commands.BucketType.user)
