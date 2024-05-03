@@ -470,8 +470,9 @@ async def SellItem(self, inter):
             color=0x0077ff
         )
         await inter.send(embed=em)
+    
     inv = new_inv
-    view = Usebtn(inv)
+    view = Sellbtn(inv)
     await inter.edit_original_message(view=view)
 
 class Shop(commands.Cog):
