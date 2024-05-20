@@ -432,7 +432,7 @@ async def SellItem(self, inter):
             await inter.bot.players.update_one({"_id": inter.author.id}, {"$set": info})
 
             em = disnake.Embed(
-                description=f"You sold **{item}**\nfor **{price/2} {GOLD}**",
+                description=f"You sold **{item}**\nfor **{round(price/2)} {GOLD}**",
                 color=0x0077ff
             )
             await inter.send(embed=em)
@@ -449,7 +449,7 @@ async def SellItem(self, inter):
             await inter.bot.players.update_one({"_id": inter.author.id}, {"$set": info})
 
             em = disnake.Embed(
-                description=f"You sold **{item}**\nfor **{price/2} {GOLD}**",
+                description=f"You sold **{item}**\nfor **{round(price/2)} {GOLD}**",
                 color=0x0077ff
             )
             await inter.send(embed=em)
@@ -466,7 +466,7 @@ async def SellItem(self, inter):
         await inter.bot.players.update_one({"_id": inter.author.id}, {"$set": info})
 
         em = disnake.Embed(
-            description=f"You sold **{item}**\nfor **{price/2} {GOLD}**",
+            description=f"You sold **{item}**\nfor **{round(price/2)} {GOLD}**",
             color=0x0077ff
         )
         await inter.send(embed=em)
@@ -511,7 +511,7 @@ class Shop(commands.Cog):
         event = data["event crate"]
         embed = disnake.Embed(
             title="Your crates",
-            description="You can earn crates by exploring, voting, defeating bosses or in events.",
+            description="You can earn crates by exploring, voting, resets, defeating bosses or in events.",
             color=BLUE,
         )
         embed.set_thumbnail(
@@ -520,21 +520,11 @@ class Shop(commands.Cog):
         embed.add_field(
             name="Your boxes",
             value=f"""
-                Standard crates: {standard}
-                Determination crates: {determin}
-                Soul crates: {soul}
-                Void crates: {void}
-                Event crates: {event}
-            """,
-        )
-        embed.add_field(
-            name="How to get",
-            value=f"""
-                (Voting)
-                (/explore)
-                (Bosses)
-                (Resets)
-                (Events)
+                (Voting) **Standard crates:** `{standard}`
+                (Explore) **Determination crates:** `{determin}`
+                (Bosses) **Soul crates:** `{soul}`
+                (Resets) **Void crates:** `{void}`
+                (Events) **Event crates:** `{event}`
             """,
         )
 
