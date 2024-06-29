@@ -866,8 +866,10 @@ class Explore(commands.Cog):
         gold = round(data["multi_g"] + 0.4, 1)
         xp = round(data["multi_xp"] + 0.2, 1)
 
+        file = disnake.File("./images/reset.png", filename="reset.png")
+
         embed = disnake.Embed(
-            title="Resetting your world.",
+            title=f"Resetting {inter.author.name}'s world.",
             description=(
                 "Are you sure you want to proceed?\nYour progress will vanish, but you will gain multipliers "
                 "for gold and xp.\n\n"
@@ -876,19 +878,10 @@ class Explore(commands.Cog):
             ),
             color=BLUE,
         )
-        embed.set_image(
-            "https://static.wikia.nocookie.net/xtaleunderverse4071/images/c/c4/UnderverseReset.jpg"
-        )
-        embed.set_thumbnail(inter.author.display_avatar)
+        embed.set_image("attachment://reset.png")
 
-        embed.set_footer(text=datetime.utcnow(), icon_url=inter.bot.user.avatar.url)
-
-        embed.set_author(
-            name=f"executed by {str(inter.author)}",
-            icon_url=inter.author.display_avatar,
-        )
         view = Choice(inter.author)
-        await inter.send(embed=embed, view=view)
+        await inter.send(file=file, embed=embed, view=view)
         await view.wait()
 
         if not view.choice:
@@ -989,13 +982,16 @@ class Explore(commands.Cog):
 
     @commands.slash_command()
     @commands.cooldown(1, 12, commands.BucketType.user)
-    async def leaderboard(self, inter: disnake.ApplicationCommandInteraction, leaderboard: str = None):
+    async def leaderboard(self, inter: disnake.ApplicationCommandInteraction, leaderboard: str = commands.Param(name="leaderboard", choices=["gold", "exp", "resets", "kills", "spares", "deaths", "level"])):
         """View the top 10 players on specifc stats"""
         await inter.response.defer()
 
+        file = disnake.File("./images/trophy.png", filename="trophy.png")
+        file_2 = disnake.File("./images/leaderboard.png", filename="leaderboard.png")
+
         if leaderboard not in ["gold", "exp", "resets", "kills", "spares", "deaths", "level"] or None:
             embed = disnake.Embed(
-                title=f"There is no shuch leaderboard as {leaderboard}",
+                title=f"There is no such leaderboard as **{leaderboard}**",
 
                 description="""
                 You can choose from the following leaderboards:
@@ -1004,9 +1000,9 @@ class Explore(commands.Cog):
                 color=BLUE,
             )
             embed.set_thumbnail(
-                url="https://media.discordapp.net/attachments/900274624594575361/974933965356019772/trophy.png"
+                url="attachment://trophy.png"
             )
-            return await inter.send(embed=embed)
+            return await inter.send(file=file, embed=embed)
 
         data = self.bot.players.find().limit(10).sort(leaderboard, -1)
         users = []
@@ -1027,26 +1023,25 @@ class Explore(commands.Cog):
 
             if len(str(player)) >= 24:
                 player = str(player)[:-10]
-
             output.append(
-                f"**{i}. {str(player)}:** {humanize.intcomma(int(user[leaderboard]))} {leaderboard}"
+                f"**{i}. {player}:** {user[leaderboard]} {leaderboard}\n"    #f"**{i}. {str(player)}:** {humanize.intcomma(int(user[leaderboard]))} {leaderboard}\n"
             )
             if i == 10:
                 break
         output.append("")
-        result = "\n".join(output)
+        result = "".join(output)
         embed = disnake.Embed(
             title=f"{leaderboard} Leaderboard:",
             description=f"{result}",
             color=BLUE,
         )
         embed.set_image(
-            url="https://media.discordapp.net/attachments/900274624594575361/974936472199249970/lb_image.png"
+            url="attachment://leaderboard.png"
         )
         embed.set_thumbnail(
-            url="https://media.discordapp.net/attachments/900274624594575361/974933965356019772/trophy.png"
+            url="attachment://trophy.png"
         )
-        await inter.send(embed=embed)
+        await inter.send(files=[file, file_2], embed=embed)
 
 
 def setup(bot: UndertaleBot):

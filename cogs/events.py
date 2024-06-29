@@ -13,9 +13,12 @@ class Event(commands.Cog):
 
     @commands.Cog.listener()
     async def on_ready(self):
+        # await self.bot.players.update_many({}, { "$rename": { "standard crate": "standard-crate", "determination crate": "determination-crate", "soul crate": "soul-crate", "void crate": "void-crate", "event crate": "event-crate" } })
+        player_count = await self.bot.players.count_documents({})
         print(
-            f"{ConsoleColors.GREEN}logged in as {self.bot.user}\nguilds: {len(self.bot.guilds)}{ConsoleColors.ENDC}"
+            f"{ConsoleColors.GREEN}logged in as {self.bot.user}\nguilds: {len(self.bot.guilds)}\nplayers: {player_count}{ConsoleColors.ENDC}"
         )
+
 
     @tasks.loop(seconds=5)
     async def data_task(self):

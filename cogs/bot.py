@@ -33,13 +33,14 @@ class Bot(commands.Cog):
     @commands.cooldown(1, 12, commands.BucketType.user)
     async def botinfo(self, inter: disnake.ApplicationCommandInteraction):
         """Info on the bot"""
+        player_count = await self.bot.players.count_documents({})
         embed = disnake.Embed(
             title="Undertale RPG",
             description="An undertale rpg themed discord bot.",
             color=BLUE,
         )
         embed.set_thumbnail(url=self.bot.user.display_avatar.url)
-        embed.add_field(name="Guild count", value=f"`{len(self.bot.guilds)}` Guilds")
+        embed.add_field(name="Counters", value=f"`{len(self.bot.guilds)}` Servers\n`{player_count}` Players")
         embed.add_field(name="Latency", value=f"`{round(self.bot.latency * 1000)}`ms")
         embed.add_field(name="Shard count", value=f"`{len(self.bot.shards)}` shards")
         embed.add_field(
@@ -50,7 +51,6 @@ class Bot(commands.Cog):
             name="Disclaimer",
             value="All the designs/names of any original undertale content belong to the official undertale creator: **Toby Fox**",
         )
-        embed.set_footer(text="you can find more info on our website.")
 
         await inter.send(embed=embed)
 
