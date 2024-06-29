@@ -31,27 +31,27 @@ class Cratesbtn(disnake.ui.View):
 
     @disnake.ui.button(label="Standard crate", style=disnake.ButtonStyle.secondary)
     async def standard(self, button: disnake.ui.Button, inter: disnake.MessageInteraction):
-        self.value = "standard crate"
+        self.value = "standard-crate"
         self.stop()
 
     @disnake.ui.button(label="Determination crate", style=disnake.ButtonStyle.secondary)
     async def determination(self, button: disnake.ui.Button, inter: disnake.MessageInteraction):
-        self.value = "determination crate"
+        self.value = "determination-crate"
         self.stop()
 
     @disnake.ui.button(label="Soul crate", style=disnake.ButtonStyle.secondary)
     async def soul(self, button: disnake.ui.Button, inter: disnake.MessageInteraction):
-        self.value = "soul crate"
+        self.value = "soul-crate"
         self.stop()
 
     @disnake.ui.button(label="Void crate", style=disnake.ButtonStyle.secondary)
     async def void(self, button: disnake.ui.Button, inter: disnake.MessageInteraction):
-        self.value = "void crate"
+        self.value = "void-crate"
         self.stop()
 
     @disnake.ui.button(label="Event crate", style=disnake.ButtonStyle.secondary)
     async def event(self, button: disnake.ui.Button, inter: disnake.MessageInteraction):
-        self.value = "event crate"
+        self.value = "event-crate"
         self.stop()
 
 
@@ -502,13 +502,14 @@ class Shop(commands.Cog):
     @commands.cooldown(1, 12, commands.BucketType.user)
     async def crates(self, inter: disnake.ApplicationCommandInteraction):
         """Open your crates!"""
+        file = disnake.File("./images/crates/standard-crate.png", filename="inventory.png")
         await create_player_info(inter, inter.author)
         data = await inter.bot.players.find_one({"_id": inter.author.id})
-        standard = data["standard crate"]
-        determin = data["determination crate"]
-        soul = data["soul crate"]
-        void = data["void crate"]
-        event = data["event crate"]
+        standard = data["standard-crate"]
+        determin = data["determination-crate"]
+        soul = data["soul-crate"]
+        void = data["void-crate"]
+        event = data["event-crate"]
         embed = disnake.Embed(
             title="Your crates",
             description="You can earn crates by exploring, voting, resets, defeating bosses or in events.",
@@ -536,7 +537,7 @@ class Shop(commands.Cog):
             return await inter.edit_original_message("You took to long to reply!")
 
         crates = fileIO("data/crates.json", "load")
-        image = crates[view.value]["image"]
+        image = disnake.File(f"./images/crates/{view.value}.png", filename=f"{view.value}.png")
         if data[view.value] <= 0:
             return await inter.edit_original_message(
                 content=f"You don't have any **{view.value}**",
@@ -567,10 +568,10 @@ class Shop(commands.Cog):
                 Items: None
             """,
         )
-        embed.set_thumbnail(url=image)
+        embed.set_thumbnail(url=f"attachment://{view.value}.png")
 
-        await asyncio.sleep(3)
-        await inter.edit_original_message(content=None, embed=embed)
+        await asyncio.sleep(2)
+        await inter.edit_original_message(file=image, content=None, embed=embed)
 
     @commands.slash_command()
     @commands.cooldown(1, 12, commands.BucketType.user)
@@ -589,10 +590,12 @@ class Shop(commands.Cog):
                 value = inv_dict[key]
                 inv += f"**{key}**: {value}\n"
 
-        embed = disnake.Embed(title=f"{inter.user.name}'s inventory", color=BLUE, description=f"{inv}")
-        embed.set_thumbnail(url="https://cdn.discordapp.com/attachments/900274624594575361/1034392719675633745/unknown.png")
+        file = disnake.File("./images/inventory.png", filename="inventory.png")
 
-        await inter.send(embed=embed)
+        embed = disnake.Embed(title=f"{inter.user.name}'s inventory", color=BLUE, description=f"{inv}")
+        embed.set_thumbnail(url="attachment://inventory.png")
+
+        await inter.send(file=file, embed=embed)
 
     @commands.slash_command()
     @commands.cooldown(1, 12, commands.BucketType.user)

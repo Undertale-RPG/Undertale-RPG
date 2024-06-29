@@ -17,6 +17,5 @@ Contributing is open; make sure to test it out, and we will review the changes.
 
 # **To-Do List**
 
-- badges
-- Complete timelines compatibility.
 - Quests system and tasks for achievements.
+- proper defence system

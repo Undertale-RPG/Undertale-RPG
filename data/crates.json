@@ -1,27 +1,22 @@
 {
-    "standard crate": {
+    "standard-crate": {
         "gold": 100,
-        "loot": [],
-        "image": "https://media.discordapp.net/attachments/900274624594575361/1024789274840813568/Untitled379_202209282004321.png"
+        "loot": []
     },
-    "determination crate": {
+    "determination-crate": {
         "gold": 200,
-        "loot": [],
-        "image": "https://media.discordapp.net/attachments/900274624594575361/1025142138863882352/Untitled381_202209292145541.png"
+        "loot": []
     },
-    "soul crate": {
+    "soul-crate": {
         "gold": 350,
-        "loot": [],
-        "image": "https://media.discordapp.net/attachments/900274624594575361/1031931452616626196/Untitled409_202210111917331_1.png"
+        "loot": []
     },
-    "void crate": {
+    "void-crate": {
         "gold": 500,
-        "loot": [],
-        "image": "https://media.discordapp.net/attachments/900274624594575361/1026505427267092672/Untitled391_202210032022261.png?width=784&height=676"
+        "loot": []
     },
-    "event crate": {
+    "event-crate": {
         "gold": 1,
-        "loot": [],
-        "image": "https://media.discordapp.net/attachments/900274624594575361/1031931501920665660/Untitled393_202210080859031.png"
+        "loot": []
     }
 }
