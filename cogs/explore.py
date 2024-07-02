@@ -425,11 +425,11 @@ async def BossBattle(
         await inter.edit_original_message(embed=embed, view=None)
         new_gold = data["gold"] + gold
         new_exp = data["exp"] + exp
-        new_soul_crate = data["soul crate"] + 1
+        new_soul_crate = data["soul-crate"] + 1
         kills = data["kills"] + 1
         info = {
             f"{location}_boss": True,
-            "soul crate": new_soul_crate,
+            "soul-crate": new_soul_crate,
             "in_fight": False,
             "kills": kills,
             "exp": new_exp,
@@ -831,7 +831,7 @@ class Explore(commands.Cog):
             return
 
         if item[0] == "crate":
-            data["determination crate"] += 1
+            data["determination-crate"] += 1
             await self.bot.players.update_one({"_id": inter.author.id}, {"$set": data})
             await inter.send(
                 content="You found `1` Determination crate! you can open it with `/crates`",
@@ -898,7 +898,7 @@ class Explore(commands.Cog):
         new_data["deaths"] = data["deaths"]
         new_data["registered_on"] = data["registered_on"]
         new_data["badges"] = data["badges"]
-        new_data["void crate"] = data["void crate"] + 1
+        new_data["void-crate"] = data["void-crate"] + 1
         await self.bot.players.update_one({"_id": inter.author.id}, {"$set": new_data})
         await inter.send(
             "You deleted your world, a new world appears in the horizon.",
