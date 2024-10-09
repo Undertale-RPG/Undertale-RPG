@@ -1,5 +1,6 @@
 import asyncio
 import typing
+import random
 
 import disnake
 from disnake.ext import commands
@@ -510,6 +511,7 @@ class Shop(commands.Cog):
         soul = data["soul-crate"]
         void = data["void-crate"]
         event = data["event-crate"]
+        inv = data["inventory"]
         embed = disnake.Embed(
             title="Your crates",
             description="You can earn crates by exploring, voting, resets, defeating bosses or in events.",
@@ -547,9 +549,16 @@ class Shop(commands.Cog):
 
         data[view.value] -= 1
         earned_gold = crates[view.value]["gold"] * data["multi_g"]
+        loot = crates[view.value]["loot"]
+        selected_loot = random.choice(loot)
+
+        new_inv = []
+        new_inv.append(selected_loot)
+        for i in inv:
+            new_inv.append(i)
         gold = data["gold"] + earned_gold
 
-        info = {"gold": gold, view.value: data[view.value]}
+        info = {"gold": gold, view.value: data[view.value], "inventory": new_inv}
         await inter.bot.players.update_one({"_id": inter.author.id}, {"$set": info})
 
         await inter.edit_original_message(
@@ -564,8 +573,8 @@ class Shop(commands.Cog):
             description=f"""
                 You found the following inside the crate.
 
-                Gold: {round(earned_gold)} {GOLD}
-                Items: None
+                **Gold:** {round(earned_gold)} {GOLD}
+                **Item:** {selected_loot.replace("_", " ")}
             """,
         )
         embed.set_thumbnail(url=f"attachment://{view.value}.png")

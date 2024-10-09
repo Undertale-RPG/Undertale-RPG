@@ -1,22 +1,22 @@
 {
     "standard-crate": {
         "gold": 100,
-        "loot": []
+        "loot": ["bandage", "monster_candy", "snail_pie"]
     },
     "determination-crate": {
         "gold": 200,
-        "loot": []
+        "loot": ["spider_cider", "nice_cream", "toy_knife"]
     },
     "soul-crate": {
         "gold": 350,
-        "loot": []
+        "loot": ["hot_dog", "sea_tea", "astronaut_food", "burnt_pan"]
     },
     "void-crate": {
         "gold": 500,
-        "loot": []
+        "loot": ["bisicle", "bandage", "manly_bandanna"]
     },
     "event-crate": {
         "gold": 1,
-        "loot": []
+        "loot": ["None"]
     }
 }

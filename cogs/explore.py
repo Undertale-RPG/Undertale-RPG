@@ -754,7 +754,7 @@ class Explore(commands.Cog):
         """Explore and find all kinds of monsters and treasure!"""
         await create_player_info(inter, inter.author)
         choices = ["fight", "gold", "crate", "puzzle"]
-        item = random.choices(choices, weights=(90, 10, 10, 10), k=1)
+        item = random.choices(choices, weights=(90, 10, 10, 5), k=1)
 
         data = await inter.bot.players.find_one({"_id": inter.author.id})
         armor = await inter.bot.armor.find_one({"_id": data["armor"]})
@@ -841,7 +841,7 @@ class Explore(commands.Cog):
 
         if item[0] == "puzzle":
             await inter.send(
-                content="coming soon! do the command again to fight monsters",
+                content="But nobody came!",
                 ephemeral=True,
             )
             return
