@@ -99,7 +99,7 @@
         "abandoned_quiche": {
             "name": "Abandoned Quiche",
             "description": "A psychologically damaged spinach egg pie.",
-            "heal": 34,
+            "heal": 24,
             "price": 10
         },
         "temmie_flakes": {

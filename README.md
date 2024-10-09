@@ -14,8 +14,3 @@ This open-source code is for contribution and educational purposes only. If you 
 ## Contributing
 
 Contributing is open; make sure to test it out, and we will review the changes.
-
-# **To-Do List**
-
-- Quests system and tasks for achievements.
-- proper defence system
